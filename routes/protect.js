@@ -23,18 +23,15 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 router.use(bodyParser.urlencoded({extended: true}));
 
-router.get('/', async function (req, res) {
-    try {
-        res.render('login');
-    } catch (err) {
-        res.send(err);
-    }
+router.get("/",isLoggedIn,(req,res)=>{
+    res.render("secret")
 })
 
-router.post("/user",passport.authenticate("local",{
-    successRedirect:"../",
-    failureRedirect:"../Login",
-    failureMessage:"failed"
-}),(req,res)=>{})
+function isLoggedIn(req,res,next){
+    if(req.isAuthenticated()){
+        return next();
+    }
+    res.redirect("/login");
+}
 
 module.exports = router;
