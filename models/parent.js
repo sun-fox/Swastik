@@ -1,6 +1,4 @@
 var mongoose = require('mongoose');
-var Address = require('./address');
-var Child = require('./child');
 const parentSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -18,14 +16,42 @@ const parentSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    children: [Child],
+    children: [{
+        type: String,
+        required: false
+    }],
     aadharno: {
         type: String,
         requied: true
     },
-    address:[Address],
-    gender:{
-        type:String,
+    address: [{
+        line1: {
+            type: String,
+            required: true
+        },
+        line2: {
+            type: String,
+            required: false
+        },
+        town_village: {
+            type: String,
+            required: true
+        },
+        province: {
+            type: String,
+            required: true
+        },
+        pincode: {
+            type: Number,
+            required: true
+        },
+        state: {
+            type: String,
+            required: true
+        }
+    }],
+    gender: {
+        type: String,
         required: true
     }
 });

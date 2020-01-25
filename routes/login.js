@@ -8,7 +8,7 @@ var router = express.Router(),
     User = require("../models/user");
 
 mongoose.connect('mongodb://localhost:27017/swastik', { useNewUrlParser: true, useUnifiedTopology: true }, () => {
-    console.log("db connected in signup route");
+    console.log("db connected in login route");
 });
 
 router.use(require("express-session")({

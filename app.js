@@ -9,7 +9,7 @@ var mongoose = require('mongoose'),
     passportLocalMongoose = require("passport-local-mongoose"),
     User = require("./models/user");
 var ejs = require("ejs");
-// var postRoute = require('./routes/post');
+var registerRoute = require('./routes/register');
 var protectRoute = require('./routes/protect');
 var loginRoute = require('./routes/login');
 var signupRoute = require('./routes/signup');
@@ -35,7 +35,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //it will have two routes 1. search 2. result
 app.use("/public", express.static(__dirname + '/public'));
-// app.use('/post', postRoute);
+app.use('/Register', registerRoute);
 app.use('/Login', loginRoute);
 app.use('/Signup', signupRoute);
 app.use('/Protected',protectRoute);

@@ -5,10 +5,12 @@ var router = express.Router(),
     bodyParser = require("body-parser"),
     localStrategy = require("passport-local"),
     passportLocalMongoose = require("passport-local-mongoose"),
-    User = require("../models/user");
+    User = require("../models/user"),
+    Child = require("../models/child"),
+    Parent = require("../models/parent");
 
 mongoose.connect('mongodb://localhost:27017/swastik', { useNewUrlParser: true, useUnifiedTopology: true }, () => {
-    console.log("db connected in protect route");
+    console.log("db connected in register route");
 });
 
 router.use(require("express-session")({
@@ -24,7 +26,8 @@ passport.deserializeUser(User.deserializeUser());
 router.use(bodyParser.urlencoded({extended: true}));
 
 router.get("/",isLoggedIn,(req,res)=>{
-    res.render("secret")
+    // res.render("register.ejs")
+    res.send("Go to home page nothing here!!");
 })
 
 function isLoggedIn(req,res,next){

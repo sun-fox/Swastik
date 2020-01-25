@@ -1,19 +1,16 @@
 var mongoose = require('mongoose');
-var Address = require('./address');
-var Parent = require('./parent');
 const childSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
     },
-    // parent:[Parent],
-    Mphoneno: {
+    Mparent_id: {
         type: String,
-        required: false
+        required: true
     },
-    Fphoneno: {
+    Fparent_id: {
         type: String,
-        required: false
+        required: true
     },
     gender: {
         type: String,
@@ -35,13 +32,38 @@ const childSchema = new mongoose.Schema({
         disease: {
             type: String,
             requied: false
-        }, 
-        duedate: { 
-            type: String, 
-            required: false 
+        },
+        duedate: {
+            type: String,
+            required: false
         }
     }],
-    address: [Address]
+    address: [{
+        line1: {
+            type: String,
+            required: true
+        },
+        line2: {
+            type: String,
+            required: false
+        },
+        town_village: {
+            type: String,
+            required: true
+        },
+        province: {
+            type: String,
+            required: true
+        },
+        pincode: {
+            type: Number,
+            required: true
+        },
+        state: {
+            type: String,
+            required: true
+        }
+    }]
 });
 var Child = mongoose.model('child', childSchema);
 module.exports = Child;
