@@ -45,7 +45,8 @@ app.get('/contacts', (req, res) => {
 })
 
 app.get("/", function (req, res) {
-    res.send("index page will be here");
+    // res.send("index page will be here");
+    res.render("index.ejs");
 })
 
 
