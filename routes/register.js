@@ -50,18 +50,62 @@ router.post("/parent",isLoggedIn, (req, res) => {
 })
 
 router.post("/child",isLoggedIn, (req, res) => {
+    var parentJSON=[];
     child = new Child(req.body);
     child.save((err, child) => {
         if (err)
             console.log("Error a gaya !!" + err);
         else if (child._id) {
             console.log("Data Successfully Added " + child.name + " , " + child.Mphoneno + " , " + child.Fphoneno)
-            Child.findOne({'_id':child._id}, (err, ward)=>{
-                if(err)
-                console.log(err)
-                else{
-                    console.log("Returned Parent JSON ");
-                    res.send(ward);
+            Child.findOne({ '_id': child._id }, (err, ward) => {
+                if (err)
+                    console.log(err)
+                else {
+                    // Query for its parents and then adding the child id to their children column in database.
+                    var fatherno = ward.Fphoneno;
+                    var motherno = ward.Mphoneno;
+                    var parent_array = [fatherno, motherno];
+                    parent_array.forEach(parent_contact_no => {
+                        console.log(parent_contact_no);
+                        if (parent_contact_no) {
+                            console.log("Parent present"+parent_contact_no);
+                            Parent.findOne({ phoneno: parent_contact_no }, (err, parent) => {
+                                console.log("Found parent");
+                                if (err) {
+                                    console.log("Error in finding parent with the no " + err);
+                                }
+                                else {
+                                    console.log(parent);
+                                    var updatedParent = parent;
+                                    updatedParent.children.push(child._id);
+                                    console.log(updatedParent);
+                                    Parent.update({ '_id': updatedParent._id }, { $set: updatedParent }, (err, parent) => {
+                                        if (err)
+                                            console.log(err)
+                                        else {
+                                            console.log("Updated Succesfully!!");
+                                            Parent.findOne({ '_id': updatedParent._id }, (err, gaurdian) => {
+                                                if (err) {
+                                                    console.log(err);
+                                                }
+                                                else {
+                                                    console.log(gaurdian);
+                                                    parentJSON.push(gaurdian);
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                        else {
+                            console.log("Father is not in the database for " + ward.name);
+                            res.send(ward);
+                        }
+                    });
+                    setTimeout(()=>{
+                        res.send(parentJSON);
+                    },500);
                 }
             })
         }

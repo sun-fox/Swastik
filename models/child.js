@@ -2,6 +2,7 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 var mongooseUniqueValidator = require('mongoose-unique-validator');
 const addressSchema = require('../models/address');
+const vaccineSchema = require('../models/vaccine');
 const childSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -31,19 +32,7 @@ const childSchema = new mongoose.Schema({
         type: String,
         required: false
     },
-    vaccinations: [
-        {
-            formType: {
-                disease: {
-                    type: String,
-                    requied: false
-                },
-                duedate: {
-                    type: String,
-                    required: false
-                }
-            }
-        }],
+    vaccinations: [vaccineSchema],
     address: [addressSchema]
 });
 childSchema.plugin(mongooseUniqueValidator);
