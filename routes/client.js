@@ -24,7 +24,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 router.use(bodyParser.urlencoded({extended: true}));
 
-router.get("/parent/:aadharno",(req,res)=>{
+router.get("/parent/:aadharno",isLoggedIn,(req,res)=>{
     var aadhar = req.params.aadharno;
     console.log("Aadhar no. "+ aadhar);
 
