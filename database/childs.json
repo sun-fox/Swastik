@@ -1,42 +1,4 @@
-{
-    "_id": {
-        "$oid": "5e2b1f636333174f7007721f"
-    },
-    "name": "Sukriti Singh",
-    "Mparent_id": "5e2c43586e6a5730901dc545",
-    "Fparent_id": "5e2b1d866333174f7007721e",
-    "gender": "M",
-    "DOB": "12/07/2016",
-    "siblings": "1",
-    "aadharno": "",
-    "vaccinations": "[{disease:'Polio',duedate:'12/02/2020'}]",
-    "address": "[{line1:'hostel-K',line2:'Room no-D102',town_village:'adityapur',pincode:'831014',state:'Jharkhand'}]"
-},
-{
-    "_id": {
-        "$oid": "5e2b251e10c2544f7094ce21"
-    },
-    "name": "Rajeev Gautam",
-    "Mparent_id": "5e2c43876e6a5730901dc546",
-    "Fparent_id": "5e2b24cd10c2544f7094ce20",
-    "gender": "M",
-    "DOB": "12/07/2016",
-    "siblings": "0",
-    "aadharno": "",
-    "vaccinations": "[{disease:'Polio',duedate:'02/02/2020'},{disease:'Hepatitis',duedate:'12/02/2020'}]",
-    "address": "[{line1:'hostel-K',line2:'Room no-D205',town_village:'adityapur',pincode:'831014',state:'Jharkhand'}]"
-},
-{
-    "_id": {
-        "$oid": "5e2c45f16e6a5730901dc547"
-    },
-    "name": "Kabir Singh",
-    "Mparent_id": "5e2c43586e6a5730901dc545",
-    "Fparent_id": "5e2b1d866333174f7007721e",
-    "gender": "M",
-    "DOB": "12/07/2018",
-    "siblings": "1",
-    "aadharno": "",
-    "vaccinations": "[{disease:'Polio',duedate:'12/09/2020'}]",
-    "address": "[{line1:'hostel-K',line2:'Room no-D102',town_village:'adityapur',pincode:'831014',state:'Jharkhand'}]"
-}
+{"_id":{"$oid":"5e2cfdf26e6a5730901dc548"},"name":"Sukriti Singh","Mphoneno":"9234273542","Fphoneno":"9113180517","gender":"F","DOB":"12/07/2016","siblings":"1","aadharno":"","vaccinations":"[{disease:'Polio',duedate:'12/02/2020'}]","address":"[{line1:'hostel-K',line2:'Room no-D102',town_village:'adityapur',pincode:'831014',state:'Jharkhand'}]"}
+{"_id":{"$oid":"5e2cfe076e6a5730901dc549"},"name":"Rajeev Gautam","Mphoneno":"9678549867","Fphoneno":"8005355931","gender":"M","DOB":"12/07/2016","siblings":"0","aadharno":"","vaccinations":"[{disease:'Polio',duedate:'02/02/2020'},{disease:'Hepatitis',duedate:'12/02/2020'}]","address":"[{line1:'hostel-K',line2:'Room no-D205',town_village:'adityapur',pincode:'831014',state:'Jharkhand'}]"}
+{"_id":{"$oid":"5e2cfe536e6a5730901dc54b"},"name":"Kabir Singh","Mphoneno":"9234273542","Fphoneno":"9113180517","gender":"M","DOB":"12/07/2018","siblings":"1","aadharno":"","vaccinations":"[{disease:'Polio',duedate:'12/09/2020'}]","address":"[{line1:'hostel-K',line2:'Room no-D102',town_village:'adityapur',pincode:'831014',state:'Jharkhand'}]"}
+{"_id":{"$oid":"5e2d185737fd861778af4707"},"name":"Raghav Singh","Mphoneno":"9234273542","Fphoneno":"9113180517","gender":"M","DOB":"12/07/2019","siblings":{"$numberInt":"2"},"aadharno":"","vaccinations":[{"_id":{"$oid":"5e2d185737fd861778af4708"}}],"address":[{"_id":{"$oid":"5e2d185737fd861778af4709"},"line1":"Room No. D102","line2":"Hostel-K","town_village":"adityapur","province":"saraikela","pincode":{"$numberInt":"831014"},"state":"Jharkhand"}],"__v":{"$numberInt":"0"}}
