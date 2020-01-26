@@ -13,7 +13,7 @@ var registerRoute = require('./routes/register');
 var protectRoute = require('./routes/protect');
 var loginRoute = require('./routes/login');
 var signupRoute = require('./routes/signup');
-
+var clientRoute = require('./routes/client');
 mongoose.connect("mongodb://localhost/swastik", { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
     console.log("db connected");
 });
@@ -39,6 +39,7 @@ app.use('/Register', registerRoute);
 app.use('/Login', loginRoute);
 app.use('/Signup', signupRoute);
 app.use('/Protected',protectRoute);
+app.use('/Client',clientRoute);
 app.get('/contacts', (req, res) => {
     res.render('contact');
 })

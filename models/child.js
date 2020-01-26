@@ -1,15 +1,18 @@
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+    Schema = mongoose.Schema;
+var mongooseUniqueValidator = require('mongoose-unique-validator');
+const addressSchema = require('../models/address');
 const childSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
     },
-    Mparent_id: {
-        type: String,
+    Mphoneno: {
+        type:String,
         required: true
     },
-    Fparent_id: {
-        type: String,
+    Fphoneno: {
+        type:String,
         required: true
     },
     gender: {
@@ -26,44 +29,23 @@ const childSchema = new mongoose.Schema({
     },
     aadharno: {
         type: String,
-        requied: false
+        required: false
     },
-    vaccinations: [{
-        disease: {
-            type: String,
-            requied: false
-        },
-        duedate: {
-            type: String,
-            required: false
-        }
-    }],
-    address: [{
-        line1: {
-            type: String,
-            required: true
-        },
-        line2: {
-            type: String,
-            required: false
-        },
-        town_village: {
-            type: String,
-            required: true
-        },
-        province: {
-            type: String,
-            required: true
-        },
-        pincode: {
-            type: Number,
-            required: true
-        },
-        state: {
-            type: String,
-            required: true
-        }
-    }]
+    vaccinations: [
+        {
+            formType: {
+                disease: {
+                    type: String,
+                    requied: false
+                },
+                duedate: {
+                    type: String,
+                    required: false
+                }
+            }
+        }],
+    address: [addressSchema]
 });
-var Child = mongoose.model('child', childSchema);
+childSchema.plugin(mongooseUniqueValidator);
+var Child = mongoose.model('Child', childSchema);
 module.exports = Child;
