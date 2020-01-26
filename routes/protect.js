@@ -24,7 +24,7 @@ passport.deserializeUser(User.deserializeUser());
 router.use(bodyParser.urlencoded({extended: true}));
 
 router.get("/",isLoggedIn,(req,res)=>{
-    res.render("secret")
+    res.render("child")
 })
 
 function isLoggedIn(req,res,next){

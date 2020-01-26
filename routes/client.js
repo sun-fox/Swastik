@@ -26,22 +26,23 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 router.use(bodyParser.urlencoded({ extended: true }));
 
-router.get("/parent/:aadharno", isLoggedIn, (req, res) => {
+router.get("/parent/:aadharno", (req, res) => {
     var aadhar = req.params.aadharno;
     console.log("Aadhar no. " + aadhar);
 
     Parent.findOne({ 'aadharno': aadhar }, (err, parent) => {
         if (err)
             console.log(err)
-        else
+        else {
             console.log("Returned Json" + parent)
-        res.send(parent)
+            res.render("parent.ejs", { Parent: parent });
+        }
     })
 })
 
 
 var retrieved_children = [];
-router.get("/parent/:aadharno/children",isLoggedIn, (req, res) => {
+router.get("/parent/:aadharno/children", isLoggedIn, (req, res) => {
     var aadhar = req.params.aadharno;
     console.log("Aadhar no. " + aadhar);
     Parent.findOne({ 'aadharno': aadhar }, (err, parent) => {
@@ -51,7 +52,7 @@ router.get("/parent/:aadharno/children",isLoggedIn, (req, res) => {
             var children = [];
             retrieved_children = [];
             children = parent.children;
-            children.forEach(async(child_id) => {
+            children.forEach(async (child_id) => {
                 Child.findOne({ _id: child_id }, (err, details_child) => {
                     if (err) {
                         console.log(err);
@@ -62,29 +63,29 @@ router.get("/parent/:aadharno/children",isLoggedIn, (req, res) => {
                     }
                 })
             });
-            setTimeout(()=>{
-                console.log('gotcha'+retrieved_children);
+            setTimeout(() => {
+                console.log('gotcha' + retrieved_children);
                 res.send(retrieved_children);
-            },200)
+            }, 200)
         }
     })
 })
 
-router.put("/children/:child_id/update",isLoggedIn, (req, res) => {
+router.put("/children/:child_id/update", isLoggedIn, (req, res) => {
     var child = req.params.child_id
     console.log("child no. " + child);
     console.log(req.body);
     ward_changes = req.body;
-    Child.update({ '_id': child },{$set:ward_changes}, (err, child) => {
+    Child.update({ '_id': child }, { $set: ward_changes }, (err, child) => {
         if (err)
             console.log(err)
         else {
             console.log("Updated Succesfully!!");
-            Child.findOne({'_id':req.params.child_id},(err,ward)=>{
-                if(err){
+            Child.findOne({ '_id': req.params.child_id }, (err, ward) => {
+                if (err) {
                     console.log(err);
                 }
-                else{
+                else {
                     console.log(ward);
                     res.send(ward);
                 }
