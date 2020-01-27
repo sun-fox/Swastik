@@ -60,7 +60,7 @@
     <div class="col-md-3 col-sm-12"></div>
     <div class="col-md-6 col-sm-12">
       <h4>Child Details</h4>
-      <form>
+      <form method="POST" action="/Client/Parent/">
         <div class="form-group"><input class="form-control" id="Aadhar" type="text" name="aadharno" placeholder="Aadhar No."
             required></div>
         <!-- <div class ="form-group"><input class= "form-control" type ="password"name ="password" placeholder ="Password" required></div> -->
@@ -93,33 +93,33 @@
     </div>
   </div>
   <script>
-    $(document).ready(function () {
-      var submit = $('#sbtn');
-      // writing Ajax to send data from client side to the server side.
-      submit.on('click', function () {
-        var Aadharno = document.getElementById('Aadhar').value;
-        console.log(Aadharno);
-        // var pass = document.getElementById('passs').value;
-        // var usr_obj = {
-        //   name: userName,
-        //   email: emailId,
-        //   password: pass
-        // }
-        // console.log("client: " + usr_obj);
-        $.ajax({
-          url: 'http://localhost:3000/Client/parent/'+Aadharno,
-          data: Aadharno,
-          type: 'GET',
-          success: function (data) {
-            console.log('Success: ' + data);
-            // window.location.replace("http://localhost:3000/child");
-          },
-          error: function (xhr, status, error) {
-            console.log('Error: ' + error.message);
-          },
-        });
-      })
-    });
+    // $(document).ready(function () {
+    //   var submit = $('#sbtn');
+    //   // writing Ajax to send data from client side to the server side.
+    //   submit.on('click', function () {
+    //     var Aadharno = document.getElementById('Aadhar').value;
+    //     console.log(Aadharno);
+    //     // var pass = document.getElementById('passs').value;
+    //     // var usr_obj = {
+    //     //   name: userName,
+    //     //   email: emailId,
+    //     //   password: pass
+    //     // }
+    //     // console.log("client: " + usr_obj);
+    //     $.ajax({
+    //       url: 'http://localhost:3000/Client/parent/'+Aadharno,
+    //       data: Aadharno,
+    //       type: 'GET',
+    //       success: function (data) {
+    //         console.log('Success: ' + data);
+    //         // window.location.replace("http://localhost:3000/child");
+    //       },
+    //       error: function (xhr, status, error) {
+    //         console.log('Error: ' + error.message);
+    //       },
+    //     });
+    //   })
+    // });
   </script>
 
 </body>

@@ -6,7 +6,8 @@ var router = express.Router(),
     localStrategy = require("passport-local"),
     passportLocalMongoose = require("passport-local-mongoose"),
     User = require("../models/user"),
-    Child = require("../models/child");
+    Child = require("../models/child"),
+    Parent = require("../models/parent");
 
 mongoose.connect('mongodb://localhost:27017/swastik', { useNewUrlParser: true, useUnifiedTopology: true }, () => {
     console.log("db connected in protect route");
@@ -56,33 +57,34 @@ router.get("/phonenos", (req, res) => {
     },1000);
 });
 
-// router.get("/email", (req, res) => {
-//     var phonenos = [];
-//     var today = req.body.date;
-//     console.log(today);
-//     Child.find({ "vaccinations.duedate": today }, (err, ward) => {
-//         if (err) {
-//             console.log(err);
-//         }
-//         else {
-//             console.log(ward);
-//             ward.forEach((child)=>{
-//                 if (child.Mphoneno){
-//                     phonenos.push(child.Mphoneno);
-//                     console.log(child.Mphoneno);
-//                 }
-//                 if (child.Fphoneno){
-//                     console.log(child.Fphoneno);
-//                     phonenos.push(child.Fphoneno);
-//                 }
-//                 console.log(phonenos)
-//             })
-//         }
-//     });
-//     setTimeout(()=>{
-//         res.send(phonenos);
-//     },1000);
-// });
+router.get("/email", (req, res) => {
+    var phonenos = [];
+    var today = req.body.date;
+    console.log(today);
+    Child.find({ "vaccinations.duedate": today }, (err, ward) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log(ward);
+            ward.forEach((child)=>{
+                if (child.Mphoneno){
+                    // phonenos.push(child.Mphoneno);
+
+                    console.log(child.Mphoneno);
+                }
+                if (child.Fphoneno){
+                    console.log(child.Fphoneno);
+                    phonenos.push(child.Fphoneno);
+                }
+                console.log(phonenos)
+            })
+        }
+    });
+    setTimeout(()=>{
+        res.send(phonenos);
+    },1000);
+});
 
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {

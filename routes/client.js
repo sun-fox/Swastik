@@ -26,8 +26,8 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 router.use(bodyParser.urlencoded({ extended: true }));
 
-router.get("/parent/:aadharno", (req, res) => {
-    var aadhar = req.params.aadharno;
+router.post("/parent", (req, res) => {
+    var aadhar = req.body.aadharno;
     console.log("Aadhar no. " + aadhar);
 
     Parent.findOne({ 'aadharno': aadhar }, (err, parent) => {
