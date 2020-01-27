@@ -34,9 +34,8 @@ router.get("/parent/:aadharno", (req, res) => {
         if (err)
             console.log(err)
         else {
-            console.log("Returned Json" + parent);
-           // res.render('parent', { Parent: parent });
-           res.render("parent", { Parent: parent });
+            console.log("Returned Json" + parent)
+            res.render("parent.ejs", { Parent: parent });
         }
     })
 })
