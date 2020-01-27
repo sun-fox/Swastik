@@ -9,6 +9,8 @@ var router = express.Router(),
     Child = require("../models/child"),
     Parent = require("../models/parent");
 
+const Nexmo = require('nexmo');
+
 mongoose.connect('mongodb://localhost:27017/swastik', { useNewUrlParser: true, useUnifiedTopology: true }, () => {
     console.log("db connected in protect route");
 });
@@ -39,12 +41,12 @@ router.get("/phonenos", (req, res) => {
         }
         else {
             console.log(ward);
-            ward.forEach((child)=>{
-                if (child.Mphoneno){
+            ward.forEach((child) => {
+                if (child.Mphoneno) {
                     phonenos.push(child.Mphoneno);
                     console.log(child.Mphoneno);
                 }
-                if (child.Fphoneno){
+                if (child.Fphoneno) {
                     console.log(child.Fphoneno);
                     phonenos.push(child.Fphoneno);
                 }
@@ -52,9 +54,39 @@ router.get("/phonenos", (req, res) => {
             })
         }
     });
-    setTimeout(()=>{
+    setTimeout(() => {
         res.send(phonenos);
-    },1000);
+    }, 1000);
+});
+
+const nexmo = new Nexmo({
+    apiKey: '0d4daa02',
+    apiSecret: 'SAHw2cuS28PlWHNQ'
+}, { debug: true });
+
+
+router.post('/sendtoall', (req, res) => {
+    var arr = req.body.nos;
+    console.log(arr);
+    const text = "helllo i am atul from nodejs";
+    for (var number in arr) {
+        arr[number]="91"+arr[number];
+        console.log(arr[number]);
+        nexmo.message.sendSms(
+            '918957790795', arr[number], text, { type: 'unicode' },
+            (err, responseData) => {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    console.dir(responseData);
+                }
+            }
+        );
+
+    }
+    // res.send("Messages Sent!!");
+
 });
 
 router.get("/email", (req, res) => {
@@ -67,13 +99,13 @@ router.get("/email", (req, res) => {
         }
         else {
             console.log(ward);
-            ward.forEach((child)=>{
-                if (child.Mphoneno){
+            ward.forEach((child) => {
+                if (child.Mphoneno) {
                     // phonenos.push(child.Mphoneno);
 
                     console.log(child.Mphoneno);
                 }
-                if (child.Fphoneno){
+                if (child.Fphoneno) {
                     console.log(child.Fphoneno);
                     phonenos.push(child.Fphoneno);
                 }
@@ -81,9 +113,9 @@ router.get("/email", (req, res) => {
             })
         }
     });
-    setTimeout(()=>{
+    setTimeout(() => {
         res.send(phonenos);
-    },1000);
+    }, 1000);
 });
 
 function isLoggedIn(req, res, next) {
