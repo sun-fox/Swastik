@@ -10,3 +10,12 @@ body{
     width:80%;
     padding:20px;;
 }
+.parent-table{
+    width:100%;
+    margin-left:30%;
+    padding:20px;
+}
+.parent-table #tb-lab{
+    font-weight:bold;
+    
+}
