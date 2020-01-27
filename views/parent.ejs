@@ -40,63 +40,92 @@
                   </li>
             </div>
           </nav><br>
-            <div class ="container">
-                <div class ="row">
-                        <div class ="col-md-12">
-                            <h2 class ="text-center">Parent Details</h2>
-                            <div class ="row">
-                                <div class="col-md-12">
-                                    <table class ="parent-table">
-                                        <tr>
-                                            <td id ="tb-lab">Name :</td id ="tb-lab">
-                                            <td><%= Parent.name %></td>
-                                        </tr>
-                                        <tr>
-                                            <td id ="tb-lab">Spouse :</td>
-                                            <td><%= Parent.spouse %></td>
-                                        </tr>
-                                        <tr>
-                                            <td id ="tb-lab">Phon No. :</td>
-                                            <td><%= Parent.phoneno %></td>
-                                        </tr>
-                                        <tr>
-                                            <td id ="tb-lab">Email :</td>
-                                            <td><%= Parent.email %></td>
-                                        </tr>
-                                        <tr>
-                                            <td id ="tb-lab">Aadhar No. :</td>
-                                            <td><%= Parent.aadharno %></td>
-                                        </tr>
-                                       
-                                    </table>
-                                </div>
-                        </div>
-                    </div>
-                </div>
 
-            </div>
-<br><br>
-<div class="container">
-    <div class="row">
-        <div class ="col-md-12 text-center"><h4>Children Details</h4><br></div>
-        <div class="col-md-3">
-            <div class="card text-center" style ="padding:20px;">
-                <img src ="../public/images/user.png" class ="img-responsive thumbnail">
-                <h5 class ="caption">Boruto</h5>
-                <a href ="<%=Parent.aadharno %>"><button class= "btn btn-primary">Update Info</button></a>
+<div class ="container-fluid">
+    <div class ="row">
+        <div class ="col-md-12  text-center"><h3>Vaccine Details</h3></div>
+        <div class= "col-md-12 col-xs-12">
+            <div class ="row">
+                <div class ="col-md-3 col-xs-12 text-center">
+                    <img src ="../public/images/user.png" class ="img-responsive thumbnail">
+                    <h5 class ="caption">Boruto</h5>
+                </div>
+                <div class ="col-md-9 col-xs-12">
+                    <table class= "child-table table-reponsive">
+                        <tr>
+                            <td><lable>Name :</lable></td>
+                            <td><%= Parent.name %></td>
+                        </tr>
+                        <tr>
+                            <td>Phone no. :</td>
+                            <td><%= Parent.phoneno %></td>
+                        </tr>
+                        <tr>
+                            <td>email:</td>
+                            <td><%= Parent.email %></td>
+                        </tr>
+                        <tr>
+                            <td>spouse:</td>
+                            <td><%= Parent.spouse %></td>
+                        </tr>
+                        <tr>
+                            <td>Aadhar No.:</td>
+                            <td><%= Parent.line1 %></td>
+                        </tr>
+                        <!-- <tr>
+                            <td>Children :</td>
+                            <td><% //Parent.children.forEach((data)=>{data}) %></td>
+                        </tr> -->
+                    </table><br>
+                    <!-- <table class ="vacc-table text-center">
+                        <tr>
+                            <td><b>Vaccines<b></b></td>
+                            <td><b>Due Date 1<b></b></td>
+                            <td><b>Due Date 2<b></b></td>
+                            <td><b>Due Date 3<b></b></td>
+                            <td><b>Due Date 4<b></b></td>
+                        </tr>
+                        <tr>
+                            <td>Polio</td>
+                            <td><input type ="text" required></td>
+                            <td><input type ="text"></td>
+                            <td><input type ="text"></td>
+                            <td><input type ="text"></td>
+                        </tr>
+                        <tr>
+                            <td>Hypetitis B</td>
+                            <td><input type ="text" required></td>
+                            <td><input type ="text"></td>
+                            <td><input type ="text"></td>
+                            <td><input type ="text"></td>
+                        </tr>
+                        <tr>
+                            <td>Hypetitis A</td>
+                            <td><input type ="text" required></td>
+                            <td><input type ="text"></td>
+                            <td><input type ="text"></td>
+                            <td><input type ="text"></td>
+                        </tr>
+                        <tr>
+                            <td>Polio</td>
+                            <td><input type ="text" required></td>
+                            <td><input type ="text"></td>
+                            <td><input type ="text"></td>
+                            <td><input type ="text"></td>
+                        </tr>
+                    </table> -->
+                </div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card text-center" style ="padding:20px;">
-                <img src ="../public/images/user.png" class ="img-responsive thumbnail">
-                <h5 class ="caption">Boruto</h5>
-                <a href ="<%=Parent.aadharno %>"><button class= "btn btn-primary">Update Info</button>
-            </div>
-        </div>
-        <hr>
     </div>
 </div>
-
+<br><br>
+<div class ="row text-center">
+    <div class ="col-3"></div>
+    <div class ="col-3"><a href ="#"><button class ="btn btn-warning">Get Parents</button></a></div>
+    <div class ="col-3"><form action ="" method =""><button class ="btn btn-danger">End Session</button></form></div>
+    <div class ="col-3"></div>
+</div>
 <br>
 <div class ="row footer text-center navbar-light bg-light">
     <div class="col-md-12 col-xs-12">
