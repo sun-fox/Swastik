@@ -8,6 +8,7 @@ var mongoose = require('mongoose'),
     localStrategy = require("passport-local"),
     passportLocalMongoose = require("passport-local-mongoose"),
     User = require("./models/user");
+    Parent = require("./models/parent");
 var ejs = require("ejs");
 var registerRoute = require('./routes/register');
 var protectRoute = require('./routes/protect');
@@ -48,6 +49,22 @@ app.get("/", function (req, res) {
     // res.send("index page will be here");
     res.render("index.ejs");
 })
+
+app.post("/", function (req, res) {
+    // res.send("index page will be here");
+    var aadhar = req.body.aadharno;
+    Parent.findOne({ 'aadharno': aadhar }, (err, parent) => {
+        if (err)
+            console.log(err)
+        else {
+            console.log("Returned Json" + parent);
+           // res.render('parent', { Parent: parent });
+           res.render("parent.ejs", { Parent: parent });
+        }
+    })
+})
+
+
 
 
 app.get("/logout",function(req,res){
