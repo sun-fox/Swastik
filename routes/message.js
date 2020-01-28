@@ -43,11 +43,13 @@ router.get("/phonenos", (req, res) => {
             console.log(ward);
             ward.forEach((child) => {
                 if (child.Mphoneno) {
+                    if (phonenos.indexOf(child.Mphoneno) === -1)
                     phonenos.push(child.Mphoneno);
                     console.log(child.Mphoneno);
                 }
                 if (child.Fphoneno) {
                     console.log(child.Fphoneno);
+                    if (phonenos.indexOf(child.Fphoneno) === -1)
                     phonenos.push(child.Fphoneno);
                 }
                 console.log(phonenos)
@@ -70,7 +72,7 @@ router.post('/sendtoall', (req, res) => {
     console.log(arr);
     const text = "helllo i am atul from nodejs";
     for (var number in arr) {
-        arr[number]="91"+arr[number];
+        arr[number] = "91" + arr[number];
         console.log(arr[number]);
         nexmo.message.sendSms(
             '918957790795', arr[number], text, { type: 'unicode' },
@@ -85,12 +87,12 @@ router.post('/sendtoall', (req, res) => {
         );
 
     }
-    // res.send("Messages Sent!!");
+    res.send("Messages Sent!!");
 
 });
 
 router.get("/email", (req, res) => {
-    var phonenos = [];
+    var email = [];
     var today = req.body.date;
     console.log(today);
     Child.find({ "vaccinations.duedate": today }, (err, ward) => {
@@ -99,23 +101,40 @@ router.get("/email", (req, res) => {
         }
         else {
             console.log(ward);
-            ward.forEach((child) => {
+            ward.forEach(async (child) => {
                 if (child.Mphoneno) {
-                    // phonenos.push(child.Mphoneno);
-
-                    console.log(child.Mphoneno);
+                    console.log("M" + child.Mphoneno);
+                    await Parent.findOne({ "phoneno": child.Mphoneno }, (err, parent) => {
+                        if (err) {
+                            console.log(err);
+                        }
+                        else {
+                            console.log("M" + parent);
+                            if (email.indexOf(parent.email) === -1)
+                                email.push(parent.email);
+                        }
+                    })
                 }
                 if (child.Fphoneno) {
-                    console.log(child.Fphoneno);
-                    phonenos.push(child.Fphoneno);
+                    console.log("F" + child.Fphoneno);
+                    await Parent.findOne({ "phoneno": child.Fphoneno }, (err, parent) => {
+                        if (err) {
+                            console.log(err);
+                        }
+                        else {
+                            console.log("F" + parent);
+                            if (email.indexOf(parent.email) === -1)
+                                email.push(parent.email);
+                        }
+                    })
                 }
-                console.log(phonenos)
+                console.log(email)
             })
         }
     });
     setTimeout(() => {
-        res.send(phonenos);
-    }, 1000);
+        res.send(email);
+    }, 100);
 });
 
 function isLoggedIn(req, res, next) {
