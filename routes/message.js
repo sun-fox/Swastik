@@ -57,7 +57,7 @@ router.get("/phonenos", (req, res) => {
         }
     });
     setTimeout(() => {
-        res.send(phonenos);
+        res.render("phonenos",{contactnos:phonenos});
     }, 1000);
 });
 
