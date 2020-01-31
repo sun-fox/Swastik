@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" type="image/icon" href="../../../public/images/logo.png" />
+    <link rel ="stylesheet" href ="../../../public/stylesheets/custom.css">
+    <link rel ="stylesheet" href ="../../../public/stylesheets/bootstrap.min.css">
+    <script src ="../../../public/javascripts/bootstrap.min.js" type ="text/javascript"></script>
+    <script src ="../../../public/javascripts/jquery.js" type ="text/javascript"></script>
+    <title>Swastik|Child</title>
+</head>
+
+<body>
+    <div class ="container-fluid top-strip">
+        <div class ="row text-center">
+            <div class ="col-md-4 col-xs-12"><img src ="../../../public/images/logo.png" class ="img-responsive"><h5 id ="slogan">A Step Closer To Healthy India</h5></div>
+            <div class ="col-md-4 col-xs-12"><img src ="../../../public/images/satyamev.svg" class ="img-responsive">
+                <h5 id ="header-title">Ministry of Women and Child Development
+                    Government of India
+                    </h5></div>
+            <div class ="col-md-4 col-xs-12"><img src ="../../../public/images/Towards a new dawn_Logo.png" class ="img-responsive"></div>
+        </div>
+        </div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light container-fluid">
+            <a class="navbar-brand" href="#">Swastik</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Register Parents</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Register Child</a>
+                  </li>
+            </div>
+          </nav><br>
+          <% var i=0 %>
+          <div class ="container-fluid">
+            <div class ="row">
+              <!-- <div class ="col-md-1"></div> -->
+               <% Child.forEach(function(children){ i++;%>  
+                <div class ="col-12"> 
+                    <div class ="card" style ="padding:20px;margin-bottom:10px;">
+                      <div class ="row">
+                        <div class= "col-md-3 col-xs-12"><img src ="../../../public/images/user.png"></div>
+                        <div class ="col-md-9 col-xs-12">
+                          <div class ="caption ">
+                            <table class ="children-table">
+                              <tr>
+                                <td  id ="tb-head">Name :</td>
+                                <td><%= children.name %></td>
+                              </tr>
+                              <tr>
+                                <td id ="tb-head">Father's Mobile No. :</td>
+                                <td><%= children.Fphoneno %></td>
+                              </tr>
+                              <tr>
+                                <td id ="tb-head">Mother's Mobile No. :</td>
+                                <td><%= children.Mphoneno %></td>
+                              </tr>
+                              <tr>
+                                <td id ="tb-head">Date Of Birth :</td>
+                                <td><%= children.DOB %></td>
+                              </tr>
+                              <tr>
+                                <td id ="tb-head">Gender :</td>
+                                <td><%= children.gender %></td>
+                              </tr>
+                              <tr>
+                                <td id ="tb-head">Siblings :</td>
+                                <td><%= children.siblings %></td>
+                              </tr>
+                             
+                            <!-- </table> -->
+                          
+                          <form method="post" action="/Client/children/<%=children._id %>/update">
+                            <!-- <table style ="width:100%;padding:5px 15px;"> -->
+                              <tr class ="update-vaccdetail vaccine" id ="vac<%=i %>" style ="padding:10px;">
+                                <td><b>Vaccination Name :</b></td>
+                                <td><input type ="text" name ="vacc-name"></td>
+                              </tr>
+                              <tr class ="update-vaccdetail vaccine" id ="dat<%=i %>" style ="padding:10px;">
+                                <td><b>Vaccination Date :</b></td>
+                                <td><input type="date" name ="vacc-date"></td>
+                              </tr>
+                              <tr class ="update-vaccdetail" id ="sub<%=i%>">
+                                <td></td>
+                                <td><button class ="btn btn-success">Submit</button></td>
+                              </tr>
+                            </table>
+                            <br>
+                          </form>
+                          <button class ="btn btn-primary" id ="update_btn" onclick="showmenu('<%=i%>')">Update Info</button><br>
+                      </div></div>
+                  </div> 
+                    </div></div>
+                     <% })%>
+                        </div>
+                      </div>
+                </div>
+        </div>
+<br>
+<div class ="row footer text-center navbar-light bg-light footer">
+    <div class="col-md-12 col-xs-12">
+        <p>Copyright Swastik</p>
+    </div>
+</div>
+<script type ="text/javascript">
+
+function showmenu(id){
+var vac="vac"+id;
+var dat="dat"+id;
+var sub = "sub"+id;
+// console.log(vac);
+// console.log(dat);
+// $('#update_btn').click(function(){
+//   $(vac).toggleClass('update-vaccdetail');
+//   $(dat).toggleClass('update-vaccdetail');
+//   console.log(vac);
+//  console.log(dat);
+// });
+ document.getElementById(vac).classList.toggle("update-vaccdetail");
+ document.getElementById(dat).classList.toggle("update-vaccdetail");
+ document.getElementById(sub).classList.toggle("update-vaccdetail");
+};
+// $(document).ready(function(){
+//    $("#update_btn").click(function(){
+//     $('.vaccine').toggleClass('update-vaccdetail');
+//    })
+// });
+// $(document).ready(function(){
+//    $("#update_btn").click(function(){
+//     $('.vaccine').toggleClass('update-vaccdetail');
+//    })
+// });
+</script>
+</body>
+</html>

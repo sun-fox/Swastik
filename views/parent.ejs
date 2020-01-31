@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="shortcut icon" type="image/icon" href="../public/images/logo.png" />
+    <link rel="shortcut icon" type="image/icon" href="../../public/images/logo.png" />
     <link rel ="stylesheet" href ="../../public/stylesheets/custom.css">
     <link rel ="stylesheet" href ="../../public/stylesheets/bootstrap.min.css">
-    <script src ="../public/javascripts/bootstrap.min.js" type ="text/javascript"></script>
+    <script src ="../../public/javascripts/bootstrap.min.js" type ="text/javascript"></script>
     <title>Swastik|Child</title>
 </head>
 <body>
@@ -43,15 +43,11 @@
 
 <div class ="container-fluid">
     <div class ="row">
-        <div class ="col-md-12  text-center"><h3>Vaccine Details</h3></div>
+        <div class ="col-md-12  text-center"><h3>Parent Details</h3></div>
         <div class= "col-md-12 col-xs-12">
             <div class ="row">
-                <div class ="col-md-3 col-xs-12 text-center">
-                    <img src ="../../public/images/user.png" class ="img-responsive thumbnail">
-                    <h5 class ="caption">Boruto</h5>
-                </div>
-                <div class ="col-md-9 col-xs-12">
-                    <table class= "child-table table-reponsive">
+                <div class ="col-md-12 col-xs-12">
+                    <table class= "child-table">
                         <tr>
                             <td><lable>Name :</lable></td>
                             <td><%= Parent.name %></td>
@@ -70,12 +66,18 @@
                         </tr>
                         <tr>
                             <td>Aadhar No.:</td>
-                            <td><%= Parent.line1 %></td>
+                            <td><%= Parent.aadharno %></td>
                         </tr>
-                        <!-- <tr>
-                            <td>Children :</td>
-                            <td><% //Parent.children.forEach((data)=>{data}) %></td>
-                        </tr> -->
+                        <tr>
+                            <td>Address:</td>
+                            <td><%= Parent.address[0].line1 %>,&nbsp;&nbsp;
+                                <%= Parent.address[0].line2 %>,&nbsp;&nbsp;
+                                <%= Parent.address[0].town_village %>,&nbsp;&nbsp;
+                                <%= Parent.address[0].province %>,&nbsp;&nbsp;
+                                <%= Parent.address[0].pincode %>,&nbsp;&nbsp;
+                                <%= Parent.address[0].state %>
+                                </td>
+                        </tr>
                     </table><br>
                 </div>
             </div>
@@ -85,7 +87,7 @@
 <br><br>
 <div class ="row text-center">
     <div class ="col-3"></div>
-    <div class ="col-3"><a href ="#"><button class ="btn btn-warning">Get Parents</button></a></div>
+    <div class ="col-3"><a href ="/Client/parent/<%= Parent.aadharno %>/children"><button class ="btn btn-warning">Get Children</button></a></div>
     <div class ="col-3"><form action ="" method =""><button class ="btn btn-danger">End Session</button></form></div>
     <div class ="col-3"></div>
 </div>
