@@ -29,14 +29,18 @@ router.get("/", isLoggedIn, (req, res) => {
     res.send("Go to home page nothing here!!");
 })
 
-router.post("/parent",isLoggedIn, (req, res) => {
+router.get("/parent",(req,res)=>{
+    res.render("regParent");
+});
+
+router.post("/parent", (req, res) => {
     console.log(req.body);
     parent = new Parent(req.body);
     parent.save((err, parent) => {
         if (err)
             console.log("Error a gaya !!" + err);
         else if (parent._id) {
-            console.log("Data Successfully Added " + parent.name + " , " + parent.spouse + " , " + parent.children)
+            console.log("Data Successfully Added " + parent.name + " , " + parent.spouse + " , " + parent.children);
             Parent.findOne({ '_id': parent._id }, (err, parent) => {
                 if (err)
                     console.log(err)
@@ -44,14 +48,20 @@ router.post("/parent",isLoggedIn, (req, res) => {
                     console.log("Returned Parent JSON ");
                     res.send(parent);
                 }
-            })
+            });
         }
     });
-})
+});
 
-router.post("/child",isLoggedIn, (req, res) => {
+
+router.get("/child",(req,res)=>{
+    res.render("regChild");
+});
+
+router.post("/child", (req, res) => {
     var parentJSON=[];
     child = new Child(req.body);
+    console.log(child);
     child.save((err, child) => {
         if (err)
             console.log("Error a gaya !!" + err);
@@ -68,7 +78,7 @@ router.post("/child",isLoggedIn, (req, res) => {
                     parent_array.forEach(parent_contact_no => {
                         console.log(parent_contact_no);
                         if (parent_contact_no) {
-                            console.log("Parent present"+parent_contact_no);
+                            console.log("Parent present "+parent_contact_no);
                             Parent.findOne({ phoneno: parent_contact_no }, (err, parent) => {
                                 console.log("Found parent");
                                 if (err) {

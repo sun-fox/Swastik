@@ -72,7 +72,7 @@ router.get("/parent/:aadharno/children", (req, res) => {
     })
 })
 
-router.post("/children/:child_id/update", (req, res) => {
+router.put("/children/:child_id/update", (req, res) => {
     var child = req.params.child_id
     console.log("aa gaya");
     console.log("child no. " + child);
