@@ -8,6 +8,10 @@ const childSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    image:{
+        type:String,
+        required:false
+    },
     Mphoneno: {
         type:String,
         required: true
