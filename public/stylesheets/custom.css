@@ -1,12 +1,26 @@
 body{
     margin:0;
     padding:0;
+    overflow-x:hidden;
 }
 #header-title{
     font-size:22px;
     color:brown;
 }
 .child-table{
-    width:80%;
-    padding:20px;;
+    width:100%;
+    padding:20px;
+    margin-left:30%;
+}
+.children-table{
+    width:100%;
+}
+.children-table td{
+    padding:5px 10px; 
+}
+.children-table #tb-head{
+    font-weight:bold;
+}
+.update-vaccdetail{
+    display:none;
 }
