@@ -47,10 +47,11 @@
             <div class ="row">
               <!-- <div class ="col-md-1"></div> -->
                <% Child.forEach(function(children){ i++;%>  
+                <%if(children){%>
                 <div class ="col-12"> 
                     <div class ="card" style ="padding:20px;margin-bottom:10px;">
                       <div class ="row">
-                        <div class= "col-md-3 col-xs-12"><img src ="../../../public/images/user.png"></div>
+                        <div class= "col-md-3 col-xs-12"><img src ="<%=children.image%>" class="img-responsive" height=400px width=400px></div>
                         <div class ="col-md-9 col-xs-12">
                           <div class ="caption ">
                             <table class ="children-table">
@@ -107,7 +108,7 @@
                       </div></div>
                   </div> 
                     </div></div>
-                     <% })%>
+                     <% }})%>
                         </div>
                       </div>
                 </div>
