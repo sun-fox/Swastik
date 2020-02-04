@@ -78,7 +78,12 @@
                                 <td id ="tb-head">Siblings :</td>
                                 <td><%= children.siblings %></td>
                               </tr>
-                             
+                             <tr>
+                               <td>Vaccinations:</td>
+                               <%children.vaccinations.forEach((vaccine)=>{%>
+                                <td><%= vaccine.disease %><br><%=vaccine.duedate %></td>
+                               <%})%>
+                             </tr>
                             <!-- </table> -->
                           
                           <form method="PUT" action="/Client/children/<%=children._id %>/update">
