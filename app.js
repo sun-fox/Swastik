@@ -15,7 +15,7 @@ var loginRoute = require('./routes/login');
 var signupRoute = require('./routes/signup');
 var clientRoute = require('./routes/client');
 var messageRoute = require('./routes/message');
-mongoose.connect("mongodb://localhost/swastik", { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
+mongoose.connect(process.env.REMOTEDB, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
     console.log("db connected");
 });
 
@@ -42,7 +42,7 @@ app.use('/Signup', signupRoute);
 app.use('/Protected',protectRoute);
 app.use('/Client',clientRoute);
 app.use('/Message',messageRoute);
-app.get('/contacts', (req, res) => {
+app.get('/Contacts', (req, res) => {
     res.render('contact');
 })
 

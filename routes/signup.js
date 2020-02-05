@@ -7,7 +7,7 @@ var router = express.Router(),
     passportLocalMongoose = require("passport-local-mongoose"),
     User = require("../models/user");
 
-mongoose.connect('mongodb://localhost:27017/swastik', { useNewUrlParser: true, useUnifiedTopology: true }, () => {
+mongoose.connect(process.env.REMOTEDB, { useNewUrlParser: true, useUnifiedTopology: true }, () => {
     console.log("db connected in signup route");
 });
 

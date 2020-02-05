@@ -11,7 +11,7 @@ var router = express.Router(),
 
 const Nexmo = require('nexmo');
 
-mongoose.connect('mongodb://localhost:27017/swastik', { useNewUrlParser: true, useUnifiedTopology: true }, () => {
+mongoose.connect(process.env.REMOTEDB, { useNewUrlParser: true, useUnifiedTopology: true }, () => {
     console.log("db connected in protect route");
 });
 
@@ -33,7 +33,7 @@ router.get("/", (req, res) => {
 
 router.get("/phonenos", (req, res) => {
     var phonenos = [];
-    var today = req.body.date;
+    var today = req.query.date;
     console.log(today);
     Child.find({ "vaccinations.duedate": today }, (err, ward) => {
         if (err) {
