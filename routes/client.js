@@ -10,7 +10,7 @@ var router = express.Router(),
     async = require("async"),
     Child = require("../models/child");
 
-mongoose.connect('mongodb+srv://sunny:singh@cluster0-tkvij.mongodb.net/test', { useNewUrlParser: true, useUnifiedTopology: true }, () => {
+mongoose.connect(process.env.REMOTEDB, { useNewUrlParser: true, useUnifiedTopology: true }, () => {
     console.log("db connected in client route");
 });
 

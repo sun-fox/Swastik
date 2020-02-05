@@ -5,11 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Phone Nos.</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxy/1.6.1/scripts/jquery.ajaxy.js"></script>
 </head>
 <body>
     <% contactnos.forEach((no)=>{%>
         <p><%= no %></p>
     <% }) %> 
-    <button type="submit">Send Messages</button>
+    <button type="submit" id="sendall">Send Messages</button>
+    <!-- <script>
+        $(document).ready(function () {
+          var submit = $('#sendall');
+          submit.on('click', function () {
+            $.ajax({
+              url: 'http://localhost:3000/Message/sendtoall',
+              data: contactnos,
+              type: 'POST',
+              success: function (data) {
+                console.log('Success: ' + data);
+                document.write("Messages Sent!!");
+                // window.location.replace("http://localhost:3000/child");
+              },
+              error: function (xhr, status, error) {
+                console.log('Error: ' + error.message);
+              },
+            });
+          })
+        });
+      </script> -->
+    
 </body>
 </html>

@@ -15,7 +15,7 @@ var loginRoute = require('./routes/login');
 var signupRoute = require('./routes/signup');
 var clientRoute = require('./routes/client');
 var messageRoute = require('./routes/message');
-mongoose.connect("mongodb+srv://sunny:singh@cluster0-tkvij.mongodb.net/test", { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
+mongoose.connect(process.env.REMOTEDB, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
     console.log("db connected");
 });
 
