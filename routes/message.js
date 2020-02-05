@@ -44,20 +44,20 @@ router.get("/phonenos", (req, res) => {
             ward.forEach((child) => {
                 if (child.Mphoneno) {
                     if (phonenos.indexOf(child.Mphoneno) === -1)
-                    phonenos.push(child.Mphoneno);
+                        phonenos.push(child.Mphoneno);
                     console.log(child.Mphoneno);
                 }
                 if (child.Fphoneno) {
                     console.log(child.Fphoneno);
                     if (phonenos.indexOf(child.Fphoneno) === -1)
-                    phonenos.push(child.Fphoneno);
+                        phonenos.push(child.Fphoneno);
                 }
                 console.log(phonenos)
             })
         }
     });
     setTimeout(() => {
-        res.render("phonenos",{contactnos:phonenos});
+        res.render("phonenos", { contactnos: phonenos });
     }, 1000);
 });
 
@@ -69,13 +69,12 @@ const nexmo = new Nexmo({
 
 router.post('/sendtoall', (req, res) => {
     var arr = req.body.contactnos.split(',');
-    console.log(arr);
-    const text = "helllo i am atul from nodejs";
+    var msg = req.body.msg;
     for (var number in arr) {
         arr[number] = "91" + arr[number];
         console.log(arr[number]);
         nexmo.message.sendSms(
-            '918957790795', arr[number], text, { type: 'unicode' },
+            '918957790795', arr[number], msg, { type: 'unicode' },
             (err, responseData) => {
                 if (err) {
                     console.log(err);
@@ -83,9 +82,7 @@ router.post('/sendtoall', (req, res) => {
                 else {
                     console.dir(responseData);
                 }
-            }
-        );
-
+            });
     }
     res.send("Messages Sent!!");
 
