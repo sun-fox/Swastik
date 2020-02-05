@@ -9,7 +9,7 @@ var router = express.Router(),
     Child = require("../models/child"),
     Parent = require("../models/parent");
 
-mongoose.connect('mongodb://localhost:27017/swastik', { useNewUrlParser: true, useUnifiedTopology: true }, () => {
+mongoose.connect('mongodb+srv://sunny:singh@cluster0-tkvij.mongodb.net/test', { useNewUrlParser: true, useUnifiedTopology: true }, () => {
     console.log("db connected in register route");
 });
 

@@ -10,7 +10,7 @@ var router = express.Router(),
     async = require("async"),
     Child = require("../models/child");
 
-mongoose.connect('mongodb://localhost:27017/swastik', { useNewUrlParser: true, useUnifiedTopology: true }, () => {
+mongoose.connect('mongodb+srv://sunny:singh@cluster0-tkvij.mongodb.net/test', { useNewUrlParser: true, useUnifiedTopology: true }, () => {
     console.log("db connected in client route");
 });
 
@@ -34,6 +34,7 @@ router.post("/parent", (req, res) => {
         if (err)
             console.log(err)
         else {
+            console.log("Crash Point!!");
             console.log("Returned Json" + parent)
             res.render("parent.ejs", { Parent: parent });
         }

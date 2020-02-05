@@ -11,7 +11,7 @@ var router = express.Router(),
 
 const Nexmo = require('nexmo');
 
-mongoose.connect('mongodb://localhost:27017/swastik', { useNewUrlParser: true, useUnifiedTopology: true }, () => {
+mongoose.connect('mongodb+srv://sunny:singh@cluster0-tkvij.mongodb.net/test', { useNewUrlParser: true, useUnifiedTopology: true }, () => {
     console.log("db connected in protect route");
 });
 
