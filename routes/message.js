@@ -11,7 +11,7 @@ var router = express.Router(),
 
 const Nexmo = require('nexmo');
 
-mongoose.connect(process.env.REMOTEDB, { useNewUrlParser: true, useUnifiedTopology: true }, () => {
+mongoose.connect(process.env.LOCALDB, { useNewUrlParser: true, useUnifiedTopology: true }, () => {
     console.log("db connected in protect route");
 });
 
