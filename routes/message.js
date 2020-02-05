@@ -68,7 +68,7 @@ const nexmo = new Nexmo({
 
 
 router.post('/sendtoall', (req, res) => {
-    var arr = req.body.nos;
+    var arr = req.body.contactnos.split(',');
     console.log(arr);
     const text = "helllo i am atul from nodejs";
     for (var number in arr) {

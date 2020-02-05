@@ -1,4 +1,5 @@
 var express = require('express');
+var methodOverride=require("method-override");
 var router = express.Router(),
     mongoose = require("mongoose"),
     passport = require("passport"),
@@ -25,7 +26,7 @@ passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 router.use(bodyParser.urlencoded({ extended: true }));
-
+router.use(methodOverride("_method")); 
 router.post("/parent", (req, res) => {
     var aadhar = req.body.aadharno;
     console.log("Aadhar no. " + aadhar);
@@ -42,8 +43,9 @@ router.post("/parent", (req, res) => {
 })
 
 
-var retrieved_children = [];
+
 router.get("/parent/:aadharno/children", (req, res) => {
+    var retrieved_children = [];
     var aadhar = req.params.aadharno;
     console.log("Aadhar no. " + aadhar);
     Parent.findOne({ 'aadharno': aadhar }, (err, parent) => {
@@ -59,8 +61,10 @@ router.get("/parent/:aadharno/children", (req, res) => {
                         console.log(err);
                     }
                     else {
-                        retrieved_children.push(details_child);
-                        console.log(retrieved_children);
+                        if(details_child){
+                            retrieved_children.push(details_child);
+                            console.log(retrieved_children);
+                        }
                     }
                 })
             });
@@ -68,7 +72,7 @@ router.get("/parent/:aadharno/children", (req, res) => {
                 console.log('gotcha' + retrieved_children);
                 // res.send(retrieved_children);
                 res.render("children.ejs", { Child:  retrieved_children});
-            }, 200)
+            }, 500)
         }
     })
 })
@@ -79,9 +83,11 @@ router.put("/children/:child_id/update", (req, res) => {
     console.log("child no. " + child);
     console.log(req.body);
     ward_changes = req.body;
-    var vac = req.body.vacc-name;
-    var dat = req.body.vacc-date;
-    Child.update({ '_id': child }, { $set: {"vaccinations.disease[0]":vac,"vaccinations.duedate[0]":dat} }, (err, child) => {
+    console.log(req.body);
+    updated_child=[];
+    // var vac = req.body.vacc-name;
+    // var dat = req.body.vacc-date;
+    Child.update({ '_id': child },{$push:{vaccinations:[{disease:req.body.new_vacc,duedate:req.body.new_vacc_date}]}}, (err, child) => {
         if (err)
             console.log(err);
         else {
@@ -92,8 +98,8 @@ router.put("/children/:child_id/update", (req, res) => {
                 }
                 else {
                     console.log(ward);
-                    res.send(ward);
-                    
+                    updated_child.push(ward);
+                    res.render("children.ejs", { Child: updated_child});
                 }
             })
         }

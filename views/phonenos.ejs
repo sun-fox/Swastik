@@ -13,14 +13,18 @@
     <% contactnos.forEach((no)=>{%>
         <p><%= no %></p>
     <% }) %> 
-    <button type="submit" id="sendall">Send Messages</button>
+    <form method="POST" action="/message/sendtoall">
+        <input value="<%=contactnos%>" name="contactnos" style="display: none;">
+        <button type="submit" id="sendall">Send Messages</button>
+    </form>
     <!-- <script>
         $(document).ready(function () {
+          contact = contactnos;
           var submit = $('#sendall');
           submit.on('click', function () {
             $.ajax({
               url: 'http://localhost:3000/Message/sendtoall',
-              data: contactnos,
+              data: contact,
               type: 'POST',
               success: function (data) {
                 console.log('Success: ' + data);
