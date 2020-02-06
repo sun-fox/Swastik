@@ -30,3 +30,7 @@ body{
 .card{
     padding:3%;
 }
+.count_reg{
+    border-radius:50%;
+    /* background-color: lightsalmon; */
+}
