@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="/public/javascripts/jquery.js"></script>
+    <link rel="stylesheet" href="/public/stylesheets/bootstrap.min.css">
+    <script src="/public/javascripts/bootstrap.min.js"></script>
+   
+</head>
+<body>
+
+    <header >
+        <%- include("header.ejs") %>
+        <% var errors,formData; %>
+    </header>
+
+    <div class="container">
+
+        <form class="well form-horizontal" action="/Register/child" method="post"  id="contact_form" enctype="multipart/form-data">
+    <fieldset>
+    
+    <!-- Form Name -->
+    <legend><center><h2><b>Registration Form for Child</b></h2></center></legend><br>
+    <ul>
+      <!-- <b><%= errors %></b> -->
+      <% if(errors) { %>
+      <% errors.forEach(function(errors){ %>
+        <div class="alert alert-danger" role="alert"><%= errors.msg %></div>
+      <%});%>
+      <% } %>
+</ul>
+    <!-- Text input-->
+    <legend>Personal Details</legend>
+
+    <div class="form-group">
+      <label class="col-md-4 control-label">Name</label>  
+      <div class="col-md-4 inputGroupContainer">
+      <div class="input-group">
+      <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+      <input  name="name"  class="form-control"  type="text"  <% if(formData){ %> value="<%- formData.name %>" <% } %>>
+        </div>
+      </div>
+      
+    </div>
+    
+    <div class="form-group">
+      <label class="col-md-4 control-label">Date Of Birth</label>  
+      <div class="col-md-4 inputGroupContainer">
+      <div class="input-group">
+      <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+      <input  name="DOB"  class="form-control"  type="date"  <% if(formData){ %> value="<%- formData.DOB %>" <% } %>>
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-group" style="margin-left:1.5%;">
+      <label class="">Gender</label>  <br>
+        <select class="col-md-3 inputGroupContainer" name="gender" style="background-color: #FFFFFF;"> 
+        
+        <!-- <option selected>Gender</option> -->
+        <option selected value="1">Male</option>
+        <option value="2">Female</option>
+        <option value="3">Other</option>
+      </select>
+    </div>
+    <!-- Text input-->
+           
+    <div class="form-group">
+      <label class="col-md-4 control-label">Father's Phone</label>  
+        <div class="col-md-4 inputGroupContainer">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+      <input name="Fphoneno" class="form-control" type="number"  <% if(formData){ %> value="<%- formData.Fphoneno %>" <% } %>>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-4 control-label">Mother's Phone</label>  
+          <div class="col-md-4 inputGroupContainer">
+          <div class="input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+        <input name="Mphoneno" class="form-control" type="number"  <% if(formData){ %> value="<%- formData.Mphoneno %>" <% } %>>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-md-4 control-label">Siblings</label>  
+        <div class="col-md-4 inputGroupContainer">
+        <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+        <input  name="siblings"  class="form-control"  type="number"  <% if(formData){ %> value="<%- formData.siblings %>" <% } %>>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-4 control-label">Aadhar Number</label>  
+        <div class="col-md-4 inputGroupContainer">
+        <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+        <input  name="aadharno"  class="form-control"  type="number"  <% if(formData){ %> value="<%- formData.aadharno %>" <% } %>>
+          </div>
+        </div>
+      </div>
+
+
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4">
+      <form class="form-horizontal" role="form">
+        <fieldset>
+
+          <!-- Form Name -->
+          <legend>Address Details</legend>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-sm-4 control-label" for="textinput">Line 1</label>
+            <div class="col-sm-15">
+              <input type="text" name="address[0][line1]" placeholder="Address Line 1" class="form-control" <% if(formData){ %> value="<%- formData.address[0].line1 %>" <% } %>>
+            </div>
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-sm-4 control-label" for="textinput">Line 2</label>
+            <div class="col-sm-15">
+              <input type="text" name="address[0][line2]" placeholder="Address Line 2" class="form-control" <% if(formData){ %> value="<%- formData.address[0].line2 %>" <% } %>>
+            </div>
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-sm-4 control-label" for="textinput">City</label>
+            <div class="col-sm-10">
+              <input type="text" name="address[0][town_village]" placeholder="City" class="form-control" <% if(formData){ %> value="<%- formData.address[0].town_village %>" <% } %>>
+            </div>
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-sm-4 control-label" for="textinput">Province</label>
+            <div class="col-sm-10">
+              <input type="text" name="address[0][province]" placeholder="Province" class="form-control" <% if(formData){ %> value="<%- formData.address[0].province %>" <% } %>>
+            </div>
+
+            <label class="col-sm-4 control-label" for="textinput">Pincode</label>
+            <div class="col-sm-10">
+              <input type="number" name="address[0][pincode]" placeholder="Post Code" class="form-control" <% if(formData){ %> value="<%- formData.address[0].pincode %>" <% } %>>
+            </div>
+          </div>
+           
+          <div class="form-group">
+            <label class="col-sm-4 control-label" for="textinput">State</label>
+            <div class="col-sm-10">
+              <input type="text" name="address[0][state]" placeholder="State" class="form-control" <% if(formData){ %> value="<%- formData.address[0].state %>" <% } %>>
+            </div>
+
+          <legend>Vaccination</legend>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-sm-4 control-label" for="textinput">Disease</label>
+            <div class="col-sm-15">
+              <input type="text" name="vaccinations[0][disease]"  class="form-control" <% if(formData){ %> value="<%- formData.vaccinations[0].disease %>" <% } %>> 
+            </div>
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-sm-4 control-label" for="textinput">Due date</label>
+            <div class="col-sm-15">
+              <input type="date" name="vaccinations[0][duedate]" class="form-control" <% if(formData){ %> value="<%- formData.vaccinations[0].duedate %>" <% } %>>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-6 control-label" for="textinput">Upload Image</label>
+            <div class="col-sm-15">
+              <input type="file" name="image"  class="form-control">
+            </div>
+        </fieldset>
+      </form>
+    </div><!-- /.col-lg-12 -->
+</div><!-- /.row -->
+    <!-- Select Basic -->
+    
+    <!-- Success message -->
+   <!--  <div class="alert alert-success" role="alert" id="success_message">Success <i class="glyphicon glyphicon-thumbs-up"></i> Success!.</div> -->
+    
+    <!-- Button -->
+    <div class="form-group">
+      <label class="col-md-4 control-label"></label>
+      <div class="col-md-10"><br>
+        <button type="submit" class="btn btn-warning" >SUBMIT </button>
+      </div>
+    </div>
+    
+    </fieldset>
+    </form>
+    </div>
+        </div><!-- /.container -->
+        <footer >
+            <%- include("footer.ejs") %>
+        </footer>
+</body>
+</html>
+

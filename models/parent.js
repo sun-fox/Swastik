@@ -1,6 +1,7 @@
-var mongoose = require('mongoose');
-var Address = require('./address');
-var Child = require('./child');
+var mongoose = require('mongoose'),
+    Schema = mongoose.Schema;
+var mongooseUniqueValidator = require('mongoose-unique-validator');
+const addressSchema = require('../models/address');
 const parentSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -8,26 +9,33 @@ const parentSchema = new mongoose.Schema({
     },
     email: {
         type: String,
+        unique: true,
         required: false
     },
     phoneno: {
         type: String,
+        unique: true,
         required: true
     },
     spouse: {
         type: String,
         required: true
     },
-    children: [Child],
+    children: [{
+        type: String,
+        required: false
+    }],
     aadharno: {
         type: String,
+        unique: true,
         requied: true
     },
-    address:[Address],
-    gender:{
-        type:String,
+    address: [addressSchema],
+    gender: {
+        type: String,
         required: true
     }
 });
-var Parent = mongoose.model('parent', parentSchema);
+parentSchema.plugin(mongooseUniqueValidator);
+var Parent = mongoose.model('Parent', parentSchema);
 module.exports = Parent;

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="shortcut icon" type="image/icon" href="../public/images/logo.png" />
+  <link rel="stylesheet" href="../public/stylesheets/custom.css">
+  <link rel="stylesheet" href="../public/stylesheets/bootstrap.min.css">
+  <script src="../public/javascripts/bootstrap.min.js" type="text/javascript"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxy/1.6.1/scripts/jquery.ajaxy.js"></script>
+  <title>Swastik|Home</title>
+</head>
+
+<body>
+  <div class="container-fluid top-strip">
+    <div class="row text-center">
+      <div class="col-md-4 col-xs-12"><img src="../public/images/logo.png" class="img-responsive">
+        <h5 id="slogan">A Step Closer To Healthy India</h5>
+      </div>
+      <div class="col-md-4 col-xs-12"><img src="../public/images/satyamev.svg" class="img-responsive">
+        <h5 id="header-title">Ministry of Women and Child Development
+          Government of India
+        </h5>
+      </div>
+      <div class="col-md-4 col-xs-12"><img src="../public/images/Towards a new dawn_Logo.png" class="img-responsive">
+      </div>
+    </div>
+  </div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light container-fluid">
+    <a class="navbar-brand" href="#">Swastik</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/Register/parent">Register Parents</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/Register/child">Register Child</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/Signup">Signup</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/Login">Login</a>
+        </li>
+    </div>
+  </nav><br>
+  <div class=" row text-center">
+    <div class="col-md-3 col-sm-12"></div>
+    <div class="col-md-6 col-sm-12">
+      <h4>Child Details</h4>
+      <form method="POST" action="/Client/Parent/">
+        <div class="form-group"><input class="form-control" id="Aadhar" type="text" name="aadharno" placeholder="Aadhar No."
+            required></div>
+        <!-- <div class ="form-group"><input class= "form-control" type ="password"name ="password" placeholder ="Password" required></div> -->
+        <div class="form-group" id="sbtn"><button class="btn btn-primary btn-block" style="width:100%;">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <br>
+  <div class="row  text-center">
+    <div class="col-md-9"></div>
+    <div class="col-md-3">
+      <form action="" method="">
+        <button class="btn btn-success">Send Message</button>
+      </form>
+    </div>
+  </div><br>
+  <div class="row jumbotron">
+    <div class="col-md-12 col-xs-12">
+      <h6><u>Documents Required</u></h6>
+      <ul>
+        <li>Adhaar Card of parents and (child if available)</li>
+        <li>Birth Certificate of the Child</li>
+      </ul>
+    </div>
+  </div>
+  <div class="row footer text-center navbar-light bg-light">
+    <div class="col-md-12 col-xs-12">
+      <p>Copyright Swastik</p>
+    </div>
+  </div>
+  <script>
+    // $(document).ready(function () {
+    //   var submit = $('#sbtn');
+    //   // writing Ajax to send data from client side to the server side.
+    //   submit.on('click', function () {
+    //     var Aadharno = document.getElementById('Aadhar').value;
+    //     console.log(Aadharno);
+    //     // var pass = document.getElementById('passs').value;
+    //     // var usr_obj = {
+    //     //   name: userName,
+    //     //   email: emailId,
+    //     //   password: pass
+    //     // }
+    //     // console.log("client: " + usr_obj);
+    //     $.ajax({
+    //       url: 'http://localhost:3000/Client/parent/'+Aadharno,
+    //       data: Aadharno,
+    //       type: 'GET',
+    //       success: function (data) {
+    //         console.log('Success: ' + data);
+    //         // window.location.replace("http://localhost:3000/child");
+    //       },
+    //       error: function (xhr, status, error) {
+    //         console.log('Error: ' + error.message);
+    //       },
+    //     });
+    //   })
+    // });
+  </script>
+
+</body>
+
+</html>

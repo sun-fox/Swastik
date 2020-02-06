@@ -1,17 +1,26 @@
-var mongoose = require('mongoose');
-var Address = require('./address');
-var Parent = require('./parent');
+var mongoose = require('mongoose'),
+    Schema = mongoose.Schema;
+var mongooseUniqueValidator = require('mongoose-unique-validator');
+const addressSchema = require('../models/address');
+const vaccineSchema = require('../models/vaccine');
 const childSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
     },
-    parent:[Parent],
-    age: {
-        type: Number,
+    Mphoneno: {
+        type:String,
+        required: true
+    },
+    Fphoneno: {
+        type:String,
         required: true
     },
     gender: {
+        type: String,
+        required: true
+    },
+    DOB: {
         type: String,
         required: true
     },
@@ -21,9 +30,11 @@ const childSchema = new mongoose.Schema({
     },
     aadharno: {
         type: String,
-        requied: true
+        required: false
     },
-    address: [Address]
+    vaccinations: [vaccineSchema],
+    address: [addressSchema]
 });
-var Child = mongoose.model('child', childSchema);
+childSchema.plugin(mongooseUniqueValidator);
+var Child = mongoose.model('Child', childSchema);
 module.exports = Child;

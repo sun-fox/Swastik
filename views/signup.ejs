@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SignUp</title>
+    <link rel="shortcut icon" type="image/icon" href="../public/img/logoem.jpg" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: url(http://eskipaper.com/images/mountain-landscape-2.jpg);
+            font-family: 'PT Sans';
+        }
+
+        button:hover {
+            cursor: pointer;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .wrapper {
+            background: rgba(0, 0, 0, 0.6);
+            position: relative;
+            width: 800px;
+            height: 300px;
+            margin: 0 auto;
+            margin-top: 150px;
+        }
+
+        .left,
+        .right {
+            width: 50%;
+        }
+
+        .left {
+            float: left;
+        }
+
+        .right {
+            float: right
+        }
+
+        .back-header,
+        .back-p {
+            margin: 20px;
+            color: #fafafa;
+            letter-spacing: 1px;
+
+        }
+
+        .back-header {
+            font-family: 'Ubuntu';
+            font-size: 30px;
+            font-weight: 500;
+        }
+
+        .back-p {
+            font-family: 'PT Sans';
+            letter-spacing: 1px;
+            font-size: 20px;
+            line-height: 30px;
+            margin-right: 60px;
+        }
+
+        .background button {
+            position: absolute;
+            left: 0;
+            bottom: 60px;
+        }
+
+        .background .left button {
+            left: 20px;
+        }
+
+        .background .right button {
+            left: 420px;
+        }
+
+        .form-container {
+            position: absolute;
+            width: 375px;
+            height: 425px;
+            background-color: white;
+            top: -25px;
+            left: 10px;
+            box-shadow: 9px 13px 16px 0px rgba(0, 0, 0, 0.75);
+        }
+
+        .sign-up,
+        .login {
+            margin: 40px;
+        }
+
+        .back-btn {
+            width: 100px;
+            height: 30px;
+            font-size: 15px;
+            border: 0;
+            border-radius: 3px;
+            background: transparent;
+            border: 1px solid white;
+            color: #fafafa;
+            transition: .3s all;
+        }
+
+        .back-btn:hover {
+            background-color: #145977;
+            border: 1px solid #145977;
+        }
+
+        .form-btn {
+            display: block;
+            margin-top: 30px;
+            width: 150px;
+            height: 35px;
+            font-size: 18px;
+            border: 0;
+            border-radius: 3px;
+            background-color: #FC7D5F;
+            color: #fafafa;
+            transition: .4s all;
+        }
+
+        .sign-up button:hover,
+        .login button:hover {
+            background-color: #C53716;
+        }
+
+        .form-header {
+            font-size: 32px;
+            color: #FC7D5F;
+        }
+
+        .form-container input {
+            margin-top: 20px;
+            width: 80%;
+            height: 30px;
+            border: 0;
+            border-bottom: 1px solid #888;
+        }
+
+        input[type="text"],
+        input[type="email"] {
+            color: #555;
+        }
+
+        .form-container i {
+            margin-left: 10px;
+            margin-bottom: -5px;
+            color: #888;
+        }
+
+        .login button,
+        .forgot {
+            display: inline-block;
+        }
+
+        .forgot {
+            margin-left: 15px;
+            text-decoration: none;
+            color: black;
+        }
+
+        .forgot:hover {
+            color: #FC7D5F;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<link href="https://fonts.googleapis.com/css?family=PT+Sans|Ubuntu:400,500" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+<body>
+
+    <div class="wrapper" style="margin-top:15%">
+        <div class="background">
+            <div class="left">
+                <h2 class="back-header">Dont have an account yet?</h2>
+                <p class="back-p">Well doggonit you should sign up today!</p>
+                <button class="back-btn signup-but">SIGN UP</button>
+            </div>
+            <div class="right">
+                <h2 class="back-header">Do you already have an account?</h2>
+                <p class="back-p">Well doggonit let's get you logged in!</p>
+                <button class="back-btn login-but"><a href="/login"
+                        style="color:white; text-decoration:none">LOGIN</a></button>
+            </div>
+        </div>
+        <div class="form-container">
+            <div class="sign-up">
+                <h2 class="form-header">SIGN UP</h2>
+                <form action="/Signup/new_user" method="POST">
+                    <input type="text" id="users" name="username" placeholder="Enter UserName"><i class="fa fa-user"></i></input>
+                    <input type="text" id="emails" name="email" placeholder="Email"><i class="fa fa-envelope-o"></i></input>
+                    <input type="text" id="phoneno" name="phoneno" placeholder="Phone No."><i class="fa fa-phone"></i></input>
+                    <input type="text" id="aadhar" name="aadharno" placeholder="Aadhar No."><i class="fa fa-user"></i></input>
+                    <input type="password" name="password"id="passs" placeholder="Password"><i class="fa fa-lock"></i></input>
+                    <button class="form-btn">SIGN UP</button>
+                </form>
+
+            </div>
+            <div class="login hide">
+                <h2 class="form-header">LOGIN</h2>
+                <input type="text" id="email" placeholder="Email"><i class="fa fa-envelope-o"></i></input>
+                <input type="password" id="pass" placeholder="Password"><i class="fa fa-lock"></i></input>
+                <button class="form-btn1">LOGIN</button>
+                <a class="forgot" href="#">Forgot password</a>
+
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            var signUp = $('.signup-but');
+            var logIn = $('.login-but');
+            var sign = $('.form-btn');
+
+            signUp.on('click', function () {
+                $('.login').fadeOut('slow').css('display', 'none');
+                $('.sign-up').fadeIn('slow');
+
+                $('.form-container').animate({ left: '10px' }, 'slow');
+            });
+
+            logIn.on('click', function () {
+                $('.login').fadeIn('slow');
+                $('.sign-up').fadeOut('slow').css('display', 'none');
+
+                $('.form-container').animate({ left: '400px' }, 'slow');
+            });
+
+        });
+    </script>
+</body>
+
+</html>
