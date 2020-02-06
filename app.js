@@ -17,6 +17,7 @@ var clientRoute = require('./routes/client');
 var messageRoute = require('./routes/message');
 var statisticsRoute = require('./routes/stats');
 var searchRoute = require('./routes/search_client');
+var complainRoute = require('./routes/complain');
 
 mongoose.connect(process.env.LOCALDB, {
     useNewUrlParser: true, 
@@ -67,6 +68,7 @@ app.use('/Client',clientRoute);
 app.use('/Message',messageRoute);
 app.use('/Statistics',statisticsRoute);
 app.use('/Search',searchRoute);
+app.use('/Complain',complainRoute);
 
 app.get('/Contacts', (req, res) => {
     res.render('contact');
