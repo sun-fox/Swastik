@@ -53,6 +53,57 @@ router.get("/children/pincode/:pincode", (req, res) => {
     });
 });
 
+router.get("/count_parents_children", (req, res) => {
+    var male_parents = [];
+    var female_parents = [];
+    var male_childs = [];
+    var female_childs = [];
+    Parent.find({},(err,parent)=>{
+        if(err){
+            console.log("error");
+        }
+        else{
+            setTimeout(()=>{
+                parent.forEach((parent)=>{
+                    if(parent.gender == 'M'){
+                        male_parents.push(parent);
+                    }
+                    else if(parent.gender == 'F'){
+                        female_parents.push(parent);
+                    }
+                })
+            },100); 
+        }
+    });
+    Child.find({},(err,child)=>{
+        if(err){
+            console.log("error");
+        }
+        else{
+            setTimeout(()=>{
+                child.forEach((child)=>{
+                    if(child.gender == 'M'){
+                        male_childs.push(child);
+                    }
+                    else if(child.gender == 'F'){
+                        female_childs.push(child);
+                    }
+                })
+            },100); 
+        }
+    });
+
+    setTimeout(()=>{
+        var count_JSON = {
+            'Male Parents Count':male_parents.length,
+            'Female Parents Count':female_parents.length,
+            'Male Children Count':male_childs.length,
+            'Female Children Count':female_childs.length,
+        }
+        res.send(count_JSON);
+    },500)
+});
+
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
