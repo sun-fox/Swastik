@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="190px" height="190px" version="1.1" id="L1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+     <circle fill="none" stroke="#bfc640" stroke-width="5" stroke-miterlimit="15" stroke-dasharray="14.2472,14.2472" cx="50" cy="50" r="47" transform="rotate(287.859 50 50)">
+      <animateTransform attributeName="transform" attributeType="XML" type="rotate" dur="5s" from="0 50 50" to="360 50 50" repeatCount="indefinite"></animateTransform>
+  </circle>
+ <!--  <circle fill="none" stroke="#fff" stroke-width="1" stroke-miterlimit="10" stroke-dasharray="10,10" cx="50" cy="50" r="39" transform="rotate(-287.859 50 50)">
+      <animateTransform attributeName="transform" attributeType="XML" type="rotate" dur="5s" from="0 50 50" to="-360 50 50" repeatCount="indefinite"></animateTransform>
+  </circle> -->
+<g>
+	<path fill="#BFC640" d="M42.881,39.397c0,0-2.373-5.535-7.682-6.665c-5.309-1.13-6.213-2.034-6.213-2.034
+		S34.183,41.318,42.881,39.397z"/>
+	<path fill="#BFC640" d="M57.904,29.795c0,0-0.337-5.647,2.6-7.908c2.937-2.258,3.953-5.196,3.953-5.196
+		S65.361,26.858,57.904,29.795z"/>
+	<path fill="#BFC640" d="M63.327,39.63c0,0,0-8.254,8.246-8.932C71.573,30.698,69.652,39.071,63.327,39.63z"/>
+	<path fill="#BFC640" d="M60.39,54.647c0,0,0.206-8.38,9.49-9.143C69.88,45.504,67.512,54.019,60.39,54.647z"/>
+	<path fill="#28854C" d="M43.365,77.24c0,0-0.451-8.247,9.715-16.267c10.167-8.02,3.502-19.77,3.502-19.77s2.937,9.942-7.569,16.38
+		C40.429,64.022,43.365,77.24,43.365,77.24z"/>
+	<path fill="#F58634" d="M53.048,50.075c0,0,1.129-8.872-8.135-17.004c-13.216-10.73-5.498-19.451-5.498-19.451
+		s-0.479,6.938,8.209,14.932C60.286,38.3,53.048,50.075,53.048,50.075z"/>
+	<circle fill="#F58634" cx="50.038" cy="20.431" r="4.688"/>
+	<circle fill="#28854C" cx="45.917" cy="50.256" r="4.688"/>
+	<path fill="#28854C" d="M33.505,77.917c0,0,4.632,1.813,12.637,0c0,0,3.492-1.581,11.75,1.244
+		C57.892,79.162,44.011,86.277,33.505,77.917z"/>
+</g>
+</svg>
