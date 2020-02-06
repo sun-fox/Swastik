@@ -9,7 +9,7 @@ var router = express.Router(),
     Child = require("../models/child"),
     Parent = require("../models/parent");
 
-mongoose.connect(process.env.REMOTEDB, { useNewUrlParser: true, useUnifiedTopology: true }, () => {
+mongoose.connect("mongodb://localhost/swastik", { useNewUrlParser: true, useUnifiedTopology: true }, () => {
     console.log("db connected in register route");
 });
 
