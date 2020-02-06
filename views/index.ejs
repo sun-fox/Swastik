@@ -23,31 +23,36 @@
             <div class ="col-md-4 col-xs-12"><img src ="../../public/images/Towards a new dawn_Logo.png" class ="img-responsive"></div>
         </div>
         </div>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light container-fluid">
-            <a class="navbar-brand" href="/">Swastik</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-          
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                  <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Dashboard</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Gallery</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">User Manual</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/admin">Admin Portal</a>
-                  </li>
-            </div>
-          </nav>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand" href="/">Swastik</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/dashboard">Dashboard</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/gallery">Gallery</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/usermanual">User Manual</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/admin">Admin Portal</a>
+              </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0" action="" method="GET">
+              <input class="form-control mr-sm-2" type="search" placeholder="Search" name ="pincode"aria-label="Search">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+          </div>
+        </nav>
 
 
           <div class="container-fluid" style ="padding:0;">
@@ -88,27 +93,31 @@
            </div>
          </div>
          <div class ="container-fluid">
-            <div class ="row text-center">
-                <div class ="col-md-3 col-xs-12 text-center">
-                    <div class ="caption" style ="background-color:lightgrey"><h4>Girl</h4></div>
-                    <div class ="thumbnail" ><img src ="public\images\girl.png" height="100"></div>
-                    <div class ="caption" style ="background-color:lightgrey"><h4><%=Data["Female Children Count"]%></h4></div>
+            <div class ="row text-center"style ="background-color:rgb(243, 172, 114);padding:10px;border-top:2px solid brown">
+                <div class ="col text-center">
+                    <div class ="thumbnail" ><img src ="public\images\download.png" height="80"></div>
+                    <div class ="caption" ><h4><%=Data["Female Children Count"]+Data["Male Children Count"]+Data["Female Parents Count"]+Data["Male Parents Count"]%></h4></div>
+                    <div class ="caption" ><h5><u>Total Participation</u></h5></div>
                 </div>
-                <div class ="col-md-3 col-xs-12 text-center">
-                    <div class ="caption" style ="background-color:lightgrey"><h4>Boy</h4></div>
-                    <div class ="thumbnail" ><img src ="public\images\boy.png" height="100"></div>
-                    <div class ="caption" style ="background-color:lightgrey"><h4><%=Data["Male Children Count"]%></h4></div>
+                <div class ="col text-center">
+                    <div class ="thumbnail" ><img src ="public\images\girl.png" height="80"></div>
+                    <div class ="caption"><h4><%=Data["Female Children Count"]%></h4></div>
+                    <div class ="caption"><h5><u>Girls</u></h5></div>
                 </div>
-                <div class ="col-md-3 col-xs-12 text-center">
-                    <div class ="caption" style ="background-color:lightgrey"><h4>Women</h4></div>
-                    <div class ="thumbnail" ><img src ="public\images\female.png" height="100"></div>
-                    <div class ="caption" style ="background-color:lightgrey"><h4><%=Data["Female Parents Count"]%></h4></div>
-
+                <div class ="col text-center">
+                    <div class ="thumbnail" ><img src ="public\images\boy.png" height="80"></div>
+                    <div class ="caption"><h4><%=Data["Male Children Count"]%></h4></div>
+                    <div class ="caption"><h5><u>Boys</u></h5></div>
                 </div>
-                <div class ="col-md-3 col-xs-12 text-center">
-                    <div class ="caption" style ="background-color:lightgrey"><h4>Men</h4></div>
-                    <div class ="thumbnail" ><img src ="public\images\Male.png" height="100"></div>
-                    <div class ="caption" style ="background-color:lightgrey"><h4><%=Data["Male Parents Count"]%></h4></div>
+                <div class ="col text-center">
+                    <div class ="thumbnail" ><img src ="public\images\female.png" height="80"></div>
+                    <div class ="caption"><h4><%=Data["Female Parents Count"]%></h4></div>
+                    <div class ="caption"><h5><u>Women</u></h5></div>
+                </div>
+                <div class ="col text-center">
+                    <div class ="thumbnail" ><img src ="public\images\Male.png" height="80"></div>
+                    <div class ="caption"><h4><%=Data["Male Parents Count"]%></h4></div>
+                    <div class ="caption"><h5><u>Men</u></h5></div>
                 </div>
             </div>
          </div>
