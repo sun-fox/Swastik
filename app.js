@@ -7,7 +7,9 @@ var mongoose = require('mongoose'),
     passport = require("passport"),
     localStrategy = require("passport-local"),
     passportLocalMongoose = require("passport-local-mongoose"),
-    User = require("./models/user");
+    User = require("./models/user"),
+    Parent = require("./models/parent"),
+    Child = require("./models/child");
 var ejs = require("ejs");
 var registerRoute = require('./routes/register');
 var protectRoute = require('./routes/protect');
@@ -28,20 +30,6 @@ mongoose.connect(process.env.LOCALDB, {
   }).catch((e)=>{
     console.log('Database connectivity error ',e)
   });
-
-
-// const MongoClient = require('mongodb').MongoClient;
-// // replace the uri string with your connection string.
-// const uri = "mongodb+srv://sunny:singh@cluster0-tkvij.mongodb.net/test"
-// MongoClient.connect(uri, function(err, client) {
-//    if(err) {
-//         console.log('Error occurred while connecting to MongoDB Atlas...\n',err);
-//    }
-//    console.log('Connected...');
-// //    const collection = client.db("swastik").collection("devices");
-//    // perform actions on the collection object
-// //    client.close();
-// });
 
 app.use(require("express-session")({
     secret:"secret!",
@@ -74,12 +62,60 @@ app.get('/Contacts', (req, res) => {
     res.render('contact');
 })
 
+app.get('/admin',(req,res)=>{
+    res.render("admin");
+});
+
 app.get("/", function (req, res) {
-    // res.send("index page will be here");
-    res.render("index.ejs");
-})
-app.get("/admin",(req,res)=>{
-    res.render("admin.ejs");
+    var male_parents = [];
+    var female_parents = [];
+    var male_childs = [];
+    var female_childs = [];
+    Parent.find({},(err,parent)=>{
+        if(err){
+            console.log("error");
+        }
+        else{
+            setTimeout(()=>{
+                parent.forEach((parent)=>{
+                    if(parent.gender == 'M'){
+                        male_parents.push(parent);
+                    }
+                    else if(parent.gender == 'F'){
+                        female_parents.push(parent);
+                    }
+                })
+            },100); 
+        }
+    });
+    Child.find({},(err,child)=>{
+        if(err){
+            console.log("error");
+        }
+        else{
+            setTimeout(()=>{
+                child.forEach((child)=>{
+                    if(child.gender == 'M'){
+                        male_childs.push(child);
+                    }
+                    else if(child.gender == 'F'){
+                        female_childs.push(child);
+                    }
+                })
+            },100); 
+        }
+    });
+
+    setTimeout(()=>{
+        var count_JSON = {
+            'Male Parents Count':male_parents.length,
+            'Female Parents Count':female_parents.length,
+            'Male Children Count':male_childs.length,
+            'Female Children Count':female_childs.length,
+        }
+        // res.send(count_JSON);
+        res.render("index.ejs",{Data:count_JSON});
+    },500)
 })
 
 app.get("/logout",function(req,res){
