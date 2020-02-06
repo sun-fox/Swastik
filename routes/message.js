@@ -11,9 +11,15 @@ var router = express.Router(),
 
 const Nexmo = require('nexmo');
 
+<<<<<<< HEAD
 mongoose.connect('mongodb://localhost:27017/swastik', { useNewUrlParser: true, useUnifiedTopology: true }, () => {
     console.log("db connected in protect route");
 });
+=======
+// mongoose.connect(process.env.LOCALDB, { useNewUrlParser: true, useUnifiedTopology: true }, () => {
+//     console.log("db connected in protect route");
+// });
+>>>>>>> upstream/master
 
 router.use(require("express-session")({
     secret: "secret!",
@@ -33,7 +39,11 @@ router.get("/", (req, res) => {
 
 router.get("/phonenos", (req, res) => {
     var phonenos = [];
+<<<<<<< HEAD
     var today = req.body.date;
+=======
+    var today = req.query.date;
+>>>>>>> upstream/master
     console.log(today);
     Child.find({ "vaccinations.duedate": today }, (err, ward) => {
         if (err) {
@@ -44,20 +54,62 @@ router.get("/phonenos", (req, res) => {
             ward.forEach((child) => {
                 if (child.Mphoneno) {
                     if (phonenos.indexOf(child.Mphoneno) === -1)
+<<<<<<< HEAD
                     phonenos.push(child.Mphoneno);
+=======
+                        phonenos.push(child.Mphoneno);
+>>>>>>> upstream/master
                     console.log(child.Mphoneno);
                 }
                 if (child.Fphoneno) {
                     console.log(child.Fphoneno);
                     if (phonenos.indexOf(child.Fphoneno) === -1)
+<<<<<<< HEAD
                     phonenos.push(child.Fphoneno);
+=======
+                        phonenos.push(child.Fphoneno);
+>>>>>>> upstream/master
                 }
                 console.log(phonenos)
             })
         }
     });
     setTimeout(() => {
+<<<<<<< HEAD
         res.render("phonenos",{contactnos:phonenos});
+=======
+        res.render("phonenos", { contactnos: phonenos });
+    }, 1000);
+});
+
+router.get("/phonenos/all_parents/:pincode", (req, res) => {
+    var phonenos = [];
+    var today = req.query.date;
+    console.log(today);
+    Child.find({ "address.pincode": req.params.pincode }, (err, ward) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log(ward);
+            ward.forEach((child) => {
+                if (child.Mphoneno) {
+                    if (phonenos.indexOf(child.Mphoneno) === -1)
+                        phonenos.push(child.Mphoneno);
+                    console.log(child.Mphoneno);
+                }
+                if (child.Fphoneno) {
+                    console.log(child.Fphoneno);
+                    if (phonenos.indexOf(child.Fphoneno) === -1)
+                        phonenos.push(child.Fphoneno);
+                }
+                console.log(phonenos)
+            })
+        }   
+    });
+    setTimeout(() => {
+        res.render("phonenos", { contactnos: phonenos });
+>>>>>>> upstream/master
     }, 1000);
 });
 
@@ -68,14 +120,23 @@ const nexmo = new Nexmo({
 
 
 router.post('/sendtoall', (req, res) => {
+<<<<<<< HEAD
     var arr = req.body.nos;
     console.log(arr);
     const text = "helllo i am atul from nodejs";
+=======
+    var arr = req.body.contactnos.split(',');
+    var msg = req.body.msg;
+>>>>>>> upstream/master
     for (var number in arr) {
         arr[number] = "91" + arr[number];
         console.log(arr[number]);
         nexmo.message.sendSms(
+<<<<<<< HEAD
             '918957790795', arr[number], text, { type: 'unicode' },
+=======
+            '918957790795', arr[number], msg, { type: 'unicode' },
+>>>>>>> upstream/master
             (err, responseData) => {
                 if (err) {
                     console.log(err);
@@ -83,9 +144,13 @@ router.post('/sendtoall', (req, res) => {
                 else {
                     console.dir(responseData);
                 }
+<<<<<<< HEAD
             }
         );
 
+=======
+            });
+>>>>>>> upstream/master
     }
     res.send("Messages Sent!!");
 

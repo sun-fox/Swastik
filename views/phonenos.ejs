@@ -5,11 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Phone Nos.</title>
+<<<<<<< HEAD
+=======
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxy/1.6.1/scripts/jquery.ajaxy.js"></script>
+>>>>>>> upstream/master
 </head>
 <body>
     <% contactnos.forEach((no)=>{%>
         <p><%= no %></p>
     <% }) %> 
+<<<<<<< HEAD
     <button type="submit">Send Messages</button>
+=======
+    <form method="POST" action="/message/sendtoall">
+        <input value="<%=contactnos%>" name="contactnos" style="display: none;">
+        <textarea value="" placeholder="Type message content here!!" name="msg"></textarea>
+        <button type="submit" id="sendall">Send Messages</button>
+    </form>
+    <!-- <script>
+        $(document).ready(function () {
+          contact = contactnos;
+          var submit = $('#sendall');
+          submit.on('click', function () {
+            $.ajax({
+              url: 'http://localhost:3000/Message/sendtoall',
+              data: contact,
+              type: 'POST',
+              success: function (data) {
+                console.log('Success: ' + data);
+                document.write("Messages Sent!!");
+                // window.location.replace("http://localhost:3000/child");
+              },
+              error: function (xhr, status, error) {
+                console.log('Error: ' + error.message);
+              },
+            });
+          })
+        });
+      </script> -->
+    
+>>>>>>> upstream/master
 </body>
 </html>

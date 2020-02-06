@@ -8,6 +8,13 @@ const childSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+<<<<<<< HEAD
+=======
+    image:{
+        type:String,
+        required:false
+    },
+>>>>>>> upstream/master
     Mphoneno: {
         type:String,
         required: true

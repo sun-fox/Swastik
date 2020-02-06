@@ -7,6 +7,10 @@ const parentSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    image:{
+        type:String,
+        required:false
+    },
     email: {
         type: String,
         unique: true,
