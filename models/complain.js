@@ -9,6 +9,14 @@ const complainSchema = new mongoose.Schema({
     complaint: {
         type: String,
         required: true
+    },
+    title:{
+        type:String,
+        required:false
+    },
+    Subject:{
+        type:String,
+        required:false
     }
 });
 complainSchema.plugin(mongooseUniqueValidator);
