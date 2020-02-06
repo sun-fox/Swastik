@@ -15,9 +15,33 @@ var loginRoute = require('./routes/login');
 var signupRoute = require('./routes/signup');
 var clientRoute = require('./routes/client');
 var messageRoute = require('./routes/message');
-mongoose.connect(process.env.REMOTEDB, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
-    console.log("db connected");
-});
+var statisticsRoute = require('./routes/stats');
+var searchRoute = require('./routes/search_client');
+var complainRoute = require('./routes/complain');
+
+mongoose.connect(process.env.LOCALDB, {
+    useNewUrlParser: true, 
+    useUnifiedTopology: true, 
+    dbName: 'swastik'
+  }).then(()=>{
+      console.log("db connected!!");
+  }).catch((e)=>{
+    console.log('Database connectivity error ',e)
+  });
+
+
+// const MongoClient = require('mongodb').MongoClient;
+// // replace the uri string with your connection string.
+// const uri = "mongodb+srv://sunny:singh@cluster0-tkvij.mongodb.net/test"
+// MongoClient.connect(uri, function(err, client) {
+//    if(err) {
+//         console.log('Error occurred while connecting to MongoDB Atlas...\n',err);
+//    }
+//    console.log('Connected...');
+// //    const collection = client.db("swastik").collection("devices");
+//    // perform actions on the collection object
+// //    client.close();
+// });
 
 app.use(require("express-session")({
     secret:"secret!",
@@ -42,6 +66,10 @@ app.use('/Signup', signupRoute);
 app.use('/Protected',protectRoute);
 app.use('/Client',clientRoute);
 app.use('/Message',messageRoute);
+app.use('/Statistics',statisticsRoute);
+app.use('/Search',searchRoute);
+app.use('/Complain',complainRoute);
+
 app.get('/Contacts', (req, res) => {
     res.render('contact');
 })

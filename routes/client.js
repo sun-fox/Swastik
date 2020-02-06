@@ -11,9 +11,9 @@ var router = express.Router(),
     async = require("async"),
     Child = require("../models/child");
 
-mongoose.connect("mongodb://localhost/swastik", { useNewUrlParser: true, useUnifiedTopology: true }, () => {
-    console.log("db connected in client route");
-});
+// mongoose.connect(process.env.LOCALDB, { useNewUrlParser: true, useUnifiedTopology: true }, () => {
+//     console.log("db connected in client route");
+// });
 
 router.use(require("express-session")({
     secret: "secret!",
@@ -43,8 +43,9 @@ router.post("/parent", (req, res) => {
 })
 
 
-var retrieved_children = [];
+
 router.get("/parent/:aadharno/children", (req, res) => {
+    var retrieved_children = [];
     var aadhar = req.params.aadharno;
     console.log("Aadhar no. " + aadhar);
     Parent.findOne({ 'aadharno': aadhar }, (err, parent) => {
@@ -60,8 +61,10 @@ router.get("/parent/:aadharno/children", (req, res) => {
                         console.log(err);
                     }
                     else {
-                        retrieved_children.push(details_child);
-                        console.log(retrieved_children);
+                        if(details_child){
+                            retrieved_children.push(details_child);
+                            console.log(retrieved_children);
+                        }
                     }
                 })
             });
@@ -69,7 +72,7 @@ router.get("/parent/:aadharno/children", (req, res) => {
                 console.log('gotcha' + retrieved_children);
                 // res.send(retrieved_children);
                 res.render("children.ejs", { Child:  retrieved_children});
-            }, 200)
+            }, 500)
         }
     })
 })
@@ -81,6 +84,7 @@ router.put("/children/:child_id/update", (req, res) => {
     console.log(req.body);
     ward_changes = req.body;
     console.log(req.body);
+    updated_child=[];
     // var vac = req.body.vacc-name;
     // var dat = req.body.vacc-date;
     Child.update({ '_id': child },{$push:{vaccinations:[{disease:req.body.new_vacc,duedate:req.body.new_vacc_date}]}}, (err, child) => {
@@ -94,9 +98,8 @@ router.put("/children/:child_id/update", (req, res) => {
                 }
                 else {
                     console.log(ward);
-                    res.send(ward);
-                    
-                    
+                    updated_child.push(ward);
+                    res.render("children.ejs", { Child: updated_child});
                 }
             })
         }

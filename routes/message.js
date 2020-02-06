@@ -11,9 +11,9 @@ var router = express.Router(),
 
 const Nexmo = require('nexmo');
 
-mongoose.connect("mongodb://localhost/swastik", { useNewUrlParser: true, useUnifiedTopology: true }, () => {
-    console.log("db connected in protect route");
-});
+// mongoose.connect(process.env.LOCALDB, { useNewUrlParser: true, useUnifiedTopology: true }, () => {
+//     console.log("db connected in protect route");
+// });
 
 router.use(require("express-session")({
     secret: "secret!",
@@ -44,20 +44,50 @@ router.get("/phonenos", (req, res) => {
             ward.forEach((child) => {
                 if (child.Mphoneno) {
                     if (phonenos.indexOf(child.Mphoneno) === -1)
-                    phonenos.push(child.Mphoneno);
+                        phonenos.push(child.Mphoneno);
                     console.log(child.Mphoneno);
                 }
                 if (child.Fphoneno) {
                     console.log(child.Fphoneno);
                     if (phonenos.indexOf(child.Fphoneno) === -1)
-                    phonenos.push(child.Fphoneno);
+                        phonenos.push(child.Fphoneno);
                 }
                 console.log(phonenos)
             })
         }
     });
     setTimeout(() => {
-        res.render("phonenos",{contactnos:phonenos});
+        res.render("phonenos", { contactnos: phonenos });
+    }, 1000);
+});
+
+router.get("/phonenos/all_parents/:pincode", (req, res) => {
+    var phonenos = [];
+    var today = req.query.date;
+    console.log(today);
+    Child.find({ "address.pincode": req.params.pincode }, (err, ward) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log(ward);
+            ward.forEach((child) => {
+                if (child.Mphoneno) {
+                    if (phonenos.indexOf(child.Mphoneno) === -1)
+                        phonenos.push(child.Mphoneno);
+                    console.log(child.Mphoneno);
+                }
+                if (child.Fphoneno) {
+                    console.log(child.Fphoneno);
+                    if (phonenos.indexOf(child.Fphoneno) === -1)
+                        phonenos.push(child.Fphoneno);
+                }
+                console.log(phonenos)
+            })
+        }   
+    });
+    setTimeout(() => {
+        res.render("phonenos", { contactnos: phonenos });
     }, 1000);
 });
 
@@ -68,14 +98,13 @@ const nexmo = new Nexmo({
 
 
 router.post('/sendtoall', (req, res) => {
-    var arr = req.body.nos;
-    console.log(arr);
-    const text = "helllo i am atul from nodejs";
+    var arr = req.body.contactnos.split(',');
+    var msg = req.body.msg;
     for (var number in arr) {
         arr[number] = "91" + arr[number];
         console.log(arr[number]);
         nexmo.message.sendSms(
-            '918957790795', arr[number], text, { type: 'unicode' },
+            '918957790795', arr[number], msg, { type: 'unicode' },
             (err, responseData) => {
                 if (err) {
                     console.log(err);
@@ -83,9 +112,7 @@ router.post('/sendtoall', (req, res) => {
                 else {
                     console.dir(responseData);
                 }
-            }
-        );
-
+            });
     }
     res.send("Messages Sent!!");
 
