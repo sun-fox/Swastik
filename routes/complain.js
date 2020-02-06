@@ -50,8 +50,6 @@ router.post("/log_complaint",(req,res)=>{
             });
         },200);
     });
-
-
 });
 
 
