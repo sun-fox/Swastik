@@ -7,9 +7,9 @@ var router = express.Router(),
     passportLocalMongoose = require("passport-local-mongoose"),
     User = require("../models/user");
 
-mongoose.connect(process.env.LOCALDB, { useNewUrlParser: true, useUnifiedTopology: true }, () => {
-    console.log("db connected in protect route");
-});
+// mongoose.connect(process.env.LOCALDB, { useNewUrlParser: true, useUnifiedTopology: true }, () => {
+//     console.log("db connected in protect route");
+// });
 
 router.use(require("express-session")({
     secret: "secret!",

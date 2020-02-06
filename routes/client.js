@@ -11,9 +11,9 @@ var router = express.Router(),
     async = require("async"),
     Child = require("../models/child");
 
-mongoose.connect(process.env.LOCALDB, { useNewUrlParser: true, useUnifiedTopology: true }, () => {
-    console.log("db connected in client route");
-});
+// mongoose.connect(process.env.LOCALDB, { useNewUrlParser: true, useUnifiedTopology: true }, () => {
+//     console.log("db connected in client route");
+// });
 
 router.use(require("express-session")({
     secret: "secret!",

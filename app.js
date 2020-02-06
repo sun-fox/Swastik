@@ -15,9 +15,19 @@ var loginRoute = require('./routes/login');
 var signupRoute = require('./routes/signup');
 var clientRoute = require('./routes/client');
 var messageRoute = require('./routes/message');
-mongoose.connect(process.env.LOCALDB, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
-    console.log("db connected");
-});
+// mongoose.connect(process.env.REMOTEDB, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
+//     console.log("db connected");
+// });
+
+mongoose.connect(process.env.LOCALDB, {
+    useNewUrlParser: true, 
+    useUnifiedTopology: true, 
+    dbName: 'swastik'
+  }).then(()=>{
+      console.log("db connected!!");
+  }).catch((e)=>{
+    console.log('Database connectivity error ',e)
+  })
 
 app.use(require("express-session")({
     secret:"secret!",

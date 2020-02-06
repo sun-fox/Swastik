@@ -11,9 +11,9 @@ var router = express.Router(),
 
 const Nexmo = require('nexmo');
 
-mongoose.connect(process.env.LOCALDB, { useNewUrlParser: true, useUnifiedTopology: true }, () => {
-    console.log("db connected in protect route");
-});
+// mongoose.connect(process.env.LOCALDB, { useNewUrlParser: true, useUnifiedTopology: true }, () => {
+//     console.log("db connected in protect route");
+// });
 
 router.use(require("express-session")({
     secret: "secret!",
