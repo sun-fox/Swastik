@@ -120,7 +120,7 @@ router.post('/sendtoall', (req, res) => {
 
 router.get("/email", (req, res) => {
     var email = [];
-    var today = req.body.date;
+    var today = req.query.date;
     console.log(today);
     Child.find({ "vaccinations.duedate": today }, (err, ward) => {
         if (err) {
@@ -160,7 +160,7 @@ router.get("/email", (req, res) => {
         }
     });
     setTimeout(() => {
-        res.send(email);
+        res.render("phonenos",{contactnos : email});
     }, 100);
 });
 
