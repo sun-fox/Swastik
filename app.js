@@ -78,7 +78,9 @@ app.get("/", function (req, res) {
     // res.send("index page will be here");
     res.render("index.ejs");
 })
-
+app.get("/admin",(req,res)=>{
+    res.render("admin.ejs");
+})
 
 app.get("/logout",function(req,res){
     req.logout();
