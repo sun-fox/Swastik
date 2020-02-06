@@ -61,6 +61,36 @@ router.get("/phonenos", (req, res) => {
     }, 1000);
 });
 
+router.get("/phonenos/all_parents/:pincode", (req, res) => {
+    var phonenos = [];
+    var today = req.query.date;
+    console.log(today);
+    Child.find({ "address.pincode": req.params.pincode }, (err, ward) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log(ward);
+            ward.forEach((child) => {
+                if (child.Mphoneno) {
+                    if (phonenos.indexOf(child.Mphoneno) === -1)
+                        phonenos.push(child.Mphoneno);
+                    console.log(child.Mphoneno);
+                }
+                if (child.Fphoneno) {
+                    console.log(child.Fphoneno);
+                    if (phonenos.indexOf(child.Fphoneno) === -1)
+                        phonenos.push(child.Fphoneno);
+                }
+                console.log(phonenos)
+            })
+        }   
+    });
+    setTimeout(() => {
+        res.render("phonenos", { contactnos: phonenos });
+    }, 1000);
+});
+
 const nexmo = new Nexmo({
     apiKey: '0d4daa02',
     apiSecret: 'SAHw2cuS28PlWHNQ'
