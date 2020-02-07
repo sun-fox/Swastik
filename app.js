@@ -227,7 +227,7 @@ app.get('/start',(req,res)=>{
 
 app.get('/shownos',(req,res)=>{
 
-    res.render("printnos",{phonenos:noss});
+    res.render("printnos",{contactnos:noss});
 });
 
 app.get("/logout",function(req,res){
