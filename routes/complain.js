@@ -10,6 +10,7 @@ var router = express.Router(),
     Parent = require("../models/parent"),
     Complain = require("../models/complain");
 
+
 // mongoose.connect(process.env.LOCALDB, { useNewUrlParser: true, useUnifiedTopology: true }, () => {
 //     console.log("db connected in register route");
 // });
@@ -32,24 +33,33 @@ router.get("/", isLoggedIn, (req, res) => {
 
 router.post("/log_complaint",(req,res)=>{
     console.log("Here!!");
-    var complainer = req.body.complainer;
-    var complaint = req.body.complaint;
+
+    var complainer = req.body.email;
+    var complaint = req.body.msg;
     Parent.findOne({'email':complainer},(err,parent)=>{
+        if(!parent)
+        {
+            console.log("Email Not Found");
+            res.redirect('/');
+        }
+        else
+        {
         complainer = parent._id;
         setTimeout(()=>{
             var new_complain = new Complain({'complainer':complainer,'complaint':complaint});
-
             new_complain.save((err,complain)=>{
                 if(err){
                     console.log(error);
                 }
                 else{
                     console.log("Complaint registered!!");
-                    res.send(complain); 
+                    //res.send(complain);
+                    res.redirect('/');
                 }
             });
         },200);
-    });
+    }//else 
+    });// parent find
 });
 
 
