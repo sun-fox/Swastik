@@ -55,7 +55,8 @@ router.post("/log_complaint",(req,res)=>{
                 }
                 else{
                     console.log("Complaint registered!!");
-                    res.send(complain); 
+                    // res.send(complain); 
+                    res.redirect('/');
                 }
             });
         },200);

@@ -61,7 +61,37 @@ router.get("/phonenos", (req, res) => {
         }
     });
     setTimeout(() => {
-        res.render("phonenos", { contactnos: phonenos });
+        res.render("printnos", { contactnos: phonenos });
+    }, 1000);
+});
+
+router.get("/whatsapp", (req, res) => {
+    var phonenos = [];
+    var today = req.query.date;
+    console.log(today);
+    Child.find({ "vaccinations.duedate": today }, (err, ward) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log(ward);
+            ward.forEach((child) => {
+                if (child.Mphoneno) {
+                    if (phonenos.indexOf(child.Mphoneno) === -1)
+                        phonenos.push(child.Mphoneno);
+                    console.log(child.Mphoneno);
+                }
+                if (child.Fphoneno) {
+                    console.log(child.Fphoneno);
+                    if (phonenos.indexOf(child.Fphoneno) === -1)
+                        phonenos.push(child.Fphoneno);
+                }
+                console.log(phonenos)
+            })
+        }
+    });
+    setTimeout(() => {
+        res.render("whatsappnos", { contactnos: phonenos });
     }, 1000);
 });
 
@@ -102,6 +132,7 @@ const nexmo = new Nexmo({
 
 
 router.post('/sendtoall', (req, res) => {
+    console.log("Reached");
     var arr = req.body.contactnos.split(',');
     var msg = req.body.msg;
     for (var number in arr) {
@@ -118,8 +149,35 @@ router.post('/sendtoall', (req, res) => {
                 }
             });
     }
-    res.send("Messages Sent!!");
+    res.render('effect.ejs',{contactnos:arr});
 
+});
+
+
+const { MessagingResponse } = require('twilio').twiml;
+const accountSid = 'AC63dcb9c07e6cd8596c032a8ff5e59b1f';
+const authToken = '8006f3f18dda3891ff9e6c10f899f393';
+const client = require('twilio')(accountSid, authToken);
+const goodBoyUrl = 'https://lh3.googleusercontent.com/proxy/7q7Wx47mCOpMZC0_1j2RQNnNq7HEgCk5sjzIsyMw_meUpr2Xbyoy8BuyI1JFuAUU3gTrmyM2py04BPttN979w-c775WUwtyFwh6JQqHNG6GC0ZYNkiiBLKpPsB9xikmAm_1CWBDpBXwamn_Y-z_1BWmWXPWWBmqAZnJ6FbhuIPsCNAKO';
+
+
+router.post('/sendwhatsapptoall', (req, res) => {
+    const linkimg = req.body.link;
+    const message = req.body.message;
+    // var contacts = req.body.contacts;
+    var arr = req.body.contactnos.split(',');
+    console.log(arr);
+    arr.forEach((nos)=>{
+        client.messages.create({
+            to: "whatsapp:"+nos+"",
+            from: "whatsapp:+14155238886",
+            body: message,
+            mediaUrl: linkimg
+        }).then(message => {
+            console.log(message.sid);
+        }).catch(err => console.log(err));
+    })
+    res.render('effect.ejs',{contactnos:arr});
 });
 
 router.post('/sendmailtoall', (req, res) => {

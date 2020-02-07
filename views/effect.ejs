@@ -16,6 +16,27 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="/public/javascripts/jquery.js"></script>
   <script src="/public/javascripts/bootstrap.min.js"></script>
+  <script>
+    function Effecton() {
+      $("tr").each(function (i) {
+        $(this).css("display", "none");
+      });
+
+      $(".send-conf").html("<i class='fas fa-check-circle'></i> ");
+      $(".table").css("color", "green");
+      var delay = 1000;
+      $("tr").each(function (i) {
+        $(this).delay(200 * i).fadeIn(1000);
+        delay += 1000;
+      });
+      $("#send-sms-btn").attr("disabled", true);
+
+
+      setTimeout(function () { window.alert("ALL messages are sent .....") }, delay);
+
+    }
+
+  </script>
   <title>Document</title>
 </head>
 
@@ -49,12 +70,12 @@
       </tbody>
     </table>
 
-    <form method="POST" action="/message/sendtoall">
+    <!-- <form method="POST" action="/message/sendtoall">
       <input value="<%=contactnos%>" name="contactnos" style="display: none;">
       <textarea value="" placeholder="Type message content here!!" name="msg"></textarea>
       <br>
       <button type="submit" id="sendall">Send Messages</button>
-  </form>
+  </form> -->
 
   </div>
 
@@ -64,27 +85,7 @@
 
         <%- include("footer.ejs") %> -->
 
-  <script>
-    $(" #send-sms-btn").click(function () {
-      $("tr").each(function (i) {
-        $(this).css("display", "none");
-      });
-
-      $(".send-conf").html("<i class='fas fa-check-circle'></i> ");
-      $(".table").css("color", "green");
-      var delay = 1000;
-      $("tr").each(function (i) {
-        $(this).delay(200 * i).fadeIn(1000);
-        delay += 1000;
-      });
-      $("#send-sms-btn").attr("disabled", true);
-
-
-      setTimeout(function () { window.alert("ALL messages are sent .....") }, delay);
-
-    });
-
-  </script>
+  <script>Effecton()</script>
 
 </body>
 
