@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">  
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous"> 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    
+   
+  
+<div class ="row text-center" style="background-color: aqua;">
+  <div class ="col-md-4 col-xs-12"><img src ="/images/logo.png" class ="img-responsive"><h5 id ="slogan">A Step Closer To Healthy India</h5></div>
+  <div class ="col-md-4 col-xs-12"><img src ="/images/satyamev.svg" class ="img-responsive">
+      <h5 id ="header-title">Ministry of Women and Child Development
+          Government of India
+          </h5></div>
+  <div class ="col-md-4 col-xs-12"><img src ="/images/Towards a new dawn_Logo.png" class ="img-responsive"></div>
+</div>
+</div>
+<nav class="navbar navbar-expand-lg  container-fluid" style="background-color:darkkhaki;">
+  <a class="navbar-brand" href="#">Swastik</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item ">
+        <a class="nav-link home " href="/">Home</a>
+      </li>
+      <li class="nav-item ">
+        <a class="nav-link regParent" href="regParent">Register Parents</a>
+      </li>
+      <li class="nav-item ">
+          <a class="nav-link regChild" href="regChild">Register Child</a>
+        </li>
+  </div>
+</nav>
+
+
+
+       <div class="container">
+        <table class="table">
+            <thead class="thead-dark mt-4" style="height: 30px;">
+              <tr>
+                <th scope="col">Serials</th>
+                <th scope="col">PhoneNOS</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+                <% 
+                for( var i in phonenos){ %>
+                                        
+                 <tr style="height: 30px" style="height: 100%;" >
+                    <th scope="row"><%= i  %></th>
+                    <td> <%= phonenos[i] %> </td>
+                    <td class="send-conf">  </td>
+                   
+                  </tr>
+                  
+              <% }%>
+             
+            </tbody>
+          </table>
+
+          <button id="send-sms-btn" class="btn  btn-success sendmsg">Send Message</button>
+
+        </div>
+
+        <div class ="row footer text-center navbar-light " style="background-color:darkkhaki;">
+          <div class="col-md-12 col-xs-12">
+              <p>Copyright Swastik</p>
+          </div>
+      </div>
+      
+    <script>
+            AOS.init();
+
+         $(" #send-sms-btn").click(function(){
+          $("tr").each(function(i) {
+    $(this).css("display","none");
+  });
+
+  $(".send-conf").html("<i class='fas fa-check-circle'></i> ");
+  $(".table").css("color","green");
+  var delay = 100;
+  $("tr").each(function(i) {
+    $(this).delay(100 * i).fadeIn(500);
+delay+=100;
+});
+$("#send-sms-btn").attr("disabled",true);
+
+ 
+setTimeout(function(){ window.location = '/sendtoall'; }, delay);
+
+});
+
+          </script>
+</body>
+</html>
