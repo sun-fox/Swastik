@@ -177,85 +177,85 @@ app.get("/", function (req, res) {
         });
         console.log(dt);
         console.log(labls);
-        res.render("index.ejs", { Data: count_JSON, labls: labls, dt: dt ,gdata:map});
+        res.render("index.ejs", { Data: count_JSON, labls: labls, dt: dt, gdata: map });
     }, 500)
 })
 
 //  this is for whatsapp message sending ...
-app.get('/whatsapp',(req,res)=>{
+app.get('/whatsapp', (req, res) => {
     res.render('sendwhats');
 })
 
-app.post('/whatsapp',(req,res)=>{
-   
-     const linkimg= req.body.link;
-     const message = req.body.message ;
+app.post('/whatsapp', (req, res) => {
 
-     
+    const linkimg = req.body.link;
+    const message = req.body.message;
 
-client.messages.create({
-    to : "whatsapp:+918957790795",
-    from: "whatsapp:+14155238886",
-    body:message,
-    mediaUrl:linkimg
-}).then(message=>{
-    console.log(message.sid);
-}).catch(err=>console.log(err));
 
-    
-   res.render('confirm');
+
+    client.messages.create({
+        to: "whatsapp:+918957790795",
+        from: "whatsapp:+14155238886",
+        body: message,
+        mediaUrl: linkimg
+    }).then(message => {
+        console.log(message.sid);
+    }).catch(err => console.log(err));
+
+
+    res.render('confirm');
 
 });
 
 
 // this part is for whatsapp messages recieving ... 
 app.post('/recieve', async (req, res) => {
-  const { body } = req;
-  let message;
-  if (body.NumMedia > 0) {
-    message = new MessagingResponse().message("this is invalid message ");
-    message.media(goodBoyUrl);
-  } else {
-   let replymsg="";
-   if((body.Body).toString() == ("hello") ||(body.Body).toString() == "Hello" ||(body.Body).toString() == "hi" ||(body.Body).toString() =="Hi"||(body.Body).toString() == "COMPLAIN" ||(body.Body).toString() =="complain")
-   replymsg="Hello Welcome to Swastik Helpline ... SEND US YOUR QUERY IN GIVEN CODE  to register Complain append 'COMPLAIN' in front of your message.'";
-   else if ((body.Body).toString().substring(0,7) ===("COMPLAIN") ){
-        replymsg="Your Complain has been registered, You'll be contacted Sooon!"
-   }
-   else
-   replymsg="this is invalid message for queries check here : https://www.hackerearth.com/@hyper_bit ";
+    const { body } = req;
+    let message;
+    if (body.NumMedia > 0) {
+        message = new MessagingResponse().message("this is invalid message ");
+        message.media(goodBoyUrl);
+    } else {
+        let replymsg = "";
+        if ((body.Body).toString() == ("hello") || (body.Body).toString() == "Hello" || (body.Body).toString() == "hi" || (body.Body).toString() == "Hi" || (body.Body).toString() == "COMPLAIN" || (body.Body).toString() == "complain")
+            replymsg = "Hello Welcome to Swastik Helpline ... SEND US YOUR QUERY IN GIVEN CODE  to register Complain append 'COMPLAIN' in front of your message.'";
+        else if ((body.Body).toString().substring(0, 8) === ("COMPLAIN")) {
+            replymsg = "Your Complain has been registered, You'll be contacted Sooon!"
+        }
+        else
+            replymsg = "this is invalid message for queries check here : https://www.hackerearth.com/@hyper_bit ";
 
-    message = new MessagingResponse().message(replymsg);
-  }
+        message = new MessagingResponse().message(replymsg);
+    }
 
-  res.set('Content-Type', 'text/xml');
-  res.send(message.toString()).status(200);
+    res.set('Content-Type', 'text/xml');
+    res.send(message.toString()).status(200);
 });
 
 // sending message to array
 
-app.get('/start',(req,res)=>{
+app.get('/start', (req, res) => {
     res.render('login');
- 
- });
 
- const noss={
-    1:123456,
-    2:987654,
-    3:129381,
-    4:107236,
-    5:127812,
-    6:123612,
-    7:123123,
-    8:123781,
-};
-
-app.get('/shownos',(req,res)=>{
-
-    res.render("printnos",{contactnos:noss});
 });
 
-app.get("/logout",function(req,res){
+const noss = {
+    1: 123456,
+    2: 987654,
+    3: 129381,
+    4: 107236,
+    5: 127812,
+    6: 123612,
+    7: 123123,
+    8: 123781,
+};
+
+app.get('/shownos', (req, res) => {
+
+    res.render("printnos", { contactnos: noss });
+});
+
+app.get("/logout", function (req, res) {
     req.logout();
     res.redirect("/");
 });
