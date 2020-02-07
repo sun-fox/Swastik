@@ -9,6 +9,7 @@
     <link rel ="stylesheet" href ="../../public/stylesheets/carousel.css">
     <link rel ="stylesheet" href ="../../public/stylesheets/bootstrap.min.css">
     <script src ="../../public/javascripts/bootstrap.min.js" type ="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
     <script src ="../../public/javascripts/jquery.js" type ="text/javascript"></script>
     <link rel ="stylesheet" href ="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Swastik|Child</title>
@@ -122,6 +123,157 @@
                 </div>
             </div>
          </div>
+        <br>
+       <div id ="d1"> <%=gdata.polio%></div>
+         <div class="container-fluid">
+           <div class ="row">
+             <div class ="col-md-6 col-xs-12">
+              <canvas id="myChart"></canvas>
+             </div>
+             <div class ="col-md-6 col-xs-12">
+              <canvas id="myChart2"></canvas>
+             </div>
+           </div>
+        </div>
+      
+        <script>
+         
+          let myChart = document.getElementById('myChart').getContext('2d');
+          
+          // Global Options
+          Chart.defaults.global.defaultFontFamily = 'Lato';
+          Chart.defaults.global.defaultFontSize = 18;
+          Chart.defaults.global.defaultFontColor = '#777';
+      
+          let massPopChart = new Chart(myChart, {
+            type:'doughnut', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+            data:{
+              labels:['Polio', 'Jaundice', 'Hepatitis', 'Rickets', 'Cholera','Dengue'],
+              datasets:[{
+                label:'Count of Children',
+                data:[
+                  "<%=gdata.polio%>",
+                  "<%=gdata.Jaundice%>",
+                  "<%=gdata.hepatitis%>",
+                  "<%=gdata.Rickets%>",
+                  "<%=gdata.Chloera%>",
+                  "<%=gdata.dengue%>"
+                ],
+                //backgroundColor:'green',
+                backgroundColor:[
+                  'rgba(255, 99, 132, 0.6)',
+                  'rgba(54, 162, 235, 0.6)',
+                  'rgba(255, 206, 86, 0.6)',
+                  'rgba(75, 192, 192, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(255, 159, 64, 0.6)',
+                  'rgba(255, 99, 132, 0.6)'
+                ],
+                borderWidth:1,
+                borderColor:'#777',
+                hoverBorderWidth:3,
+                hoverBorderColor:'#000'
+              }]
+            },
+            options:{
+              title:{
+                display:true,
+                text:'Count Of Children With corresponding  Vaccines ',
+                fontSize:25
+              },
+              legend:{
+                display:true,
+                position:'right',
+                labels:{
+                  fontColor:'#000'
+                }
+              },
+              layout:{
+                padding:{
+                  left:50,
+                  right:0,
+                  bottom:0,
+                  top:0
+                }
+              },
+              tooltips:{
+                enabled:true
+              }
+            }
+          });
+
+
+
+
+          let myChart2 = document.getElementById('myChart2').getContext('2d');
+          
+          // Global Options
+          Chart.defaults.global.defaultFontFamily = 'Lato';
+          Chart.defaults.global.defaultFontSize = 18;
+          Chart.defaults.global.defaultFontColor = '#777';
+      
+          let massPopChart2 = new Chart(myChart2, {
+            type:'polarArea', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+            data:{
+              labels:['Polio', 'Jaundice', 'Hepatitis', 'Rickets', 'Cholera','Dengue'],
+              datasets:[{
+                label:'Count of Children',
+                data:[
+                  "<%=gdata.polio%>",
+                  "<%=gdata.Jaundice%>",
+                  "<%=gdata.hepatitis%>",
+                  "<%=gdata.Rickets%>",
+                  "<%=gdata.Chloera%>",
+                  "<%=gdata.dengue%>"
+                ],
+                //backgroundColor:'green',
+                backgroundColor:[
+                  'rgba(255, 99, 132, 0.6)',
+                  'rgba(54, 162, 235, 0.6)',
+                  'rgba(255, 206, 86, 0.6)',
+                  'rgba(75, 192, 192, 0.6)',
+                  'rgba(153, 102, 255, 0.6)',
+                  'rgba(255, 159, 64, 0.6)',
+                  'rgba(255, 99, 132, 0.6)'
+                ],
+                borderWidth:1,
+                borderColor:'#777',
+                hoverBorderWidth:3,
+                hoverBorderColor:'#000'
+              }]
+            },
+            options:{
+              title:{
+                display:true,
+                text:'Count Of Children With corresponding  Vaccines ',
+                fontSize:25
+              },
+              legend:{
+                display:true,
+                position:'right',
+                labels:{
+                  fontColor:'#000'
+                }
+              },
+              layout:{
+                padding:{
+                  left:50,
+                  right:0,
+                  bottom:0,
+                  top:0
+                }
+              },
+              tooltips:{
+                enabled:true
+              }
+            }
+          });
+          
+        </script>
+
+
+
+         <!--Footer-->
          <div class ="conatiner-fluid">
            <div class ="row">
              <div class ="col-12">
@@ -159,5 +311,7 @@
                  </div>
              </div>
          </div>
+
+         <!-- <script src ="../../public/javascripts/graph.js"type ="text/javascript"></script> -->
           </body>
           </html>
