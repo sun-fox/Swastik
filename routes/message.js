@@ -61,6 +61,36 @@ router.get("/phonenos", (req, res) => {
     }, 1000);
 });
 
+router.get("/whatsapp", (req, res) => {
+    var phonenos = [];
+    var today = req.query.date;
+    console.log(today);
+    Child.find({ "vaccinations.duedate": today }, (err, ward) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log(ward);
+            ward.forEach((child) => {
+                if (child.Mphoneno) {
+                    if (phonenos.indexOf(child.Mphoneno) === -1)
+                        phonenos.push(child.Mphoneno);
+                    console.log(child.Mphoneno);
+                }
+                if (child.Fphoneno) {
+                    console.log(child.Fphoneno);
+                    if (phonenos.indexOf(child.Fphoneno) === -1)
+                        phonenos.push(child.Fphoneno);
+                }
+                console.log(phonenos)
+            })
+        }
+    });
+    setTimeout(() => {
+        res.render("whatsappnos", { contactnos: phonenos });
+    }, 1000);
+});
+
 router.get("/phonenos/all_parents/:pincode", (req, res) => {
     var phonenos = [];
     var today = req.query.date;
@@ -98,6 +128,7 @@ const nexmo = new Nexmo({
 
 
 router.post('/sendtoall', (req, res) => {
+    console.log("Reached");
     var arr = req.body.contactnos.split(',');
     var msg = req.body.msg;
     for (var number in arr) {
@@ -114,8 +145,23 @@ router.post('/sendtoall', (req, res) => {
                 }
             });
     }
-    res.send("Messages Sent!!");
+    res.render('effect.ejs',{contactnos:arr});
 
+});
+
+
+router.post('/sendwhatsapptoall', (req, res) => {
+    const linkimg = req.body.link;
+    const message = req.body.message;
+    client.messages.create({
+        to: "whatsapp:+918957790795",
+        from: "whatsapp:+14155238886",
+        body: message,
+        mediaUrl: linkimg
+    }).then(message => {
+        console.log(message.sid);
+    }).catch(err => console.log(err));
+    res.render('confirm');
 });
 
 router.post('/sendmailtoall', (req, res) => {
