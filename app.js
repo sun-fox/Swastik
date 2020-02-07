@@ -72,6 +72,10 @@ app.get('/gallery',(req,res)=>{
     res.render("gallery");
 })
 
+app.get("/qrread",(req,res)=>{
+    res.render("qrcode");
+});
+
 app.get("/", function (req, res) {
     var male_parents = [];
     var female_parents = [];
