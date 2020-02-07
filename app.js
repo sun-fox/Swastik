@@ -21,6 +21,14 @@ var statisticsRoute = require('./routes/stats');
 var searchRoute = require('./routes/search_client');
 var complainRoute = require('./routes/complain');
 
+/* including my twilio acc  */
+const { MessagingResponse } = require('twilio').twiml;
+const accountSid = 'AC63dcb9c07e6cd8596c032a8ff5e59b1f';
+const authToken = '8006f3f18dda3891ff9e6c10f899f393';
+const client = require('twilio')(accountSid, authToken);
+const goodBoyUrl = 'https://lh3.googleusercontent.com/proxy/7q7Wx47mCOpMZC0_1j2RQNnNq7HEgCk5sjzIsyMw_meUpr2Xbyoy8BuyI1JFuAUU3gTrmyM2py04BPttN979w-c775WUwtyFwh6JQqHNG6GC0ZYNkiiBLKpPsB9xikmAm_1CWBDpBXwamn_Y-z_1BWmWXPWWBmqAZnJ6FbhuIPsCNAKO';
+
+
 mongoose.connect(process.env.LOCALDB, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -163,7 +171,82 @@ app.get("/", function (req, res) {
     }, 500)
 })
 
+<<<<<<< HEAD
 app.get("/logout", function (req, res) {
+=======
+//  this is for whatsapp message sending ...
+app.get('/whatsapp',(req,res)=>{
+    res.render('sendwhats');
+})
+
+app.post('/whatsapp',(req,res)=>{
+   
+     const linkimg= req.body.link;
+     const message = req.body.message ;
+
+     
+
+client.messages.create({
+    to : "whatsapp:+918957790795",
+    from: "whatsapp:+14155238886",
+    body:message,
+    mediaUrl:linkimg
+}).then(message=>{
+    console.log(message.sid);
+}).catch(err=>console.log(err));
+
+    
+   res.render('confirm');
+
+});
+
+
+// this part is for whatsapp messages recieving ... 
+app.post('/recieve', async (req, res) => {
+  const { body } = req;
+  let message;
+  if (body.NumMedia > 0) {
+    message = new MessagingResponse().message("this is invalid message ");
+    message.media(goodBoyUrl);
+  } else {
+   let replymsg="";
+   if((body.Body).toString() == ("hello") ||(body.Body).toString() == "Hello" ||(body.Body).toString() == "hi" ||(body.Body).toString() =="Hi")
+   replymsg="Hello Welcome to Swastik Helpline ... SEND US YOUR QUERY IN GIVEN CODE";
+   else
+   replymsg="this is invalid message for queries check here : https://www.hackerearth.com/@hyper_bit ";
+
+    message = new MessagingResponse().message(replymsg);
+  }
+
+  res.set('Content-Type', 'text/xml');
+  res.send(message.toString()).status(200);
+});
+
+// sending message to array
+
+app.get('/start',(req,res)=>{
+    res.render('login');
+ 
+ });
+
+ const noss={
+    1:123456,
+    2:987654,
+    3:129381,
+    4:107236,
+    5:127812,
+    6:123612,
+    7:123123,
+    8:123781,
+};
+
+app.get('/shownos',(req,res)=>{
+
+    res.render("printnos",{phonenos:noss});
+});
+
+app.get("/logout",function(req,res){
+>>>>>>> 106539d505d0c2026002e203fa2cdbb05ba81f36
     req.logout();
     res.redirect("/");
 })
