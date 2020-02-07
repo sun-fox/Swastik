@@ -10,6 +10,10 @@ var router = express.Router(),
     Parent = require("../models/parent");
 
 const Nexmo = require('nexmo');
+var mailer = require('easy-email');
+var path = require('path');
+var fs = require('fs');
+var nodemailer = require('nodemailer');
 
 // mongoose.connect(process.env.LOCALDB, { useNewUrlParser: true, useUnifiedTopology: true }, () => {
 //     console.log("db connected in protect route");
@@ -121,8 +125,14 @@ router.post('/sendtoall', (req, res) => {
 router.post('/sendmailtoall', (req, res) => {
     var arr = req.body.contactnos.split(',');
     var msg = req.body.msg;
-    res.send("Work under progress!!");
-
+   // res.send("Work under progress!!");
+    //console.log("emails : ");
+    res.redirect('/admin');
+    for(var i=0;i<arr.length;i++)
+    {
+    console.log(arr[i]);
+    mailer.send_email(res,'/',"Swastik Portal","gadarsh780@gmail.com","zinfwpjphbywlekm",arr[i],"Swastik",msg,'','');
+    }//for
 });
 
 router.get("/email", (req, res) => {

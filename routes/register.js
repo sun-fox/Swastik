@@ -13,9 +13,7 @@ var upload = multer({ dest: './public/uploads' }); // to get image file as input
 var expressValidator = require('express-validator');
 var QRCode = require('qrcode'); // qr code generator
 var path = require("path");
-var puppeteer = require('puppeteer');
 var fs = require("fs");
-var handlebars = require("handlebars");
 var pdf = require("html-pdf");
 var ejs = require("ejs");
 router.use(expressValidator());
