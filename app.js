@@ -20,6 +20,9 @@ var messageRoute = require('./routes/message');
 var statisticsRoute = require('./routes/stats');
 var searchRoute = require('./routes/search_client');
 var complainRoute = require('./routes/complain');
+var QRCode = require('qrcode'); // for qrcode
+var pdf = require('html-pdf');
+var requestify = require('requestify');
 
 mongoose.connect(process.env.LOCALDB, {
     useNewUrlParser: true, 
@@ -128,6 +131,18 @@ app.get("/logout",function(req,res){
     req.logout();
     res.redirect("/");
 })
+
+/* requestify.get("/Register/regSuccess").then(function (res) {
+    // Get the raw HTML response body
+    var html = res.body; 
+    var config = {format: 'A4'}; // or format: 'letter' - see https://github.com/marcbachmann/node-html-pdf#options
+ 
+ // Create the PDF
+    pdf.create(html, config).toFile('pathtooutput/generated.pdf', function (err, res) {
+       if (err) return console.log(err);
+       console.log(res); // { filename: '/pathtooutput/generated.pdf' }
+    });
+ }); */
 
 app.listen(process.env.PORT || 3000, function () {
     console.log("started!!!");

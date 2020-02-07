@@ -1,9 +1,12 @@
+<% var formData,image,gender,qr,css1,css2; %>
 <script src="/public/javascripts/jquery.js"></script>
 <link rel="stylesheet" href="/public/stylesheets/bootstrap.min.css">
 <script src="/public/javascripts/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/public/stylesheets/regSuccess.css">
+<%= css1 %>
+<%= css2 %>
 <!------ Include the above in your HEAD tag ---------->
-<% var formData,image,gender; %>
+
 <div class="container emp-profile">
     <form method="post">
         <div class="row">
@@ -30,6 +33,9 @@
         </div>
         <div class="row">
             <div class="col-md-4">
+                <div class="profile-img" style="margin-top:50%;width:110%;height:35%;">
+                    <img src="<%= qr %>" alt=""/>
+                </div>
             </div>
             <div class="col-md-8">
                 <div class="tab-content profile-tab" id="myTabContent">
@@ -146,6 +152,16 @@
                                         <p><%- formData.address[0].state %></p>
                                     </div>
                                 </div>
+                                <br>
+                               <!--  <div class="row">
+                                    <div class="col-md-6">
+                                       
+                                    </div>
+                                    <div class="col-md-6">
+                                       <a href="/regSuccess"><button type="button" class="btn btn-primary">Download</button></a> 
+                                    </div>
+                                </div> -->
                                 <hr>
+                                
                     </div>
                     
