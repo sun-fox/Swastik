@@ -1,3 +1,17 @@
+<% var gdata; %>
+<% 
+var labeldata = [],labelvalue = [],i=0;
+for (var key in gdata) {
+          if (gdata.hasOwnProperty(key)) {
+            var val = gdata[key];
+            labeldata[i] = key;
+            labelvalue[i] = val;
+            i++;
+          }
+        }
+        console.log(labeldata);
+        console.log(labelvalue);
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -135,7 +149,7 @@
              </div>
            </div>
         </div>
-      
+     
         <script>
          
           let myChart = document.getElementById('myChart').getContext('2d');
@@ -144,21 +158,14 @@
           Chart.defaults.global.defaultFontFamily = 'Lato';
           Chart.defaults.global.defaultFontSize = 18;
           Chart.defaults.global.defaultFontColor = '#777';
-      
           let massPopChart = new Chart(myChart, {
+
             type:'doughnut', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
             data:{
-              labels:['Polio', 'Jaundice', 'Hepatitis', 'Rickets', 'Cholera','Dengue'],
+              labels:['<%= labeldata %>'],
               datasets:[{
                 label:'Count of Children',
-                data:[
-                  "<%=gdata.polio%>",
-                  "<%=gdata.Jaundice%>",
-                  "<%=gdata.hepatitis%>",
-                  "<%=gdata.Rickets%>",
-                  "<%=gdata.Chloera%>",
-                  "<%=gdata.dengue%>"
-                ],
+                data:['<%= labelvalue %>'],
                 //backgroundColor:'green',
                 backgroundColor:[
                   'rgba(255, 99, 132, 0.6)',
@@ -215,17 +222,10 @@
           let massPopChart2 = new Chart(myChart2, {
             type:'polarArea', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
             data:{
-              labels:['Polio', 'Jaundice', 'Hepatitis', 'Rickets', 'Cholera','Dengue'],
+              labels:['<%= labeldata %>'],
               datasets:[{
                 label:'Count of Children',
-                data:[
-                  "<%=gdata.polio%>",
-                  "<%=gdata.Jaundice%>",
-                  "<%=gdata.hepatitis%>",
-                  "<%=gdata.Rickets%>",
-                  "<%=gdata.Chloera%>",
-                  "<%=gdata.dengue%>"
-                ],
+                data:['<%= labelvalue %>'],
                 //backgroundColor:'green',
                 backgroundColor:[
                   'rgba(255, 99, 132, 0.6)',

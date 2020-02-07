@@ -136,7 +136,14 @@ app.get("/", function (req, res) {
                         map[data.disease]++;
                     })
                 });
-                console.log(map);
+                /* for (var key in map) {
+                    if (map.hasOwnProperty(key)) {
+                      var val = map[key];
+                      console.log(key);
+                      console.log(val);
+                    }
+                  } */
+                //console.log(key);
                 // res.send(map);
             }, 100);
         }
@@ -150,6 +157,7 @@ app.get("/", function (req, res) {
             'Female Children Count':female_childs.length,
         }
         // res.send(count_JSON);
+        
         res.render("index.ejs",{Data:count_JSON,gdata:map});
     },500)
 })
