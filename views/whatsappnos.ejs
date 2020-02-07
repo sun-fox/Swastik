@@ -2,79 +2,90 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="/public/stylesheets/regSuccess.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
-        integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/public/stylesheets/bootstrap.min.css">
+  <link rel="stylesheet" href="/public/stylesheets/regSuccess.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+    integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+  <link rel="stylesheet" href="/public/stylesheets/bootstrap.min.css">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="/public/javascripts/jquery.js"></script>
-    <script src="/public/javascripts/bootstrap.min.js"></script>
-    <title>Document</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="/public/javascripts/jquery.js"></script>
+  <script src="/public/javascripts/bootstrap.min.js"></script>
+  <title>Document</title>
 </head>
 
 <body>
-    <%- include("header.ejs") %>
-    <div class="container">
-        <table class="table">
-            <thead class="thead-dark mt-4" style="height: 30px;">
-                <tr>
-                    <th scope="col">Serials</th>
-                    <th scope="col">contactnos</th>
-                    <th scope="col">Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% for( var i in contactnos){ %>
-                <tr style="height: 30px" style="height: 100%;">
-                    <th scope="row"><%= i  %></th>
-                    <td> <%= contactnos[i] %> </td>
-                    <td class="send-conf"> </td>
-                </tr>
-                <% }%>
-            </tbody>
-        </table>
 
-        <form action="/message/sendwhatsapptoall" method="POST">
-            <input value="<%=contactnos%>" name="contactnos" style="display: none;">
-            <input type="submit" value="submit" id="send-sms-btn" class="btn  btn-success sendmsg">
-        </form>
 
-    </div>
+  <%- include("header.ejs") %>
+  <div class="container">
+    <table class="table">
+      <thead class="thead-dark mt-4" style="height: 30px;">
+        <tr>
+          <th scope="col">Serials</th>
+          <th scope="col">contactnos</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody>
 
-    <!-- <% contactnos.forEach((no)=>{%>
+
+        <% for( var i in contactnos){ %>
+
+        <tr style="height: 30px" style="height: 100%;">
+          <th scope="row"><%= i  %></th>
+          <td> <%= contactnos[i] %> </td>
+          <td class="send-conf"> </td>
+
+        </tr>
+
+        <% }%>
+
+      </tbody>
+    </table>
+
+    <form method="POST" action="/message/sendwhatsapptoall">
+      <input value="<%=contactnos%>" name="contactnos" style="display: none;">
+      <input value="" name="link">
+      <textarea value="" placeholder="Type message content here!!" name="message"></textarea>
+      <br>
+      <button type="submit" id="sendall">Send Messages</button>
+  </form>
+
+  </div>
+
+  <!-- <% contactnos.forEach((no)=>{%>
           <p><%= no %></p>
       <% }) %>
 
         <%- include("footer.ejs") %> -->
 
-    <script>
-        $(" #send-sms-btn").click(function () {
-            $("tr").each(function (i) {
-                $(this).css("display", "none");
-            });
+  <script>
+    $(" #send-sms-btn").click(function () {
+      $("tr").each(function (i) {
+        $(this).css("display", "none");
+      });
 
-            $(".send-conf").html("<i class='fas fa-check-circle'></i> ");
-            $(".table").css("color", "green");
-            var delay = 1000;
-            $("tr").each(function (i) {
-                $(this).delay(200 * i).fadeIn(1000);
-                delay += 1000;
-            });
-            $("#send-sms-btn").attr("disabled", true);
+      $(".send-conf").html("<i class='fas fa-check-circle'></i> ");
+      $(".table").css("color", "green");
+      var delay = 1000;
+      $("tr").each(function (i) {
+        $(this).delay(200 * i).fadeIn(1000);
+        delay += 1000;
+      });
+      $("#send-sms-btn").attr("disabled", true);
 
 
-            setTimeout(function () { window.alert("ALL messages are sent .....") }, delay);
+      setTimeout(function () { window.alert("ALL messages are sent .....") }, delay);
 
-        });
+    });
 
-    </script>
+  </script>
 
 </body>
 
