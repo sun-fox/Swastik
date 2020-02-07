@@ -167,13 +167,10 @@ app.get("/", function (req, res) {
         });
         console.log(dt);
         console.log(labls);
-        res.render("index.ejs", { Data: count_JSON, labls: labls, dt: dt });
+        res.render("index.ejs", { Data: count_JSON, labls: labls, dt: dt ,gdata:map});
     }, 500)
 })
 
-<<<<<<< HEAD
-app.get("/logout", function (req, res) {
-=======
 //  this is for whatsapp message sending ...
 app.get('/whatsapp',(req,res)=>{
     res.render('sendwhats');
@@ -246,7 +243,6 @@ app.get('/shownos',(req,res)=>{
 });
 
 app.get("/logout",function(req,res){
->>>>>>> 106539d505d0c2026002e203fa2cdbb05ba81f36
     req.logout();
     res.redirect("/");
 })
