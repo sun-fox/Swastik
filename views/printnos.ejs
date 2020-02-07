@@ -8,10 +8,8 @@
     
   <link rel="stylesheet" href="/public/stylesheets/regSuccess.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous"> 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/public/stylesheets/bootstrap.min.css">
+   <link rel="stylesheet" href="/public/stylesheets/bootstrap.min.css">
   
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="/public/javascripts/jquery.js"></script>
   <script src="/public/javascripts/bootstrap.min.js"></script>
     <title>Document</title>
@@ -78,20 +76,21 @@
             </tbody>
           </table>
 
-          <form action="/message/sendtoall" method="POST">
-              <input type="submit" value="submit" id="send-sms-btn" class="btn  btn-success sendmsg">
-          </form>
+             <form action="/message/sendtoall" method="POST">
+            
+              <input value="<%=contactnos%>" name="contactnos" style="display: none;">
+              <input type="button" value="button" id="send-sms-btn" class="btn  btn-success sendmsg">
+              <input type="submit" value="submit" id="submit" style="display: none">
+       
+            </form>
           
         </div>
         
-        <!-- <% contactnos.forEach((no)=>{%>
-          <p><%= no %></p>
-      <% }) %>
-
-        <%- include("footer.ejs") %> -->
+        
       
     <script>
          $(" #send-sms-btn").click(function(){
+           $("#submit").css("display","block");
           $("tr").each(function(i) {
     $(this).css("display","none");
   });
