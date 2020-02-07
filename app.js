@@ -171,10 +171,7 @@ app.get("/", function (req, res) {
     }, 500)
 })
 
-<<<<<<< HEAD
-=======
 
->>>>>>> upstream/master
 //  this is for whatsapp message sending ...
 app.get('/whatsapp',(req,res)=>{
     res.render('sendwhats');

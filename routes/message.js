@@ -149,7 +149,7 @@ router.get("/email", (req, res) => {
                                     email.push(parent.email);
                             }
                         });
-                    },100);
+                    },200);
                 }
                 if (child.Fphoneno) {
                     console.log("F" + child.Fphoneno);
@@ -172,7 +172,7 @@ router.get("/email", (req, res) => {
     });
     setTimeout(() => {
         res.render("emailnos",{contactnos : email});
-    }, 500);
+    }, 800);
 });
 
 function isLoggedIn(req, res, next) {
