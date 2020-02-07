@@ -33,9 +33,10 @@ router.get("/", isLoggedIn, (req, res) => {
 
 router.post("/log_complaint",(req,res)=>{
     console.log("Here!!");
-
-    var complainer = req.body.email;
-    var complaint = req.body.msg;
+    var complainer = req.body.complainer;
+    var complaint = req.body.complaint;
+    var title = req.body.title;
+    var subject = req.body.subject;
     Parent.findOne({'email':complainer},(err,parent)=>{
         if(!parent)
         {
@@ -46,7 +47,33 @@ router.post("/log_complaint",(req,res)=>{
         {
         complainer = parent._id;
         setTimeout(()=>{
-            var new_complain = new Complain({'complainer':complainer,'complaint':complaint});
+            var new_complain = new Complain({'complainer':complainer,'complaint':complaint,'title':title,'subject':subject});
+
+            new_complain.save((err,complain)=>{
+                if(err){
+                    console.log(error);
+                }
+                else{
+                    console.log("Complaint registered!!");
+                    res.send(complain); 
+                }
+            });
+        },200);
+        }
+    });
+});
+
+router.post("/log_complaint/whatsapp",(req,res)=>{
+    console.log("Here!!");
+    var complainer = req.body.complainer;
+    var complaint = req.body.complaint;
+    var title = req.body.title;
+    var subject = req.body.subject;
+    Parent.findOne({'email':complainer},(err,parent)=>{
+        complainer = parent._id;
+        setTimeout(()=>{
+            var new_complain = new Complain({'complainer':complainer,'complaint':complaint,'title':title,'subject':subject});
+
             new_complain.save((err,complain)=>{
                 if(err){
                     console.log(error);
@@ -58,7 +85,6 @@ router.post("/log_complaint",(req,res)=>{
                 }
             });
         },200);
-    }//else 
     });// parent find
 });
 

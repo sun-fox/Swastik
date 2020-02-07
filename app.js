@@ -177,7 +177,7 @@ app.get("/", function (req, res) {
         });
         console.log(dt);
         console.log(labls);
-        res.render("index.ejs", { Data: count_JSON, labls: labls, dt: dt });
+        res.render("index.ejs", { Data: count_JSON, labls: labls, dt: dt ,gdata:map});
     }, 500)
 })
 
@@ -217,8 +217,11 @@ app.post('/recieve', async (req, res) => {
     message.media(goodBoyUrl);
   } else {
    let replymsg="";
-   if((body.Body).toString() == ("hello") ||(body.Body).toString() == "Hello" ||(body.Body).toString() == "hi" ||(body.Body).toString() =="Hi")
-   replymsg="Hello Welcome to Swastik Helpline ... SEND US YOUR QUERY IN GIVEN CODE";
+   if((body.Body).toString() == ("hello") ||(body.Body).toString() == "Hello" ||(body.Body).toString() == "hi" ||(body.Body).toString() =="Hi"||(body.Body).toString() == "COMPLAIN" ||(body.Body).toString() =="complain")
+   replymsg="Hello Welcome to Swastik Helpline ... SEND US YOUR QUERY IN GIVEN CODE  to register Complain append 'COMPLAIN' in front of your message.'";
+   else if ((body.Body).toString().substring(0,7) ===("COMPLAIN") ){
+        replymsg="Your Complain has been registered, You'll be contacted Sooon!"
+   }
    else
    replymsg="this is invalid message for queries check here : https://www.hackerearth.com/@hyper_bit ";
 
@@ -249,13 +252,13 @@ app.get('/start',(req,res)=>{
 
 app.get('/shownos',(req,res)=>{
 
-    res.render("printnos",{phonenos:noss});
+    res.render("printnos",{contactnos:noss});
 });
 
 app.get("/logout",function(req,res){
     req.logout();
     res.redirect("/");
-})
+});
 
 /* requestify.get("/Register/regSuccess").then(function (res) {
     // Get the raw HTML response body
@@ -271,4 +274,4 @@ app.get("/logout",function(req,res){
 
 app.listen(process.env.PORT || 3000, function () {
     console.log("started!!!");
-})
+});
