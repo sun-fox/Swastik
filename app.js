@@ -20,6 +20,9 @@ var messageRoute = require('./routes/message');
 var statisticsRoute = require('./routes/stats');
 var searchRoute = require('./routes/search_client');
 var complainRoute = require('./routes/complain');
+var QRCode = require('qrcode'); // for qrcode
+var pdf = require('html-pdf');
+var requestify = require('requestify');
 
 /* including my twilio acc  */
 const { MessagingResponse } = require('twilio').twiml;
@@ -141,7 +144,14 @@ app.get("/", function (req, res) {
                         map[data.disease]++;
                     })
                 });
-                console.log(map);
+                /* for (var key in map) {
+                    if (map.hasOwnProperty(key)) {
+                      var val = map[key];
+                      console.log(key);
+                      console.log(val);
+                    }
+                  } */
+                //console.log(key);
                 // res.send(map);
             }, 100);
         }
@@ -167,10 +177,9 @@ app.get("/", function (req, res) {
         });
         console.log(dt);
         console.log(labls);
-        res.render("index.ejs", { Data: count_JSON, labls: labls, dt: dt });
+        res.render("index.ejs", { Data: count_JSON, labls: labls, dt: dt ,gdata:map});
     }, 500)
 })
-
 
 //  this is for whatsapp message sending ...
 app.get('/whatsapp',(req,res)=>{
@@ -250,6 +259,18 @@ app.get("/logout",function(req,res){
     req.logout();
     res.redirect("/");
 });
+
+/* requestify.get("/Register/regSuccess").then(function (res) {
+    // Get the raw HTML response body
+    var html = res.body; 
+    var config = {format: 'A4'}; // or format: 'letter' - see https://github.com/marcbachmann/node-html-pdf#options
+ 
+ // Create the PDF
+    pdf.create(html, config).toFile('pathtooutput/generated.pdf', function (err, res) {
+       if (err) return console.log(err);
+       console.log(res); // { filename: '/pathtooutput/generated.pdf' }
+    });
+ }); */
 
 app.listen(process.env.PORT || 3000, function () {
     console.log("started!!!");
