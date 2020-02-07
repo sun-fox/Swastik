@@ -135,32 +135,36 @@ router.get("/email", (req, res) => {
         }
         else {
             console.log(ward);
-            ward.forEach(async (child) => {
+            ward.forEach(child => {
                 if (child.Mphoneno) {
                     console.log("M" + child.Mphoneno);
-                    await Parent.findOne({ "phoneno": child.Mphoneno }, (err, parent) => {
-                        if (err) {
-                            console.log(err);
-                        }
-                        else {
-                            console.log("M" + parent);
-                            if (email.indexOf(parent.email) === -1)
-                                email.push(parent.email);
-                        }
-                    });
+                    setTimeout(()=>{
+                        Parent.findOne({ "phoneno": child.Mphoneno }, (err, parent) => {
+                            if (err) {
+                                console.log(err);
+                            }
+                            else {
+                                console.log("M" + parent);
+                                if (email.indexOf(parent.email) === -1)
+                                    email.push(parent.email);
+                            }
+                        });
+                    },100);
                 }
                 if (child.Fphoneno) {
                     console.log("F" + child.Fphoneno);
-                    await Parent.findOne({ "phoneno": child.Fphoneno }, (err, parent) => {
-                        if (err) {
-                            console.log(err);
-                        }
-                        else {
-                            console.log("F" + parent);
-                            if (email.indexOf(parent.email) === -1)
-                                email.push(parent.email);
-                        }
-                    });
+                    setTimeout(()=>{
+                        Parent.findOne({ "phoneno": child.Fphoneno }, (err, parent) => {
+                            if (err) {
+                                console.log(err);
+                            }
+                            else {
+                                console.log("F" + parent);
+                                if (email.indexOf(parent.email) === -1)
+                                    email.push(parent.email);
+                            }
+                        });
+                    },200)
                 }
                 console.log(email)
             });
@@ -168,7 +172,7 @@ router.get("/email", (req, res) => {
     });
     setTimeout(() => {
         res.render("emailnos",{contactnos : email});
-    }, 300);
+    }, 500);
 });
 
 function isLoggedIn(req, res, next) {

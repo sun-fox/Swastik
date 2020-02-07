@@ -171,9 +171,7 @@ app.get("/", function (req, res) {
     }, 500)
 })
 
-<<<<<<< HEAD
-app.get("/logout", function (req, res) {
-=======
+
 //  this is for whatsapp message sending ...
 app.get('/whatsapp',(req,res)=>{
     res.render('sendwhats');
@@ -210,8 +208,11 @@ app.post('/recieve', async (req, res) => {
     message.media(goodBoyUrl);
   } else {
    let replymsg="";
-   if((body.Body).toString() == ("hello") ||(body.Body).toString() == "Hello" ||(body.Body).toString() == "hi" ||(body.Body).toString() =="Hi")
-   replymsg="Hello Welcome to Swastik Helpline ... SEND US YOUR QUERY IN GIVEN CODE";
+   if((body.Body).toString() == ("hello") ||(body.Body).toString() == "Hello" ||(body.Body).toString() == "hi" ||(body.Body).toString() =="Hi"||(body.Body).toString() == "COMPLAIN" ||(body.Body).toString() =="complain")
+   replymsg="Hello Welcome to Swastik Helpline ... SEND US YOUR QUERY IN GIVEN CODE  to register Complain append 'COMPLAIN' in front of your message.'";
+   else if ((body.Body).toString().substring(0,7) ===("COMPLAIN") ){
+        replymsg="Your Complain has been registered, You'll be contacted Sooon!"
+   }
    else
    replymsg="this is invalid message for queries check here : https://www.hackerearth.com/@hyper_bit ";
 
@@ -246,11 +247,10 @@ app.get('/shownos',(req,res)=>{
 });
 
 app.get("/logout",function(req,res){
->>>>>>> 106539d505d0c2026002e203fa2cdbb05ba81f36
     req.logout();
     res.redirect("/");
-})
+});
 
 app.listen(process.env.PORT || 3000, function () {
     console.log("started!!!");
-})
+});
