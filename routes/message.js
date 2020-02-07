@@ -10,6 +10,10 @@ var router = express.Router(),
     Parent = require("../models/parent");
 
 const Nexmo = require('nexmo');
+var mailer = require('easy-email');
+var path = require('path');
+var fs = require('fs');
+var nodemailer = require('nodemailer');
 
 // mongoose.connect(process.env.LOCALDB, { useNewUrlParser: true, useUnifiedTopology: true }, () => {
 //     console.log("db connected in protect route");
@@ -176,11 +180,44 @@ router.post('/sendwhatsapptoall', (req, res) => {
     res.render('effect.ejs',{contactnos:arr});
 });
 
+
+const { MessagingResponse } = require('twilio').twiml;
+const accountSid = 'AC63dcb9c07e6cd8596c032a8ff5e59b1f';
+const authToken = '8006f3f18dda3891ff9e6c10f899f393';
+const client = require('twilio')(accountSid, authToken);
+const goodBoyUrl = 'https://lh3.googleusercontent.com/proxy/7q7Wx47mCOpMZC0_1j2RQNnNq7HEgCk5sjzIsyMw_meUpr2Xbyoy8BuyI1JFuAUU3gTrmyM2py04BPttN979w-c775WUwtyFwh6JQqHNG6GC0ZYNkiiBLKpPsB9xikmAm_1CWBDpBXwamn_Y-z_1BWmWXPWWBmqAZnJ6FbhuIPsCNAKO';
+
+
+router.post('/sendwhatsapptoall', (req, res) => {
+    const linkimg = req.body.link;
+    const message = req.body.message;
+    // var contacts = req.body.contacts;
+    var arr = req.body.contactnos.split(',');
+    console.log(arr);
+    arr.forEach((nos)=>{
+        client.messages.create({
+            to: "whatsapp:"+nos+"",
+            from: "whatsapp:+14155238886",
+            body: message,
+            mediaUrl: linkimg
+        }).then(message => {
+            console.log(message.sid);
+        }).catch(err => console.log(err));
+    })
+    res.render('effect.ejs',{contactnos:arr});
+});
+
 router.post('/sendmailtoall', (req, res) => {
     var arr = req.body.contactnos.split(',');
     var msg = req.body.msg;
-    res.send("Work under progress!!");
-
+   // res.send("Work under progress!!");
+    //console.log("emails : ");
+    res.redirect('/admin');
+    for(var i=0;i<arr.length;i++)
+    {
+    console.log(arr[i]);
+    mailer.send_email(res,'/',"Swastik Portal","gadarsh780@gmail.com","zinfwpjphbywlekm",arr[i],"Swastik",msg,'','');
+    }//for
 });
 
 router.get("/email", (req, res) => {
