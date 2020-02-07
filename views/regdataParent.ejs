@@ -1,7 +1,12 @@
+<% var formData,image,gender,qr,css1,css2; %>
 <script src="/public/javascripts/jquery.js"></script>
 <link rel="stylesheet" href="/public/stylesheets/bootstrap.min.css">
 <script src="/public/javascripts/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/public/stylesheets/regSuccess.css">
+<<<<<<< HEAD
+<%= css1 %>
+<%= css2 %>
+=======
 <link href="https://fonts.googleapis.com/css?family=Libre+Barcode+128+Text" rel="stylesheet">
 <style>
     .ss {
@@ -16,8 +21,9 @@
     document.getElementById("test").innerHTML = x;
 </script>
 
+>>>>>>> upstream/master
 <!------ Include the above in your HEAD tag ---------->
-<% var formData,image,gender; %>
+
 <div class="container emp-profile">
     <form method="post">
         <div class="row">
@@ -45,123 +51,135 @@
         </div>
         <div class="row">
             <div class="col-md-4">
+                <div class="profile-img" style="margin-top:50%;width:110%;height:35%;">
+                    <img src="<%= qr %>" alt=""/>
+                </div>
             </div>
             <div class="col-md-8">
                 <div class="tab-content profile-tab" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Name</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p><%- formData.name %></p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Email</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p><%- formData.email %></p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Gender</label>
-                            </div>
-                            <div class="col-md-6">
-                                <% if( formData.gender == 1 ) { gender = "Male";} %>
-                                <%  if( formData.gender == 2 ) { gender = "Female";} %>
-                                <p><%- gender %></p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Phone No.</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p><%- formData.phoneno %></p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Spouse</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p><%- formData.spouse %></p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Children</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p><%- formData.children[0] %></p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Aadhar No</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p><%- formData.aadharno %></p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Address Details: </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Line 1</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p><%- formData.address[0].line1 %></p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Line 2</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p><%- formData.address[0].line2%></p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>City </label>
-                            </div>
-                            <div class="col-md-6">
-                                <p><%- formData.address[0].town_village %></p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Province</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p><%- formData.address[0].province  %></p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Pincode</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p><%- formData.address[0].pincode %></p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>State</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p><%- formData.address[0].state %></p>
-                            </div>
-                        </div>
-                        <br>
-                        <br>
-                        <div id="test" class="ss">SWSTK-CODE</div>
-                        <hr>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Name</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><%- formData.name %></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Email</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><%- formData.email %></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Gender</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <% if( formData.gender == 1 ) { gender = "Male";} %>
+                                        <%  if( formData.gender == 2 ) { gender = "Female";} %>
+                                        <%  if( formData.gender == 3 ) { gender = "Other";} %>
+                                        <p><%- gender %></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Phone No.</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><%- formData.phoneno %></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Spouse</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><%- formData.spouse %></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Children</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><%- formData.children[0] %></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Aadhar No</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><%- formData.aadharno %></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Address Details: </label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Line 1</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><%- formData.address[0].line1 %></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Line 2</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><%- formData.address[0].line2%></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>City </label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><%- formData.address[0].town_village %></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Province</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><%- formData.address[0].province  %></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Pincode</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><%- formData.address[0].pincode %></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>State</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><%- formData.address[0].state %></p>
+                                    </div>
+                                </div>
+                                <br>
+                               <!--  <div class="row">
+                                    <div class="col-md-6">
+                                       
+                                    </div>
+                                    <div class="col-md-6">
+                                       <a href="/regSuccess"><button type="button" class="btn btn-primary">Download</button></a> 
+                                    </div>
+                                </div> -->
+                                <hr>
+                                
                     </div>
+                    

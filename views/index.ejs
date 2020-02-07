@@ -1,3 +1,18 @@
+<% var gdata,sent; %>
+<% 
+var labeldata = [],labelvalue = [],i=0;
+for (var key in gdata) {
+          if (gdata.hasOwnProperty(key)) {
+            var val = gdata[key];
+            labeldata[i] = key;
+            labelvalue[i] = val;
+            i++;
+          }
+        }
+      //  console.log(labeldata);
+       // console.log(labelvalue);
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
