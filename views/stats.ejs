@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- <link rel="shortcut icon" type="image/icon" href="../../public/images/logo.png" />
+    <link rel ="stylesheet" href ="../../public/stylesheets/custom.css">
+    <link rel ="stylesheet" href ="../../public/stylesheets/carousel.css">
+    <link rel ="stylesheet" href ="../../public/stylesheets/bootstrap.min.css">
+    <script src ="../../public/javascripts/bootstrap.min.js" type ="text/javascript"></script>
+    <script src ="../../public/javascripts/jquery.js" type ="text/javascript"></script> -->
+    <title>Swastik|Stats</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script type="text/javascript">
+        // Load the Visualization API and the corechart package.
+        google.charts.load('current', {
+            'packages': ['corechart']
+        });
+
+        // Set a callback to run when the Google Visualization API is loaded.
+        google.charts.setOnLoadCallback(drawChart);
+
+        // Callback that creates and populates a data table,
+        // instantiates the pie chart, passes in the data and
+        // draws it.
+        function drawChart() {
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Topping');
+            data.addColumn('number', 'Slices');
+            const url = 'localhost:3000/statistics/patients_count_wrt_disease';
+            fetch(url)
+                .then((response) => {
+                    data.addRows(response);
+                });
+
+            // Set chart options
+            var options = {
+                'title': 'Diseases',
+                'width': 400,
+                'height': 300
+            };
+            // Instantiate and draw our chart, passing in some options.
+            var areaChart = new google.visualization.PieChart(document.getElementById('area_diseases'));
+            areaChart.draw(data, options);
+
+        }
+    </script>
+
+</head>
+
+<body>
+    <div id="area_diseases"></div>
+</body>
+
+</html>

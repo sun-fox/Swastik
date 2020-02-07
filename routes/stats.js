@@ -36,20 +36,22 @@ router.get("/patients_count_wrt_disease", (req, res) => {
     Child.find({}, (err, ward) => {
         if (err) {
             console.log(err);
-        }
-        else {
+        } else {
             setTimeout(() => {
-                ward.forEach((child)=>{
+                ward.forEach((child) => {
                     var vaccinations = child.vaccinations;
-                    vaccinations.forEach((data)=>{
-                        if(!map[data.disease]){
-                            map[data.disease]=0;
+                    vaccinations.forEach((data) => {
+                        if (!map[data.disease]) {
+                            map[data.disease] = 0;
                         }
                         map[data.disease]++;
                     })
                 });
-                console.log(map);
-                res.send(map);
+
+                var entries = Object.entries(map);
+
+                console.log(entries);
+                res.send(entries);
             }, 1000);
         }
     });
@@ -61,25 +63,27 @@ router.get("/children/pincode", (req, res) => {
     Child.find({}, (err, ward) => {
         if (err) {
             console.log(err);
-        }
-        else {
+        } else {
             setTimeout(() => {
-                ward.forEach((child)=>{
+                ward.forEach((child) => {
                     var address = child.address;
-                    address.forEach((data)=>{
-                        if(!map[data.pincode]){
-                            map[data.pincode]=0;
+                    address.forEach((data) => {
+                        if (!map[data.pincode]) {
+                            map[data.pincode] = 0;
                         }
                         map[data.pincode]++;
                     })
                 });
-                console.log(map);
-                res.send(map);
+                var entries = Object.entries(map);
+                console.log(entries);
+                res.send(entries);
             }, 1000);
         }
     });
 });
-
+router.get('/viewstats', function(req, res) {
+    res.render('stats');
+});
 
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
