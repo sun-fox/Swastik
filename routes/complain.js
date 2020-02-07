@@ -10,6 +10,7 @@ var router = express.Router(),
     Parent = require("../models/parent"),
     Complain = require("../models/complain");
 
+
 // mongoose.connect(process.env.LOCALDB, { useNewUrlParser: true, useUnifiedTopology: true }, () => {
 //     console.log("db connected in register route");
 // });
@@ -37,6 +38,13 @@ router.post("/log_complaint",(req,res)=>{
     var title = req.body.title;
     var subject = req.body.subject;
     Parent.findOne({'email':complainer},(err,parent)=>{
+        if(!parent)
+        {
+            console.log("Email Not Found");
+            res.redirect('/');
+        }
+        else
+        {
         complainer = parent._id;
         setTimeout(()=>{
             var new_complain = new Complain({'complainer':complainer,'complaint':complaint,'title':title,'subject':subject});
@@ -51,6 +59,7 @@ router.post("/log_complaint",(req,res)=>{
                 }
             });
         },200);
+        }
     });
 });
 
@@ -71,11 +80,12 @@ router.post("/log_complaint/whatsapp",(req,res)=>{
                 }
                 else{
                     console.log("Complaint registered!!");
-                    res.send(complain); 
+                    //res.send(complain);
+                    res.redirect('/');
                 }
             });
         },200);
-    });
+    });// parent find
 });
 
 

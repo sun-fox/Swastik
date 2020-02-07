@@ -3,7 +3,7 @@
 <script src="/public/javascripts/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/public/stylesheets/regSuccess.css">
 <!------ Include the above in your HEAD tag ---------->
-<% var formData,image,gender; %>
+<% var formData,image,gender,qr; %>
 <div class="container emp-profile">
     <form method="post">
         <div class="row">
@@ -30,6 +30,9 @@
         </div>
         <div class="row">
             <div class="col-md-4">
+                <div class="profile-img" style="margin-top:50%;width:110%;height:35%;">
+                    <img src="<%= qr %>" alt=""/>
+                </div>
             </div>
             <div class="col-md-8">
                 <div class="tab-content profile-tab" id="myTabContent">
