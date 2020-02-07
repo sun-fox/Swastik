@@ -75,6 +75,10 @@ app.get('/gallery',(req,res)=>{
     res.render("gallery");
 })
 
+app.get("/qrread",(req,res)=>{
+    res.render("qrcode");
+});
+
 app.get("/", function (req, res) {
     var male_parents = [];
     var female_parents = [];
@@ -115,6 +119,29 @@ app.get("/", function (req, res) {
         }
     });
 
+//count of children on the basis of vaccines(copied from stats.js) starts
+    var map = {};
+    Child.find({}, (err, ward) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            setTimeout(() => {
+                ward.forEach((child)=>{
+                    var vaccinations = child.vaccinations;
+                    vaccinations.forEach((data)=>{
+                        if(!map[data.disease]){
+                            map[data.disease]=0;
+                        }
+                        map[data.disease]++;
+                    })
+                });
+                console.log(map);
+                // res.send(map);
+            }, 100);
+        }
+    });
+//count of children on the basis of vaccines(copied from stats.js) ends
     setTimeout(()=>{
         var count_JSON = {
             'Male Parents Count':male_parents.length,
@@ -123,7 +150,7 @@ app.get("/", function (req, res) {
             'Female Children Count':female_childs.length,
         }
         // res.send(count_JSON);
-        res.render("index.ejs",{Data:count_JSON});
+        res.render("index.ejs",{Data:count_JSON,gdata:map});
     },500)
 })
 

@@ -118,6 +118,13 @@ router.post('/sendtoall', (req, res) => {
 
 });
 
+router.post('/sendmailtoall', (req, res) => {
+    var arr = req.body.contactnos.split(',');
+    var msg = req.body.msg;
+    res.send("Work under progress!!");
+
+});
+
 router.get("/email", (req, res) => {
     var email = [];
     var today = req.query.date;
@@ -140,7 +147,7 @@ router.get("/email", (req, res) => {
                             if (email.indexOf(parent.email) === -1)
                                 email.push(parent.email);
                         }
-                    })
+                    });
                 }
                 if (child.Fphoneno) {
                     console.log("F" + child.Fphoneno);
@@ -153,15 +160,15 @@ router.get("/email", (req, res) => {
                             if (email.indexOf(parent.email) === -1)
                                 email.push(parent.email);
                         }
-                    })
+                    });
                 }
                 console.log(email)
-            })
+            });
         }
     });
     setTimeout(() => {
-        res.render("phonenos",{contactnos : email});
-    }, 100);
+        res.render("emailnos",{contactnos : email});
+    }, 300);
 });
 
 function isLoggedIn(req, res, next) {

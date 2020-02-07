@@ -3,8 +3,25 @@
 <link rel="stylesheet" href="/public/stylesheets/bootstrap.min.css">
 <script src="/public/javascripts/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/public/stylesheets/regSuccess.css">
+<<<<<<< HEAD
 <%= css1 %>
 <%= css2 %>
+=======
+<link href="https://fonts.googleapis.com/css?family=Libre+Barcode+128+Text" rel="stylesheet">
+<style>
+    .ss {
+        font-family: 'Libre Barcode 128 Text', cursive;
+        font-size: 48px;
+    }
+</style>
+
+<script>
+    var x = 'swtk<%= formData.aadharno%>';
+    console.log(x);
+    document.getElementById("test").innerHTML = x;
+</script>
+
+>>>>>>> upstream/master
 <!------ Include the above in your HEAD tag ---------->
 
 <div class="container emp-profile">
@@ -13,23 +30,24 @@
             <div class="col-md-4">
                 <div class="profile-img" style="width:110%;height:180%;">
                     <img src="/public/uploads/<%- image %>">
-                
+
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="profile-head">
-                            <h5 style="color:green;">
-                                Registered Successfully
-                            </h5>
-                           
+                    <h5 style="color:green;">
+                        Registered Successfully
+                    </h5>
+
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Details</a>
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                                aria-controls="home" aria-selected="true">Details</a>
                         </li>
                     </ul>
                 </div>
             </div>
-            
+
         </div>
         <div class="row">
             <div class="col-md-4">
