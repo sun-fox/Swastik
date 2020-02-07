@@ -154,11 +154,11 @@ router.post('/sendtoall', (req, res) => {
 });
 
 
-const { MessagingResponse } = require('twilio').twiml;
-const accountSid = 'AC63dcb9c07e6cd8596c032a8ff5e59b1f';
-const authToken = '8006f3f18dda3891ff9e6c10f899f393';
-const client = require('twilio')(accountSid, authToken);
-const goodBoyUrl = 'https://lh3.googleusercontent.com/proxy/7q7Wx47mCOpMZC0_1j2RQNnNq7HEgCk5sjzIsyMw_meUpr2Xbyoy8BuyI1JFuAUU3gTrmyM2py04BPttN979w-c775WUwtyFwh6JQqHNG6GC0ZYNkiiBLKpPsB9xikmAm_1CWBDpBXwamn_Y-z_1BWmWXPWWBmqAZnJ6FbhuIPsCNAKO';
+// const { MessagingResponse } = require('twilio').twiml;
+// const accountSid = 'AC63dcb9c07e6cd8596c032a8ff5e59b1f';
+// const authToken = '8006f3f18dda3891ff9e6c10f899f393';
+// const client = require('twilio')(accountSid, authToken);
+// const goodBoyUrl = 'https://lh3.googleusercontent.com/proxy/7q7Wx47mCOpMZC0_1j2RQNnNq7HEgCk5sjzIsyMw_meUpr2Xbyoy8BuyI1JFuAUU3gTrmyM2py04BPttN979w-c775WUwtyFwh6JQqHNG6GC0ZYNkiiBLKpPsB9xikmAm_1CWBDpBXwamn_Y-z_1BWmWXPWWBmqAZnJ6FbhuIPsCNAKO';
 
 
 router.post('/sendwhatsapptoall', (req, res) => {
