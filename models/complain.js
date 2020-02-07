@@ -14,7 +14,7 @@ const complainSchema = new mongoose.Schema({
         type:String,
         required:false
     },
-    Subject:{
+    subject:{
         type:String,
         required:false
     }

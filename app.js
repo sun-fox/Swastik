@@ -30,17 +30,17 @@ const goodBoyUrl = 'https://lh3.googleusercontent.com/proxy/7q7Wx47mCOpMZC0_1j2R
 
 
 mongoose.connect(process.env.LOCALDB, {
-    useNewUrlParser: true, 
-    useUnifiedTopology: true, 
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
     dbName: 'swastik'
-  }).then(()=>{
-      console.log("db connected!!");
-  }).catch((e)=>{
-    console.log('Database connectivity error ',e)
-  });
+}).then(() => {
+    console.log("db connected!!");
+}).catch((e) => {
+    console.log('Database connectivity error ', e)
+});
 
 app.use(require("express-session")({
-    secret:"secret!",
+    secret: "secret!",
     resave: false,
     saveUninitialized: false
 }));
@@ -59,28 +59,28 @@ app.use("/public", express.static(__dirname + '/public'));
 app.use('/Register', registerRoute);
 app.use('/Login', loginRoute);
 app.use('/Signup', signupRoute);
-app.use('/Protected',protectRoute);
-app.use('/Client',clientRoute);
-app.use('/Message',messageRoute);
-app.use('/Statistics',statisticsRoute);
-app.use('/Search',searchRoute);
-app.use('/Complain',complainRoute);
+app.use('/Protected', protectRoute);
+app.use('/Client', clientRoute);
+app.use('/Message', messageRoute);
+app.use('/Statistics', statisticsRoute);
+app.use('/Search', searchRoute);
+app.use('/Complain', complainRoute);
 
 app.get('/Contacts', (req, res) => {
     res.render('contact');
 })
 
-app.get('/admin',(req,res)=>{
+app.get('/admin', (req, res) => {
     res.render("admin");
 });
-app.get('/dashboard',(req,res)=>{
+app.get('/dashboard', (req, res) => {
     res.render("dashboard");
 })
-app.get('/gallery',(req,res)=>{
+app.get('/gallery', (req, res) => {
     res.render("gallery");
 })
 
-app.get("/qrread",(req,res)=>{
+app.get("/qrread", (req, res) => {
     res.render("qrcode");
 });
 
@@ -89,42 +89,42 @@ app.get("/", function (req, res) {
     var female_parents = [];
     var male_childs = [];
     var female_childs = [];
-    Parent.find({},(err,parent)=>{
-        if(err){
+    Parent.find({}, (err, parent) => {
+        if (err) {
             console.log("error");
         }
-        else{
-            setTimeout(()=>{
-                parent.forEach((parent)=>{
-                    if(parent.gender == 'M'){
+        else {
+            setTimeout(() => {
+                parent.forEach((parent) => {
+                    if (parent.gender == 'M') {
                         male_parents.push(parent);
                     }
-                    else if(parent.gender == 'F'){
+                    else if (parent.gender == 'F') {
                         female_parents.push(parent);
                     }
                 })
-            },100); 
+            }, 100);
         }
     });
-    Child.find({},(err,child)=>{
-        if(err){
+    Child.find({}, (err, child) => {
+        if (err) {
             console.log("error");
         }
-        else{
-            setTimeout(()=>{
-                child.forEach((child)=>{
-                    if(child.gender == 'M'){
+        else {
+            setTimeout(() => {
+                child.forEach((child) => {
+                    if (child.gender == 'M') {
                         male_childs.push(child);
                     }
-                    else if(child.gender == 'F'){
+                    else if (child.gender == 'F') {
                         female_childs.push(child);
                     }
                 })
-            },100); 
+            }, 100);
         }
     });
 
-//count of children on the basis of vaccines(copied from stats.js) starts
+    //count of children on the basis of vaccines(copied from stats.js) starts
     var map = {};
     Child.find({}, (err, ward) => {
         if (err) {
@@ -132,11 +132,11 @@ app.get("/", function (req, res) {
         }
         else {
             setTimeout(() => {
-                ward.forEach((child)=>{
+                ward.forEach((child) => {
                     var vaccinations = child.vaccinations;
-                    vaccinations.forEach((data)=>{
-                        if(!map[data.disease]){
-                            map[data.disease]=0;
+                    vaccinations.forEach((data) => {
+                        if (!map[data.disease]) {
+                            map[data.disease] = 0;
                         }
                         map[data.disease]++;
                     })
@@ -146,18 +146,31 @@ app.get("/", function (req, res) {
             }, 100);
         }
     });
-//count of children on the basis of vaccines(copied from stats.js) ends
-    setTimeout(()=>{
+    //count of children on the basis of vaccines(copied from stats.js) ends
+    setTimeout(() => {
         var count_JSON = {
-            'Male Parents Count':male_parents.length,
-            'Female Parents Count':female_parents.length,
-            'Male Children Count':male_childs.length,
-            'Female Children Count':female_childs.length,
+            'Male Parents Count': male_parents.length,
+            'Female Parents Count': female_parents.length,
+            'Male Children Count': male_childs.length,
+            'Female Children Count': female_childs.length,
         }
         // res.send(count_JSON);
-        res.render("index.ejs",{Data:count_JSON,gdata:map});
-    },500)
+        var labls = [];
+        var dat = [];
+        for (let [key, value] of Object.entries(map)) {
+            labls.push(`${key}`);
+            dat.push(`${value}`)
+        }
+        var dt = [];
+        dat.forEach((x) => {
+            dt.push(Number(x));
+        });
+        console.log(dt);
+        console.log(labls);
+        res.render("index.ejs", { Data: count_JSON, labls: labls, dt: dt });
+    }, 500)
 })
+
 
 //  this is for whatsapp message sending ...
 app.get('/whatsapp',(req,res)=>{
@@ -195,8 +208,11 @@ app.post('/recieve', async (req, res) => {
     message.media(goodBoyUrl);
   } else {
    let replymsg="";
-   if((body.Body).toString() == ("hello") ||(body.Body).toString() == "Hello" ||(body.Body).toString() == "hi" ||(body.Body).toString() =="Hi")
-   replymsg="Hello Welcome to Swastik Helpline ... SEND US YOUR QUERY IN GIVEN CODE";
+   if((body.Body).toString() == ("hello") ||(body.Body).toString() == "Hello" ||(body.Body).toString() == "hi" ||(body.Body).toString() =="Hi"||(body.Body).toString() == "COMPLAIN" ||(body.Body).toString() =="complain")
+   replymsg="Hello Welcome to Swastik Helpline ... SEND US YOUR QUERY IN GIVEN CODE  to register Complain append 'COMPLAIN' in front of your message.'";
+   else if ((body.Body).toString().substring(0,7) ===("COMPLAIN") ){
+        replymsg="Your Complain has been registered, You'll be contacted Sooon!"
+   }
    else
    replymsg="this is invalid message for queries check here : https://www.hackerearth.com/@hyper_bit ";
 
@@ -233,8 +249,8 @@ app.get('/shownos',(req,res)=>{
 app.get("/logout",function(req,res){
     req.logout();
     res.redirect("/");
-})
+});
 
 app.listen(process.env.PORT || 3000, function () {
     console.log("started!!!");
-})
+});
