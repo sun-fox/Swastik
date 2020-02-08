@@ -47,7 +47,9 @@ router.post("/register", (req, res) => {
             console.log(err);
         }
         else{
-            res.send(report);
+            // res.send(report);
+            res.redirect("/casereg");
+
         }
     });
 });
