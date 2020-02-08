@@ -54,6 +54,21 @@ router.post("/register", (req, res) => {
     });
 });
 
+router.post("/predict", (req, res) => {
+    var rep = req.body;
+    // report = new Case(rep);
+    console.log(rep);
+    // report.save((err, report) => {
+    //     if (err) {
+    //         console.log(err);
+    //     }
+    //     else{
+    //         res.send(report);
+    //     }
+    // });
+    res.send("ml5js connection left.");
+});
+
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
