@@ -1,0 +1,2 @@
+{"_id":{"$oid":"5e3e9b46b296144f30494d2c"},"disease":["MMR","TB"],"patient":"Ritik Bansiwala","pincode":"831015","DOA":"05/01/2020","age":{"$numberInt":"8"},"Effect":"Fatal","__v":{"$numberInt":"0"}}
+{"_id":{"$oid":"5e3e9bf68f421f1c18583768"},"disease":["Cough & Cold","Chloera"],"pincode":"R83101","DOA":"05/02/2020","age":{"$numberInt":"8"},"Effect":"Minor","patient":"Risabh Dubey","__v":{"$numberInt":"0"}}
