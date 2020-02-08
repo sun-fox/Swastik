@@ -262,6 +262,7 @@ app.get('/casereg', (req, res) => {
     res.render("casereg");
 });
 
+
 app.get("/logout", function (req, res) {
     req.logout();
     res.redirect("/");
