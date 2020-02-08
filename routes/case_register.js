@@ -27,13 +27,15 @@ router.get("/", isLoggedIn, (req, res) => {
     res.send("Report are registered here!!");
 });
 
-router.get("/all", (req, res) => {
+router.get("/patientDetails", (req, res) => {
     Case.find({},(err,cases)=>{
         if(err){
             console.log(err);
         }
         else{
-            res.send(cases);
+            // res.send(cases);
+            console.log(cases);
+            res.render('patientDetails',{cases:cases});
         }
     })
 });
@@ -47,7 +49,9 @@ router.post("/register", (req, res) => {
             console.log(err);
         }
         else{
-            res.send(report);
+            // res.send(report);
+            res.redirect("/casereg");
+
         }
     });
 });

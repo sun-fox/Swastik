@@ -49,6 +49,9 @@
           <a class="nav-link" href="/Register/child">Register Child</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="/casereg">Register Patient</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="/Signup">Signup</a>
         </li>
         <li class="nav-item">
@@ -115,7 +118,13 @@
       <p>Copyright Swastik</p>
     </div>
   </div>
-  
+  <script>
+    $(document).ready(function(){
+      $('.navbar-toggler').click(function(){
+        $('.navbar-collapse').toggleClass('collapse');
+      })
+    })
+  </script>
 </body>
 
 </html>
