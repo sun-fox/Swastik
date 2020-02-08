@@ -154,7 +154,7 @@ router.post('/sendtoall', (req, res) => {
 });
 
 
-const { MessagingResponse } = require('twilio').twiml;
+/* const { MessagingResponse } = require('twilio').twiml;
 const accountSid = 'AC63dcb9c07e6cd8596c032a8ff5e59b1f';
 const authToken = '8006f3f18dda3891ff9e6c10f899f393';
 const client = require('twilio')(accountSid, authToken);
@@ -178,7 +178,7 @@ router.post('/sendwhatsapptoall', (req, res) => {
         }).catch(err => console.log(err));
     })
     res.render('effect.ejs',{contactnos:arr});
-});
+}); */
 
 
 const { MessagingResponse } = require('twilio').twiml;

@@ -1,0 +1,71 @@
+<% var ward,status; %>
+<!Doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/jumbotron/">
+
+    <!-- Bootstrap core CSS -->
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+     
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/"> Go Back <span class="sr-only">(current)</span></a>
+          </li>
+         
+        </ul>
+      </div>
+    </nav>
+
+    <main role="main">
+
+      <!-- Main jumbotron for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <div class="container">
+            
+          <h2 class="display-3"><%= status %></h2>
+        </div>
+      </div>
+
+      <div class="container">
+        <!-- Example row of columns -->
+           <div>
+               <b>
+             <% if(ward){ %>
+            <h2><%= ward[0].name %></h2>
+            <% } %>
+              </b>
+          </div> 
+        </div>
+
+        <hr>
+
+      </div> <!-- /container -->
+
+    </main>
+
+    <footer class="container">
+ 
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/public/javascripts/jquery.js"></script>
+<link rel="stylesheet" href="/public/stylesheets/bootstrap.min.css">
+<script src="/public/javascripts/bootstrap.min.js"></script>
+  </body>
+</html>
