@@ -79,7 +79,7 @@ app.use('/Message', messageRoute);
 app.use('/Statistics', statisticsRoute);
 app.use('/Search', searchRoute);
 app.use('/Complain', complainRoute);
-app.use('/Find',findRoute);
+app.use('/Find', findRoute);
 app.use('/Case', caseRegisterRoute);
 
 app.get('/Contacts', (req, res) => {
@@ -100,11 +100,7 @@ app.get("/qrread", (req, res) => {
     res.render("qrcode");
 });
 
-<<<<<<< HEAD
 app.get("/", function(req, res) {
-=======
-app.get("/",function (req, res) {
->>>>>>> upstream/master
     var male_parents = [];
     var female_parents = [];
     var male_childs = [];
@@ -189,7 +185,11 @@ app.get("/",function (req, res) {
         });
         console.log(dt);
         console.log(labls);
-        res.render("index.ejs", { Data: count_JSON, labls: labls, dt: dt, gdata: map ,display :false});
+        Object.keys(count_JSON).forEach(function(k) {
+            console.log(k + "    " + count_JSON[k]);
+        });
+        console.log(count_JSON + "Printing for count json");
+        res.render("index.ejs", { Data: count_JSON, labls: labls, dt: dt, gdata: map, display: false });
     }, 500)
 })
 
@@ -211,7 +211,7 @@ app.post('/whatsapp', (req, res) => {
         body: message,
         mediaUrl: linkimg
     }).then(message => {
-        
+
         console.log("message sent");
         console.log(message.sid);
     }).catch(err => console.log(err));
@@ -227,24 +227,24 @@ app.post('/recieve', async(req, res) => {
     const { body } = req;
     let message;
 
-    var replytohelp="";    
+    var replytohelp = "";
     console.log(body);
     let replyno = (body.From).toString();
     let replynumber = replyno.split("+91");
-    Parent.find({phoneno:replynumber},(err,data)=>{
-       if(err)
-       console.log(err);
-       else{
-           let addressReply=(data[0].address);
-           console.log(addressReply);
-           let addressString = addressReply[0];
-          replytohelp+=(addressString.line1).toString()+" ";
-          replytohelp+=addressString.line2.toString()+" ";
-          replytohelp+=addressString.town_village.toString()+" ";
-          replytohelp+=addressString.province.toString()+" ";
-          replytohelp+=addressString.state.toString()+" ";
+    Parent.find({ phoneno: replynumber }, (err, data) => {
+        if (err)
+            console.log(err);
+        else {
+            let addressReply = (data[0].address);
+            console.log(addressReply);
+            let addressString = addressReply[0];
+            replytohelp += (addressString.line1).toString() + " ";
+            replytohelp += addressString.line2.toString() + " ";
+            replytohelp += addressString.town_village.toString() + " ";
+            replytohelp += addressString.province.toString() + " ";
+            replytohelp += addressString.state.toString() + " ";
 
-          console.log(replytohelp);
+            console.log(replytohelp);
         }
 
     });
@@ -256,17 +256,10 @@ app.post('/recieve', async(req, res) => {
         let replymsg = "";
         if ((body.Body).toString() == ("hello") || (body.Body).toString() == "Hello" || (body.Body).toString() == "hi" || (body.Body).toString() == "Hi" || (body.Body).toString() == "COMPLAIN" || (body.Body).toString() == "complain")
             replymsg = "Hello Welcome to Swastik Helpline ... SEND US YOUR QUERY IN GIVEN CODE  to register Complain append 'COMPLAIN' in front of your message.'";
-<<<<<<< HEAD
-        else if ((body.Body).toString().substring(0, 8) === ("COMPLAIN")) {
-            replymsg = "Your Complain has been registered, You'll be contacted Sooon!"
-        } else
-=======
-        else if ((body.Body).toString()== ("HELP")) {
+        else if ((body.Body).toString() == ("HELP")) {
             replymsg = replytohelp;
             console.log(replymsg);
-        }
-        else
->>>>>>> upstream/master
+        } else
             replymsg = "this is invalid message for queries check here : https://www.hackerearth.com/@hyper_bit ";
 
         message = new MessagingResponse().message(replymsg.toString());
