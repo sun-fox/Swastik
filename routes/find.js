@@ -309,34 +309,17 @@ var router = express.Router(),
             }
             else if(parent.length > 0) {
                 console.log("inside findState :"+parent);
-                /* result[0] = [];
-                result[1] = parent; */
                 Child.find({ "address.state": findItem }, (err, child) => {
                     if (err) {
                         console.log("error inside findState child"+err);
                     }
                     else if(child.length > 0) {
                         console.log("inside findState child : "+child);
-                        /* result[0] = child;
-                        result[1] = parent; */
-                        Child.find({ "Fphoneno": findItem }, (err, child) => {
-                            if (err) {
-                                console.log("error inside findPhone child"+err);
-                            }
-                            else if(child.length > 0) {
-                                console.log("inside findPhone child : "+child);
-                                result[0] = child;
-                                result[1] = parent;
-                            }//else if
-                            else{
-                                console.log(" No result in findPhone child");
-                                result[0] = child;
-                                result[1] = parent;
-                            }
-                        });//phone findone
+                        result[0] = child;
+                        result[1] = parent;
                     }//else if
                     else{
-                        console.log(" No result in findPhone child");
+                        console.log(" No result in findState child");
                         result[0] = child;
                         result[1] = parent;
                     }
@@ -360,11 +343,24 @@ var router = express.Router(),
             }
             else if(parent.length > 0) {
                 console.log("inside findCity : "+parent);
-                result[0] = [];
-                result[1] = parent;
+                Child.find({ "address.town_village": findItem }, (err, child) => {
+                    if (err) {
+                        console.log("error inside findCity child"+err);
+                    }
+                    else if(child.length > 0) {
+                        console.log("inside findCity child : "+child);
+                        result[0] = child;
+                        result[1] = parent;
+                    }//else if
+                    else{
+                        console.log(" No result in findState child");
+                        result[0] = child;
+                        result[1] = parent;
+                    }
+                });//phone findone
             }//else if
             else{
-                console.log("No result inside findCity");
+                console.log("No result inside findState");
             }
         });//city findone
         return result;
@@ -380,8 +376,22 @@ var router = express.Router(),
             }
             else if(parent.length > 0) {
                 console.log("inside findProvince :"+parent);
-                result[0] = [];
-                result[1] = parent;
+                Child.find({ "address.province": findItem }, (err, child) => {
+                    if (err) {
+                        console.log("error inside findProvince child"+err);
+                    }
+                    else if(child.length > 0) {
+                        console.log("inside findProvince child : "+child);
+                        result[0] = child;
+                        result[1] = parent;
+                    }//else if
+                    else{
+                        console.log(" No result in findProvince child");
+                        result[0] = child;
+                        result[1] = parent;
+                    }
+                });//phone findone
+
             }//else if
             else{
                 console.log("No result inside findProvince");
@@ -400,8 +410,21 @@ var router = express.Router(),
             }
             else if(parent.length > 0) {
                 console.log("inside findPincode :"+parent);
-                result[0] = [];
-                result[1] = parent;
+                Child.find({ "address.pincode": findItem }, (err, child) => {
+                    if (err) {
+                        console.log("error inside findPincode child"+err);
+                    }
+                    else if(child.length > 0) {
+                        console.log("inside findPincode child : "+child);
+                        result[0] = child;
+                        result[1] = parent;
+                    }//else if
+                    else{
+                        console.log(" No result in findPincode child");
+                        result[0] = child;
+                        result[1] = parent;
+                    }
+                });//phone findone
             }//else if
             else{
                 console.log("No result inside findPincode");
