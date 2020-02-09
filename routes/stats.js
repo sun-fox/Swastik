@@ -32,17 +32,18 @@ router.get("/", isLoggedIn, (req, res) => {
 
 
 router.get("/patients_count_wrt_disease", (req, res) => {
-    var map = {'Polio':0, 'HepatitisA':0, 'HepatitisB':0, 'ChickenPox':0, 'DTaP':0,'Hib':0,'Influenza':0,'MMR':0,
-    'Meningococcal':0,'Pneumococcal':0,'Rotavirus':0};
+    var map = {};
     Child.find({}, (err, ward) => {
         if (err) {
             console.log(err);
-        }
-        else {
+        } else {
             setTimeout(() => {
-                ward.forEach((child)=>{
+                ward.forEach((child) => {
                     var vaccinations = child.vaccinations;
-                    vaccinations.forEach((data)=>{
+                    vaccinations.forEach((data) => {
+                        if (!map[data.disease]) {
+                            map[data.disease] = 0;
+                        }
                         map[data.disease]++;
                     })
                 });
@@ -55,30 +56,33 @@ router.get("/patients_count_wrt_disease", (req, res) => {
 
 
 router.get("/children/pincode", (req, res) => {
-    console.log("Here!!!!");
     var map = {};
     Child.find({}, (err, ward) => {
         if (err) {
             console.log(err);
-        }
-        else {
+        } else {
             setTimeout(() => {
-                ward.forEach((child)=>{
+                ward.forEach((child) => {
                     var address = child.address;
-                    address.forEach((data)=>{
-                        if(!map[data.pincode]){
-                            map[data.pincode]=0;
+                    address.forEach((data) => {
+                        if (!map[data.pincode]) {
+                            map[data.pincode] = 0;
                         }
                         map[data.pincode]++;
                     })
                 });
-                console.log(map);
+                // var entries = Object.entries(map);
+                // console.log(entries);
+                // map['kbskj'] = 1;
+                // map['shxjskjjkj'] = 2;
                 res.send(map);
             }, 1000);
         }
     });
 });
-
+router.get('/viewstats', function(req, res) {
+    res.render('stats');
+});
 
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
