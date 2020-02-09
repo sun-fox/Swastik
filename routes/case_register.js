@@ -34,7 +34,7 @@ router.get("/patientDetails", (req, res) => {
         }
         else{
             // res.send(cases);
-            console.log(cases);
+            // console.log(cases);
             res.render('patientDetails',{cases:cases});
         }
     })
