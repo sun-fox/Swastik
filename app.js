@@ -259,6 +259,12 @@ app.get('/shownos', (req, res) => {
     res.render("printnos", { contactnos: noss });
 });
 
+app.get('/casereg', (req, res) => {
+
+    res.render("casereg");
+});
+
+
 app.get("/logout", function (req, res) {
     req.logout();
     res.redirect("/");
@@ -276,6 +282,10 @@ app.get("/logout", function (req, res) {
     });
  }); */
 
+
+
+
+ 
 app.listen(process.env.PORT || 3000, function () {
     console.log("started!!!");
 });
