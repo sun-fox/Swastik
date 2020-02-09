@@ -1,4 +1,4 @@
-<% var ward,status; %>
+<% var child,parent,status; %>
 <!Doctype html>
 <html lang="en">
   <head>
@@ -15,55 +15,59 @@
   <body>
 
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-     
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
             <a class="nav-link" href="/"> Go Back <span class="sr-only">(current)</span></a>
           </li>
-         
         </ul>
       </div>
     </nav>
 
-    <main role="main">
 
-      <!-- Main jumbotron for a primary marketing message or call to action -->
-      <div class="jumbotron">
-        <div class="container">
-            
-          <h2 class="display-3"><%= status %></h2>
+      <div class="container-fluid" style="margin-top:100px;">
+        <h2 ><%= status %></h2>
+            <!--  parent -->
+            <% if(parent){ %>
+            <% if(parent.length > 0){ %>
+                <h4 >Parent's Related to this Search- </h4>
+                <div class="col">
+                <% for(var i=0;i<parent.length;i++) { %>
+                <div class="row" style="border-bottom:2px solid gray;margin:3px;padding:5px;">
+                <div class="col">
+                <div class="row" style="font-size:20px;font-weight:800;">Name : <%= parent[i].name %></div>
+                <div class="row" style="font-size:20px;font-weight:800;">Aadhar No. : <%= parent[i].aadharno %></div>
+                </div>
+               <div class="col"> <img style="width:200px;" src='<%= parent[i].image %>'></div>
+               </div>
+               <% } %>
+                </div><br>
+               <% } %>
+               <% } %>
+             <!--  parent -->
+             <!-- child -->
+             <% if(child){ %>
+             <% if(child.length >0){ %>
+                <h4 >Children Related to this Search- </h4>
+                <div class="col" >
+                <% for(var i=0;i<child.length;i++) { %>
+               <div class="row" style="border-bottom:2px solid gray;margin:3px;padding:5px;">
+               <div class="col">
+               <div class="row" style="font-size:20px;font-weight:800;">Name : <%= child[i].name %></div>
+               <div class="row" style="font-size:20px;font-weight:800;">Dob : <%= child[i].DOB %></div>
+               </div>
+               <div class="col"> <img style="width:200px;" src='<%= child[i].image %>'></div>
+               </div>
+               <% } %>
+            <!-- child -->
+                </div><br>
+               <% } %>
+               <% } %>
         </div>
-      </div>
 
-      <div class="container">
-        <!-- Example row of columns -->
-           <div>
-               <b>
-             <% if(ward){ %>
-            <h2><%= ward[0].name %></h2>
-            <% } %>
-              </b>
-          </div> 
-        </div>
-
-        <hr>
-
-      </div> <!-- /container -->
-
-    </main>
-
-    <footer class="container">
- 
-    </footer>
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
     <script src="/public/javascripts/jquery.js"></script>
 <link rel="stylesheet" href="/public/stylesheets/bootstrap.min.css">
 <script src="/public/javascripts/bootstrap.min.js"></script>

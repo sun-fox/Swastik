@@ -91,7 +91,7 @@ app.get("/qrread", (req, res) => {
     res.render("qrcode");
 });
 
-app.get("/", function (req, res) {
+app.get("/",function (req, res) {
     var male_parents = [];
     var female_parents = [];
     var male_childs = [];
@@ -181,7 +181,7 @@ app.get("/", function (req, res) {
         });
         console.log(dt);
         console.log(labls);
-        res.render("index.ejs", { Data: count_JSON, labls: labls, dt: dt, gdata: map });
+        res.render("index.ejs", { Data: count_JSON, labls: labls, dt: dt, gdata: map ,display :false});
     }, 500)
 })
 

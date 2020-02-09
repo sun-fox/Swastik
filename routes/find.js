@@ -28,219 +28,406 @@ var router = express.Router(),
        console.log("reached in find people");
        // finding child name
          var findItem = req.body.anyname;
-         findChild(res,findItem);
+         var numbers = /^[0-9]+$/;
+         var result=[];
+         result = findChild(res,findItem);
+         setTimeout(()=>{
+            checkResult(res,result,findItem);
+         },100); 
+
+        setTimeout(()=>{
+            result = findParent(res,findItem);
+        },150); 
+         setTimeout(()=>{
+            checkResult(res,result,findItem);
+         },200); 
+
+         setTimeout(()=>{
+            result = findDisease(res,findItem);;
+        },250); 
+         setTimeout(()=>{
+            checkResult(res,result,findItem);
+         },300); 
+
+         setTimeout(()=>{
+            result = findPhone(res,findItem);
+        },350); 
+         setTimeout(()=>{
+            checkResult(res,result,findItem);
+         },400);
+
+         setTimeout(()=>{
+            result = findEmail(res,findItem);
+        },450); 
+         setTimeout(()=>{
+            checkResult(res,result,findItem);
+         },500);
+
+         setTimeout(()=>{
+            result = findAadhar(res,findItem);
+        },550); 
+         setTimeout(()=>{
+            checkResult(res,result,findItem);
+         },600);
+
+         setTimeout(()=>{
+            result = findState(res,findItem);
+        },650); 
+         setTimeout(()=>{
+            checkResult(res,result,findItem);
+         },700);
+
+         setTimeout(()=>{
+                result = findPincode(res,findItem);
+        },750); 
+         setTimeout(()=>{
+            checkResult(res,result,findItem);
+         },800);
+
+         setTimeout(()=>{
+            result = findProvince(res,findItem);
+        },850); 
+         setTimeout(()=>{
+            checkResult(res,result,findItem);
+         },900);
+
+         setTimeout(()=>{
+            result = findCity(res,findItem);
+        },950); 
+         setTimeout(()=>{
+            checkResult(res,result,findItem);
+         },1000);
+
+         setTimeout(()=>{
+            result = findDob(res,findItem);
+        },1050); 
+         setTimeout(()=>{
+            checkResult(res,result,findItem);
+         },1100);
+
+         setTimeout(()=>{
+            res.render('findResult',{ child :null,parent : null ,status : "Search Results Related to '"+findItem+"' did'nt matched."});
+        },1150);
+        
+        /*  findPhone(res,findItem);
          findParent(res,findItem);
          findDisease(res,findItem);
          findEmail(res,findItem);
-         findPhone(res,findItem);
          findAadhar(res,findItem);
          findState(res,findItem);
          findCity(res,findItem);
          findPincode(res,findItem);
          findProvince(res,findItem);
-         findDob(res,findItem);
+         findDob(res,findItem); */
+         
+        
     });//post people
 
+    function checkResult(res,result,findItem){
+        if(result){   
+            console.log("i am inside checkresults");
+            if(result.length > 0)
+            {
+              console.log("checkresult if");
+              renderResult(res,result,findItem)
+            }
+            }
+     }//check result
+
+     function renderResult(res,result,findItem)
+     {
+             console.log("i am inside renderResult");
+            if(result[0].length > 0 || result[1].length > 0){
+                res.render('findResult',{child : result[0],parent : result[1],status : "Search Results Related to ' "+findItem+" '"});
+                }
+                else{
+                res.render('findResult',{ child :null,parent : null ,status : "Search Results Related to '"+findItem+"' did'nt matched."});
+                }
+     }//renderResult
+
+    
     function findChild(res,findItem)
     {
+        console.log("I am inside findChild");
+        var result = [];
         findItem = toTitleCase(findItem);
-        Child.find({ "name": findItem }, (err, ward) => {
+        Child.find({ "name": findItem }, (err, child) => {
             if (err) {
-                console.log(err);
-                /* res.render('findResult',{ status : "Search did'nt Matched !"}) */;
+                console.log("error in findChild : "+err);
             }
-            else if(ward.length > 0) {
-                console.log(ward.name);
-                res.render('findResult',{ward : ward, status : "Search Matched !"});
+            else if(child.length > 0) {
+                console.log("inside findChild : "+child);
+                result[0] = child;
+                result[1] = [];
             }//else if
             else{
-                console.log("No result");
-                res.render('findResult',{ status : "Search did'nt Matched !"});
+                console.log("No result in findchild");
             }
         });//child findone
+        return result;
     }//findchild function
 
     function findParent(res,findItem)
     {
+        console.log("i am inside findParent");
+        var result = [];
         findItem = toTitleCase(findItem);
-        Parent.find({ "name": findItem }, (err, ward) => {
+        Parent.find({ "name": findItem }, (err, parent) => {
             if (err) {
-                console.log(err);
-                /* res.render('findResult',{ status : "Search did'nt Matched !"}) */;
+                console.log("error in findParent : "+err);
             }
-            else if(ward.length > 0) {
-                console.log(ward.name);
-                res.render('findResult',{ward : ward, status : "Search Matched !"});
+            else if(parent.length > 0) {
+                console.log("inside findparent : "+parent);
+                result[0] = [];
+                result[1] = parent;
             }//else if
             else{
-                console.log("No result");
-                res.render('findResult',{ status : "Search did'nt Matched !"});
+                console.log("No result in findParent");
             }
         });//parent findone
+        return result;
     }//findParent function
 
     function findDisease(res,findItem)
     {
+        console.log("i am inside findDisease");
+        var result = [];
         findItem = toTitleCase(findItem);
-        Child.find({ "vaccinations.disease": findItem }, (err, ward) => {
+        Child.find({ "vaccinations.disease": findItem }, (err, child) => {
             if (err) {
-                console.log(err);
-                /* res.render('findResult',{ status : "Search did'nt Matched !"}) */;
+                console.log("error in findDisease :"+err);
             }
-            else if(ward.length > 0) {
-                console.log(ward.name);
-                res.render('findResult',{ward : ward, status : "Search Matched !"});
+            else if(child.length > 0) {
+                console.log("inside findDisease :"+child);
+                result[0] = child;
+                result[1] = [];
             }//else if
             else{
-                console.log("No result");
-                res.render('findResult',{ status : "Search did'nt Matched !"});
+                console.log("No result in findDisease");
             }
         });//disesase findone
+        return result;
     }//finddisease function
 
     function findEmail(res,findItem)
     {
-        Parent.find({ "email": findItem }, (err, ward) => {
+        console.log("i am inside findEmail");
+        var result = [];
+        Parent.find({ "email": findItem }, (err, parent) => {
             if (err) {
-                console.log(err);
-                /* res.render('findResult',{ status : "Search did'nt Matched !"}) */;
+                console.log("error in findEmail :"+err)
             }
-            else if(ward.length > 0) {
-                console.log(ward.name);
-                res.render('findResult',{ward : ward, status : "Search Matched !"});
+            else if(parent.length > 0) {
+                console.log(" inside findEmail : "+parent);
+                result[0] = [];
+                result[1] = parent;
             }//else if
             else{
-                console.log("No result");
-                res.render('findResult',{ status : "Search did'nt Matched !"});
+                console.log("No result in findEmail");
             }
         });//email findone
+        return result;
     }//findEmail function
 
     function findPhone(res,findItem)
     {
-        Parent.find({ "email": findItem }, (err, ward) => {
+        console.log("i am inside findPhone");
+        var result = [];
+        Parent.find({ "phoneno": findItem }, (err, parent) => {
             if (err) {
-                console.log(err);
-                /* res.render('findResult',{ status : "Search did'nt Matched !"}) */;
+                console.log("error inside findPhone parent :"+err);
             }
-            else if(ward.length > 0) {
-                console.log(ward.name);
-                res.render('findResult',{ward : ward, status : "Search Matched !"});
+            else if(parent.length > 0) {
+                console.log("inside findPhone parent :"+parent);
+                
+                // finding children with this number
+                Child.find({ "Fphoneno": findItem }, (err, child) => {
+                    if (err) {
+                        console.log("error inside findPhone child"+err);
+                    }
+                    else if(child.length > 0) {
+                        console.log("inside findPhone child father : "+child);
+                        result[0] = child;
+                        result[1] = parent;
+                    }//else if
+                    else{
+                        console.log(" inside findPhone child mother ");
+                       /*  result[0] = child;
+                        result[1] = parent; */
+                        Child.find({ "Mphoneno": findItem }, (err, child) => {
+                            if (err) {
+                                console.log("error inside findPhone child"+err);
+                            }
+                            else if(child.length > 0) {
+                                console.log("inside findPhone child : "+child);
+                                result[0] = child;
+                                result[1] = parent;
+                            }//else if
+                            else{
+                                console.log(" No result in findPhone child");
+                                result[0] = child;
+                                result[1] = parent;
+                            }
+                        });//phone findone
+                    }//else of child
+                });//phone findone
             }//else if
             else{
-                console.log("No result");
-                res.render('findResult',{ status : "Search did'nt Matched !"});
+                console.log("No result in findPhone parent");
             }
         });//phone findone
+        return result;
     }//findPhone function
 
     function findAadhar(res,findItem)
     {
-        Parent.find({ "email": findItem }, (err, ward) => {
+        console.log("i am inside findAadhar");
+        var result = [];
+        Parent.find({ "aadharno": findItem }, (err, parent) => {
             if (err) {
-                console.log(err);
-                /* res.render('findResult',{ status : "Search did'nt Matched !"}) */;
+                console.log("error inside findAadhar :"+err)
             }
-            else if(ward.length > 0) {
-                console.log(ward.name);
-                res.render('findResult',{ward : ward, status : "Search Matched !"});
+            else if(parent.length > 0) {
+                console.log("inside findAadhar : "+parent);
+                result[0] = [];
+                result[1] = parent;
             }//else if
             else{
-                console.log("No result");
-                res.render('findResult',{ status : "Search did'nt Matched !"});
+                console.log("No result inside findAadhar");
             }
         });//Aadhar findone
+        return result;
     }//findAadhar function
 
     function findState(res,findItem)
     {
-        Parent.find({ "email": findItem }, (err, ward) => {
+        console.log("i am inside findState");
+        var result = [];
+        Parent.find({ "address.state": findItem }, (err, parent) => {
             if (err) {
-                console.log(err);
-                /* res.render('findResult',{ status : "Search did'nt Matched !"}) */;
+                console.log("error inside findState : "+err);
             }
-            else if(ward.length > 0) {
-                console.log(ward.name);
-                res.render('findResult',{ward : ward, status : "Search Matched !"});
+            else if(parent.length > 0) {
+                console.log("inside findState :"+parent);
+                /* result[0] = [];
+                result[1] = parent; */
+                Child.find({ "address.state": findItem }, (err, child) => {
+                    if (err) {
+                        console.log("error inside findState child"+err);
+                    }
+                    else if(child.length > 0) {
+                        console.log("inside findState child : "+child);
+                        /* result[0] = child;
+                        result[1] = parent; */
+                        Child.find({ "Fphoneno": findItem }, (err, child) => {
+                            if (err) {
+                                console.log("error inside findPhone child"+err);
+                            }
+                            else if(child.length > 0) {
+                                console.log("inside findPhone child : "+child);
+                                result[0] = child;
+                                result[1] = parent;
+                            }//else if
+                            else{
+                                console.log(" No result in findPhone child");
+                                result[0] = child;
+                                result[1] = parent;
+                            }
+                        });//phone findone
+                    }//else if
+                    else{
+                        console.log(" No result in findPhone child");
+                        result[0] = child;
+                        result[1] = parent;
+                    }
+                });//phone findone
             }//else if
             else{
-                console.log("No result");
-                res.render('findResult',{ status : "Search did'nt Matched !"});
+                console.log("No result inside findState");
             }
         });//State findone
+        return result;
     }//findState function
 
 
     function findCity(res,findItem)
     {
-        Parent.find({ "email": findItem }, (err, ward) => {
+        console.log("i am inside findCity");
+        var result = [];
+        Parent.find({ "address.town_village": findItem }, (err, parent) => {
             if (err) {
-                console.log(err);
-                /* res.render('findResult',{ status : "Search did'nt Matched !"}) */;
+                console.log("errro inside findCity :"+err)
             }
-            else if(ward.length > 0) {
-                console.log(ward.name);
-                res.render('findResult',{ward : ward, status : "Search Matched !"});
+            else if(parent.length > 0) {
+                console.log("inside findCity : "+parent);
+                result[0] = [];
+                result[1] = parent;
             }//else if
             else{
-                console.log("No result");
-                res.render('findResult',{ status : "Search did'nt Matched !"});
+                console.log("No result inside findCity");
             }
         });//city findone
+        return result;
     }//findCity function
 
     function findProvince(res,findItem)
     {
-        Parent.find({ "email": findItem }, (err, ward) => {
+        console.log("i am inside findProvince");
+        var result = [];
+        Parent.find({ "address.province": findItem }, (err, parent) => {
             if (err) {
-                console.log(err);
-                /* res.render('findResult',{ status : "Search did'nt Matched !"}) */;
+                console.log("error inside findProvince :"+err)
             }
-            else if(ward.length > 0) {
-                console.log(ward.name);
-                res.render('findResult',{ward : ward, status : "Search Matched !"});
+            else if(parent.length > 0) {
+                console.log("inside findProvince :"+parent);
+                result[0] = [];
+                result[1] = parent;
             }//else if
             else{
-                console.log("No result");
-                res.render('findResult',{ status : "Search did'nt Matched !"});
+                console.log("No result inside findProvince");
             }
         });//province findone
+        return result;
     }//findProvince function
 
     function findPincode(res,findItem)
     {
-        Parent.find({ "email": findItem }, (err, ward) => {
+        console.log("i am inside findPincode");
+        var result = [];
+        Parent.find({ "address.pincode": findItem }, (err,parent) => {
             if (err) {
-                console.log(err);
-                /* res.render('findResult',{ status : "Search did'nt Matched !"}) */;
+                console.log("error inside findPincode :"+err)
             }
-            else if(ward.length > 0) {
-                console.log(ward.name);
-                res.render('findResult',{ward : ward, status : "Search Matched !"});
+            else if(parent.length > 0) {
+                console.log("inside findPincode :"+parent);
+                result[0] = [];
+                result[1] = parent;
             }//else if
             else{
-                console.log("No result");
-                res.render('findResult',{ status : "Search did'nt Matched !"});
+                console.log("No result inside findPincode");
             }
         });//pincode findone
+        return result;
     }//findPincode function
 
     function findDob(res,findItem)
     {
-        Parent.find({ "email": findItem }, (err, ward) => {
+        console.log("i am inside findDob");
+        var result = [];
+        Child.find({ "DOB": findItem }, (err, child) => {
             if (err) {
-                console.log(err);
-                /* res.render('findResult',{ status : "Search did'nt Matched !"}) */;
+                console.log("error inside findDob :"+err);
             }
-            else if(ward.length > 0) {
-                console.log(ward.name);
-                res.render('findResult',{ward : ward, status : "Search Matched !"});
+            else if(child.length > 0) {
+                console.log(child);
+                result[0] = child;
+                result[1] = []
             }//else if
             else{
-                console.log("No result");
-                res.render('findResult',{ status : "Search did'nt Matched !"});
+                console.log("No result inside findDob");
             }
         });//dob findone
+        return result;
     }//findDob function
 
 
