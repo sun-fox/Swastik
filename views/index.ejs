@@ -50,7 +50,7 @@
         }
     }
     async function getData() {
-        const response = await fetch('http://localhost:3000/statistics/patients_count_wrt_disease');
+        const response = await fetch('https://swastik1.herokuapp.com//statistics/patients_count_wrt_disease');
         console.log(response);
         const data = await response.json();
         const parsedData = Object.entries(data);
@@ -90,7 +90,7 @@
         }
     }
     async function getData() {
-        const response = await fetch('http://localhost:3000/statistics/children/pincode');
+        const response = await fetch('https://swastik1.herokuapp.com//statistics/children/pincode');
         console.log(response);
         const data = await response.json();
         const parsedData = Object.entries(data);
