@@ -27,8 +27,8 @@ var requestify = require('requestify');
 
 /* including my twilio acc  */
 const { MessagingResponse } = require('twilio').twiml;
-const accountSid = 'AC63dcb9c07e6cd8596c032a8ff5e59b1f';
-const authToken = '8006f3f18dda3891ff9e6c10f899f393';
+const accountSid = 'AC49280ab194cc76ba75d4783d5f68a391';
+const authToken = 'e1b3f04e85ef2fab83a317d21212227d';
 const client = require('twilio')(accountSid, authToken);
 const goodBoyUrl = 'https://lh3.googleusercontent.com/proxy/7q7Wx47mCOpMZC0_1j2RQNnNq7HEgCk5sjzIsyMw_meUpr2Xbyoy8BuyI1JFuAUU3gTrmyM2py04BPttN979w-c775WUwtyFwh6JQqHNG6GC0ZYNkiiBLKpPsB9xikmAm_1CWBDpBXwamn_Y-z_1BWmWXPWWBmqAZnJ6FbhuIPsCNAKO';
 
@@ -201,6 +201,8 @@ app.post('/whatsapp', (req, res) => {
         body: message,
         mediaUrl: linkimg
     }).then(message => {
+        
+        console.log("message sent");
         console.log(message.sid);
     }).catch(err => console.log(err));
 
@@ -214,6 +216,29 @@ app.post('/whatsapp', (req, res) => {
 app.post('/recieve', async (req, res) => {
     const { body } = req;
     let message;
+
+    var replytohelp="";    
+    console.log(body);
+    let replyno = (body.From).toString();
+    let replynumber = replyno.split("+91");
+    Parent.find({phoneno:replynumber},(err,data)=>{
+       if(err)
+       console.log(err);
+       else{
+           let addressReply=(data[0].address);
+           console.log(addressReply);
+           let addressString = addressReply[0];
+          replytohelp+=(addressString.line1).toString()+" ";
+          replytohelp+=addressString.line2.toString()+" ";
+          replytohelp+=addressString.town_village.toString()+" ";
+          replytohelp+=addressString.province.toString()+" ";
+          replytohelp+=addressString.state.toString()+" ";
+
+          console.log(replytohelp);
+        }
+
+    });
+    console.log(replytohelp);
     if (body.NumMedia > 0) {
         message = new MessagingResponse().message("this is invalid message ");
         message.media(goodBoyUrl);
@@ -221,13 +246,14 @@ app.post('/recieve', async (req, res) => {
         let replymsg = "";
         if ((body.Body).toString() == ("hello") || (body.Body).toString() == "Hello" || (body.Body).toString() == "hi" || (body.Body).toString() == "Hi" || (body.Body).toString() == "COMPLAIN" || (body.Body).toString() == "complain")
             replymsg = "Hello Welcome to Swastik Helpline ... SEND US YOUR QUERY IN GIVEN CODE  to register Complain append 'COMPLAIN' in front of your message.'";
-        else if ((body.Body).toString().substring(0, 8) === ("COMPLAIN")) {
-            replymsg = "Your Complain has been registered, You'll be contacted Sooon!"
+        else if ((body.Body).toString()== ("HELP")) {
+            replymsg = replytohelp;
+            console.log(replymsg);
         }
         else
             replymsg = "this is invalid message for queries check here : https://www.hackerearth.com/@hyper_bit ";
 
-        message = new MessagingResponse().message(replymsg);
+        message = new MessagingResponse().message(replymsg.toString());
     }
 
     res.set('Content-Type', 'text/xml');
