@@ -34,15 +34,24 @@ const client = require('twilio')(accountSid, authToken);
 const goodBoyUrl = 'https://lh3.googleusercontent.com/proxy/7q7Wx47mCOpMZC0_1j2RQNnNq7HEgCk5sjzIsyMw_meUpr2Xbyoy8BuyI1JFuAUU3gTrmyM2py04BPttN979w-c775WUwtyFwh6JQqHNG6GC0ZYNkiiBLKpPsB9xikmAm_1CWBDpBXwamn_Y-z_1BWmWXPWWBmqAZnJ6FbhuIPsCNAKO';
 
 
-mongoose.connect(process.env.LOCALDB, {
-    useNewUrlParser: true,
+// mongoose.connect(process.env.LOCALDB, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//     dbName: 'swastik'
+// }).then(() => {
+//     console.log("db connected!!");
+// }).catch((e) => {
+//     console.log('Database connectivity error ', e)
+// });
+// mongoose.connect("mongodb://localhost/swastik");
+const options = {
+    keepAlive: 1,
     useUnifiedTopology: true,
-    dbName: 'swastik'
-}).then(() => {
-    console.log("db connected!!");
-}).catch((e) => {
-    console.log('Database connectivity error ', e)
-});
+    useNewUrlParser: true
+};
+var dev_db_url = 'mongodb+srv://ankit:passraj@aimusic-es8pe.mongodb.net/swastik?retryWrites=true&w=majority';
+var mongoDB = process.env.MONGODB_URI || dev_db_url;
+mongoose.connect(mongoDB, options).then(() => console.log('DB connected')).catch((err) => console.log(err));
 
 app.use(require("express-session")({
     secret: "secret!",
@@ -55,7 +64,7 @@ passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.set("view engine", "ejs");   ///set template engine to ejs
+app.set("view engine", "ejs"); ///set template engine to ejs
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -70,7 +79,7 @@ app.use('/Message', messageRoute);
 app.use('/Statistics', statisticsRoute);
 app.use('/Search', searchRoute);
 app.use('/Complain', complainRoute);
-app.use('/Find',findRoute);
+app.use('/Find', findRoute);
 app.use('/Case', caseRegisterRoute);
 
 app.get('/Contacts', (req, res) => {
@@ -91,7 +100,7 @@ app.get("/qrread", (req, res) => {
     res.render("qrcode");
 });
 
-app.get("/",function (req, res) {
+app.get("/", function(req, res) {
     var male_parents = [];
     var female_parents = [];
     var male_childs = [];
@@ -99,14 +108,12 @@ app.get("/",function (req, res) {
     Parent.find({}, (err, parent) => {
         if (err) {
             console.log("error");
-        }
-        else {
+        } else {
             setTimeout(() => {
                 parent.forEach((parent) => {
                     if (parent.gender == 'M') {
                         male_parents.push(parent);
-                    }
-                    else if (parent.gender == 'F') {
+                    } else if (parent.gender == 'F') {
                         female_parents.push(parent);
                     }
                 })
@@ -116,14 +123,12 @@ app.get("/",function (req, res) {
     Child.find({}, (err, child) => {
         if (err) {
             console.log("error");
-        }
-        else {
+        } else {
             setTimeout(() => {
                 child.forEach((child) => {
                     if (child.gender == 'M') {
                         male_childs.push(child);
-                    }
-                    else if (child.gender == 'F') {
+                    } else if (child.gender == 'F') {
                         female_childs.push(child);
                     }
                 })
@@ -136,8 +141,7 @@ app.get("/",function (req, res) {
     Child.find({}, (err, ward) => {
         if (err) {
             console.log(err);
-        }
-        else {
+        } else {
             setTimeout(() => {
                 ward.forEach((child) => {
                     var vaccinations = child.vaccinations;
@@ -163,12 +167,12 @@ app.get("/",function (req, res) {
     //count of children on the basis of vaccines(copied from stats.js) ends
     setTimeout(() => {
         var count_JSON = {
-            'Male Parents Count': male_parents.length,
-            'Female Parents Count': female_parents.length,
-            'Male Children Count': male_childs.length,
-            'Female Children Count': female_childs.length,
-        }
-        // res.send(count_JSON);
+                'Male Parents Count': male_parents.length,
+                'Female Parents Count': female_parents.length,
+                'Male Children Count': male_childs.length,
+                'Female Children Count': female_childs.length,
+            }
+            // res.send(count_JSON);
         var labls = [];
         var dat = [];
         for (let [key, value] of Object.entries(map)) {
@@ -181,7 +185,11 @@ app.get("/",function (req, res) {
         });
         console.log(dt);
         console.log(labls);
-        res.render("index.ejs", { Data: count_JSON, labls: labls, dt: dt, gdata: map ,display :false});
+        Object.keys(count_JSON).forEach(function(k) {
+            console.log(k + "    " + count_JSON[k]);
+        });
+        console.log(count_JSON + "Printing for count json");
+        res.render("index.ejs", { Data: count_JSON, labls: labls, dt: dt, gdata: map, display: false });
     }, 500)
 })
 
@@ -203,7 +211,7 @@ app.post('/whatsapp', (req, res) => {
         body: message,
         mediaUrl: linkimg
     }).then(message => {
-        
+
         console.log("message sent");
         console.log(message.sid);
     }).catch(err => console.log(err));
@@ -215,28 +223,28 @@ app.post('/whatsapp', (req, res) => {
 
 
 // this part is for whatsapp messages recieving ... 
-app.post('/recieve', async (req, res) => {
+app.post('/recieve', async(req, res) => {
     const { body } = req;
     let message;
 
-    var replytohelp="";    
+    var replytohelp = "";
     console.log(body);
     let replyno = (body.From).toString();
     let replynumber = replyno.split("+91");
-    Parent.find({phoneno:replynumber},(err,data)=>{
-       if(err)
-       console.log(err);
-       else{
-           let addressReply=(data[0].address);
-           console.log(addressReply);
-           let addressString = addressReply[0];
-          replytohelp+=(addressString.line1).toString()+" ";
-          replytohelp+=addressString.line2.toString()+" ";
-          replytohelp+=addressString.town_village.toString()+" ";
-          replytohelp+=addressString.province.toString()+" ";
-          replytohelp+=addressString.state.toString()+" ";
+    Parent.find({ phoneno: replynumber }, (err, data) => {
+        if (err)
+            console.log(err);
+        else {
+            let addressReply = (data[0].address);
+            console.log(addressReply);
+            let addressString = addressReply[0];
+            replytohelp += (addressString.line1).toString() + " ";
+            replytohelp += addressString.line2.toString() + " ";
+            replytohelp += addressString.town_village.toString() + " ";
+            replytohelp += addressString.province.toString() + " ";
+            replytohelp += addressString.state.toString() + " ";
 
-          console.log(replytohelp);
+            console.log(replytohelp);
         }
 
     });
@@ -248,11 +256,10 @@ app.post('/recieve', async (req, res) => {
         let replymsg = "";
         if ((body.Body).toString() == ("hello") || (body.Body).toString() == "Hello" || (body.Body).toString() == "hi" || (body.Body).toString() == "Hi" || (body.Body).toString() == "COMPLAIN" || (body.Body).toString() == "complain")
             replymsg = "Hello Welcome to Swastik Helpline ... SEND US YOUR QUERY IN GIVEN CODE  to register Complain append 'COMPLAIN' in front of your message.'";
-        else if ((body.Body).toString()== ("HELP")) {
+        else if ((body.Body).toString() == ("HELP")) {
             replymsg = replytohelp;
             console.log(replymsg);
-        }
-        else
+        } else
             replymsg = "this is invalid message for queries check here : https://www.hackerearth.com/@hyper_bit ";
 
         message = new MessagingResponse().message(replymsg.toString());
@@ -291,7 +298,7 @@ app.get('/casereg', (req, res) => {
 });
 
 
-app.get("/logout", function (req, res) {
+app.get("/logout", function(req, res) {
     req.logout();
     res.redirect("/");
 });
@@ -311,7 +318,7 @@ app.get("/logout", function (req, res) {
 
 
 
- 
-app.listen(process.env.PORT || 3000, function () {
+
+app.listen(process.env.PORT || 3000, function() {
     console.log("started!!!");
 });

@@ -28,14 +28,25 @@ router.get("/", isLoggedIn, (req, res) => {
 });
 
 router.get("/patientDetails", (req, res) => {
-    Case.find({},(err,cases)=>{
-        if(err){
+    Case.find({}, (err, cases) => {
+        if (err) {
             console.log(err);
-        }
-        else{
+        } else {
             // res.send(cases);
             // console.log(cases);
-            res.render('patientDetails',{cases:cases});
+            res.render('patientDetails', { cases: cases });
+        }
+    })
+});
+router.get("/patientDetails/api", (req, res) => {
+    Case.find({}, (err, cases) => {
+        if (err) {
+            console.log(err);
+        } else {
+            // res.send(cases);
+            // console.log(cases);
+
+            res.send(Object.entries(cases));
         }
     })
 });
@@ -47,8 +58,7 @@ router.post("/register", (req, res) => {
     report.save((err, report) => {
         if (err) {
             console.log(err);
-        }
-        else{
+        } else {
             // res.send(report);
             res.redirect("/casereg");
 
