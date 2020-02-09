@@ -8,6 +8,7 @@
   <link rel="shortcut icon" type="image/icon" href="../public/images/logo.png" />
   <link rel="stylesheet" href="../public/stylesheets/custom.css">
   <link rel="stylesheet" href="../public/stylesheets/bootstrap.min.css">
+  <link rel ="stylesheet"href ="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="../public/javascripts/bootstrap.min.js" type="text/javascript"></script>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"
     integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -49,6 +50,12 @@
           <a class="nav-link" href="/Register/child">Register Child</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="/casereg">Register Patient</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/case/patientDetails">List of People</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="/Signup">Signup</a>
         </li>
         <li class="nav-item">
@@ -57,8 +64,8 @@
     </div>
   </nav><br>
   <div class=" row text-center">
-    <div class="col-md-3 col-sm-12"></div>
-    <div class="col-md-6 col-sm-12">
+    <div class = "col-md-1 col-xs-12"></div>
+    <div class="col-md-5 col-sm-12">
       <h4>Child Details</h4>
       <form method="POST" action="/Client/Parent/">
         <div class="form-group"><input class="form-control" id="Aadhar" type="text" name="aadharno" placeholder="Aadhar No."
@@ -66,29 +73,33 @@
         <!-- <div class ="form-group"><input class= "form-control" type ="password"name ="password" placeholder ="Password" required></div> -->
         <div class="form-group" id="sbtn"><button class="btn btn-lg btn-primary btn-block" style="width:100%;">Submit</button>
         </div>
-      </form>
-    </div>
-  </div>
-  <br>
-  <div class="row  text-center">
-    <div class="col-md-9"></div>
-      <div class="col-md-3">
-        <div class="row">
-        <div class="col-md-6">
-          <form method="GET" action="/message/phonenos">
-            <input value="" placeholder="dd/mm/yyyy" name="date" ><br><br>
-            <button class="btn btn-lg btn-success">Send Message</button>
-          </form>
+      </form><br>
+      <a  href="../qrread"><button class="btn btn-lg btn-success form-control"><i class ="fa fa-eye"></i>&nbsp;&nbsp;Open Scanner</button></a>
+    </div><br><br>
+    <div class ="col-md-5 col-xs-12">
+      <div class ="row">
+        <div class ="col-12">
+          <form method="GET" action="/message/whatsapp">
+            <input value="" placeholder="dd/mm/yyyy" name="date" >&nbsp;&nbsp;
+            <button class="btn  btn-warning">Whatsapp Message</button>
+          </form><br>
         </div>
-        <div class="col-md-6">
+        <div class ="col-12">
+          <form method="GET" action="/message/phonenos">
+            <input value="" placeholder="dd/mm/yyyy" name="date" >&nbsp;&nbsp;
+            <button class="btn btn-warning">Send Message</button>
+          </form><br>
+        </div>
+        <div class ="col-12">
           <form method="GET" action="/message/email">
-            <input value="" placeholder="dd/mm/yyyy" name="date" ><br><br>
-            <button class="btn btn-lg btn-success">Send Email</button>
+            <input value="" placeholder="dd/mm/yyyy" name="date" >&nbsp;&nbsp;
+            <button class="btn btn-warning">Send Email</button>
           </form>
         </div>
       </div>
     </div>
-  </div><br>
+  </div>
+ <br>
   <div class="row jumbotron">
     <div class="col-md-12 col-xs-12">
       <h6><u>Documents Required</u></h6>
@@ -103,7 +114,13 @@
       <p>Copyright Swastik</p>
     </div>
   </div>
-  
+  <script>
+    $(document).ready(function(){
+      $('.navbar-toggler').click(function(){
+        $('.navbar-collapse').toggleClass('collapse');
+      })
+    })
+  </script>
 </body>
 
 </html>

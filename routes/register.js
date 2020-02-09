@@ -11,6 +11,11 @@ var router = express.Router(),
 var multer = require('multer');
 var upload = multer({ dest: './public/uploads' }); // to get image file as input
 var expressValidator = require('express-validator');
+var QRCode = require('qrcode'); // qr code generator
+var path = require("path");
+var fs = require("fs");
+var pdf = require("html-pdf");
+var ejs = require("ejs");
 router.use(expressValidator());
 // mongoose.connect(process.env.LOCALDB, { useNewUrlParser: true, useUnifiedTopology: true }, () => {
 //     console.log("db connected in register route");
@@ -112,9 +117,47 @@ router.post("/parent", upload.single('image'), (req, res, next) => {
                     if (err)
                         console.log(err)
                     else {
+                        
                         console.log("Returned Parent JSON ");
                         //res.send(parent);
-                        res.render('regdataParent', { formData: formData, image: image });
+                       // console.log("parent id : "+parent._id);
+                       // var parent_id = parent._id.toString();
+                        QRCode.toDataURL(parent._id.toString(), function (err, url) {
+                           // console.log("created qr code : "+url);
+                            //res.render('index', {qr: url});
+                           /*  var css1 = '<link rel="stylesheet" href="/home/adarsh/Swastik/public/stylesheets/bootstrap.min.css">';
+                            var css2 = '<link rel="stylesheet" href="/home/adarsh/Swastik/public/stylesheets/regSuccess.css">'; */
+                            ejs.renderFile(path.join(__dirname, '../views/', "regdataParent.ejs"), { formData: formData, image: image ,qr: url }, (err, data) => {
+                                if (err) {
+                                     // res.send(err);
+                                     console.log("RENDERfile error :"+err);
+                                } else {
+                                    var options = {
+                                        "height": "11.25in",
+                                        "width": "8.5in",
+                                        "header": {
+                                            "height": "20mm"
+                                        },
+                                        "footer": {
+                                            "height": "20mm",
+                                        },
+                                        /* "base": "http://localhost:3000" */
+                                    };
+                                    pdf.create(data, options).toFile("Details.pdf", function (err, data) {
+                                        if (err) {
+                                           // res.send(err);
+                                           console.log("PDF CREATE error :"+err);
+                                        } else {
+                                           // res.send("File created successfully");
+                                           
+                                           console.log("PDF CREATED successfully");
+                                        }
+                                    });
+                                }
+                            });// renderFile
+                            res.render('regdataParent', { formData: formData, image: image ,qr: url });
+                            });//qrcode
+                       // res.render('regdataParent', { formData: formData, image: image });
                     }//else
                 });//findone
             }//else if
@@ -232,7 +275,12 @@ router.post("/child", upload.single('image'), (req, res) => {
                         });
                         setTimeout(() => {
                             // res.send(parentJSON);
-                            res.render("regdataChild", { formData: formData, image: image });
+                            QRCode.toDataURL(child._id.toString(), function (err, url) {
+                                // console.log("created qr code : "+url);
+                                 //res.render('index', {qr: url});
+                                res.render('regdataChild', { formData: formData, image: image ,qr: url });
+                                 });// qrcode
+                            //res.render("regdataChild", { formData: formData, image: image });
                         }, 500);
                     }
                 })

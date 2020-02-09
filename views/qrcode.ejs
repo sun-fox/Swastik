@@ -1,14 +1,229 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <title></title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Qr Codes</title>
-    <script src="qrcodejs/qrcode.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="/public/javascripts/jquery.js"></script>
+    <link rel="stylesheet" href="/public/stylesheets/bootstrap.min.css">
+    <script src="/public/javascripts/bootstrap.min.js"></script>
+    <style>
+        body{
+            background-color: lightyellow;
+            overflow-x:hidden;
+        }
+        /* In order to place the tracking correctly */
+        canvas.drawing,
+        canvas.drawingBuffer {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        #scanner-container{
+            overflow:hidden;
+        }
+        
+    </style>
 </head>
+
 <body>
-    <canvas id="canvas"></canvas>
-    <script src="bundle.js"></script>
+
+    <div class ="container-fluid top-strip" style ="background-color:#fff">
+        <div class ="row text-center">
+            <div class ="col-md-4 col-xs-12"><img src ="../../public/images/logo.png" class ="img-responsive"><h5 id ="slogan">A Step Closer To Healthy India</h5></div>
+            <div class ="col-md-4 col-xs-12"><img src ="../../public/images/satyamev.svg" class ="img-responsive">
+                <h5 id ="header-title">Ministry of Women and Child Development
+                    Government of India
+                    </h5></div>
+            <div class ="col-md-4 col-xs-12"><img src ="../../public/images/Towards a new dawn_Logo.png" class ="img-responsive"></div>
+        </div>
+        </div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand" href="/">Swastik</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/dashboard">Dashboard</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/gallery">Gallery</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="public\vaccine.pdf">List of Vaccines</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/admin">Admin Portal</a>
+              </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0" action="" method="GET">
+              <input class="form-control mr-sm-2" type="search" placeholder="Search" name ="pincode"aria-label="Search">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+          </div>
+        </nav>
+    <!-- Div to show the scanner -->
+    <div class ="container-fluid">
+        <div class ="row text-center">
+            <div class ="col-md-3 col-xs-12"></div>
+            <div class ="col-md-6 col-xs-12">
+                <div id="scanner-container" class ="thumbnail text-center"style =""></div><br>
+                <input type="button" id="btn" value="Start/Stop the scanner"class ="btn btn-success"/>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include the image-diff library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxy/1.6.1/scripts/jquery.ajaxy.min.js"></script> -->
+
+    <script>
+        var _scannerIsRunning = false;
+
+        function startScanner() {
+            Quagga.init({
+                inputStream: {
+                    name: "Live",
+                    type: "LiveStream",
+                    target: document.querySelector('#scanner-container'),
+                    constraints: {
+                        width: 800,
+                        height: 460,
+                        facingMode: "environment"
+                    },
+                },
+                decoder: {
+                    readers: [
+                        "code_128_reader",
+                        "ean_reader",
+                        "ean_8_reader",
+                        "code_39_reader",
+                        "code_39_vin_reader",
+                        "codabar_reader",
+                        "upc_reader",
+                        "upc_e_reader",
+                        "i2of5_reader"
+                    ],
+                    debug: {
+                        showCanvas: true,
+                        showPatches: true,
+                        showFoundPatches: true,
+                        showSkeleton: true,
+                        showLabels: true,
+                        showPatchLabels: true,
+                        showRemainingPatchLabels: true,
+                        boxFromPatches: {
+                            showTransformed: true,
+                            showTransformedBox: true,
+                            showBB: true
+                        }
+                    }
+                },
+
+            }, function (err) {
+                if (err) {
+                    console.log(err);
+                    return
+                }
+
+                console.log("Initialization finished. Ready to start");
+                Quagga.start();
+
+                // Set flag to is running
+                _scannerIsRunning = true;
+            });
+
+            Quagga.onProcessed(function (result) {
+                var drawingCtx = Quagga.canvas.ctx.overlay,
+                    drawingCanvas = Quagga.canvas.dom.overlay;
+
+                if (result) {
+                    if (result.boxes) {
+                        drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")), parseInt(drawingCanvas.getAttribute("height")));
+                        result.boxes.filter(function (box) {
+                            return box !== result.box;
+                        }).forEach(function (box) {
+                            Quagga.ImageDebug.drawPath(box, { x: 0, y: 1 }, drawingCtx, { color: "green", lineWidth: 2 });
+                        });
+                    }
+
+                    if (result.box) {
+                        Quagga.ImageDebug.drawPath(result.box, { x: 0, y: 1 }, drawingCtx, { color: "#00F", lineWidth: 2 });
+                    }
+
+                    if (result.codeResult && result.codeResult.code) {
+                        Quagga.ImageDebug.drawPath(result.line, { x: 'x', y: 'y' }, drawingCtx, { color: 'red', lineWidth: 3 });
+                    }
+                }
+            });
+
+
+            Quagga.onDetected(function (result) {
+                console.log("Barcode detected and processed : [" + result.codeResult.code + "]", result);
+                var obj = { 'aadharno': result.codeResult.code };
+                if (result.codeResult.code.substring(0, 4) === 'swtk' && result.codeResult.code.length == 16) {
+                    console.log("Entered" + result.codeResult.code);
+
+                    $.ajax({
+                        url: 'http://localhost:3000/Client/Parent/qrlogin',
+                        data: obj,
+                        type: 'POST',
+                        success: function (data, textStatus) {
+                                html = new EJS({url: '../../../Client/parent.ejs'}).render(data);
+
+                            // if (data.redirect) {
+                            //     html = new EJS({url: '../../../Client/parent.ejs'}).render(data);
+                            //     // document.getElementById('list-wrapper').innerHTML = html;
+                            //     // console.log("Chala gaya");
+                            //     // $('#adhar').val(result.codeResult.code);
+                            //     // $("#form").submit();
+                            // } else {
+                            //     console.log("NHI gaya");
+                            //     $('#adhar').val(result.codeResult.code);
+                            //     $("#form").submit();
+                            //     // $.post('http://localhost:3000/Client/Parent',data,(data,status){
+                            //     //     alert("Data: " + data + "\nStatus: " + status);
+                            //     // });
+                            // }
+                        },
+                        error: function (xhr, status, error) {
+                            console.log('Error: ' + error.message);
+                        },
+                    });
+                }
+            });
+        }
+
+
+        // Start/stop scanner
+        document.getElementById("btn").addEventListener("click", function () {
+            if (_scannerIsRunning) {
+                Quagga.stop();
+            } else {
+                startScanner();
+            }
+        }, false);
+    </script>
+
+    <div>
+        <form action="/client/parent/qrlogin" method="POST" id="form" style="display: none;" target="_blank">
+            <input value="" name="aadharno" type="hidden" id="adhar">
+        </form>
+    </div>
+    <script>
+        $(document).ready(function(){
+          $('.navbar-toggler').click(function(){
+            $('.navbar-collapse').toggleClass('collapse');
+          })
+        })
+      </script>
 </body>
+
 </html>

@@ -47,8 +47,6 @@ router.get("/patients_count_wrt_disease", (req, res) => {
                         map[data.disease]++;
                     })
                 });
-                map['kbskj'] = 1;
-                map['shxjskjjkj'] = 2;
                 console.log(map);
                 res.send(map);
             }, 1000);
@@ -75,8 +73,8 @@ router.get("/children/pincode", (req, res) => {
                 });
                 // var entries = Object.entries(map);
                 // console.log(entries);
-                map['kbskj'] = 1;
-                map['shxjskjjkj'] = 2;
+                // map['kbskj'] = 1;
+                // map['shxjskjjkj'] = 2;
                 res.send(map);
             }, 1000);
         }
