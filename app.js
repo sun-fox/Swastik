@@ -263,6 +263,106 @@ app.get('/casereg', (req, res) => {
 });
 
 
+//mobile home template
+
+app.get("/mobilehome", function (req, res) {
+    var male_parents = [];
+    var female_parents = [];
+    var male_childs = [];
+    var female_childs = [];
+    Parent.find({}, (err, parent) => {
+        if (err) {
+            console.log("error");
+        }
+        else {
+            setTimeout(() => {
+                parent.forEach((parent) => {
+                    if (parent.gender == 'M') {
+                        male_parents.push(parent);
+                    }
+                    else if (parent.gender == 'F') {
+                        female_parents.push(parent);
+                    }
+                })
+            }, 100);
+        }
+    });
+    Child.find({}, (err, child) => {
+        if (err) {
+            console.log("error");
+        }
+        else {
+            setTimeout(() => {
+                child.forEach((child) => {
+                    if (child.gender == 'M') {
+                        male_childs.push(child);
+                    }
+                    else if (child.gender == 'F') {
+                        female_childs.push(child);
+                    }
+                })
+            }, 100);
+        }
+    });
+
+    //count of children on the basis of vaccines(copied from stats.js) starts
+    var map = {};
+    Child.find({}, (err, ward) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            setTimeout(() => {
+                ward.forEach((child) => {
+                    var vaccinations = child.vaccinations;
+                    vaccinations.forEach((data) => {
+                        if (!map[data.disease]) {
+                            map[data.disease] = 0;
+                        }
+                        map[data.disease]++;
+                    })
+                });
+                /* for (var key in map) {
+                    if (map.hasOwnProperty(key)) {
+                      var val = map[key];
+                      console.log(key);
+                      console.log(val);
+                    }
+                  } */
+                //console.log(key);
+                // res.send(map);
+            }, 100);
+        }
+    });
+    //count of children on the basis of vaccines(copied from stats.js) ends
+    setTimeout(() => {
+        var count_JSON = {
+            'Male Parents Count': male_parents.length,
+            'Female Parents Count': female_parents.length,
+            'Male Children Count': male_childs.length,
+            'Female Children Count': female_childs.length,
+        }
+        // res.send(count_JSON);
+        var labls = [];
+        var dat = [];
+        for (let [key, value] of Object.entries(map)) {
+            labls.push(`${key}`);
+            dat.push(`${value}`)
+        }
+        var dt = [];
+        dat.forEach((x) => {
+            dt.push(Number(x));
+        });
+        console.log(dt);
+        console.log(labls);
+        res.render("mobilehome.ejs", { Data: count_JSON, labls: labls, dt: dt, gdata: map });
+    }, 500)
+})
+
+
+//mobile home template
+
+
 app.get("/logout", function (req, res) {
     req.logout();
     res.redirect("/");
