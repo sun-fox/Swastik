@@ -32,7 +32,8 @@ router.get("/", isLoggedIn, (req, res) => {
 
 
 router.get("/patients_count_wrt_disease", (req, res) => {
-    var map = {};
+    var map = {'Polio':0, 'HepatitisA':0, 'HepatitisB':0, 'ChickenPox':0, 'DTaP':0,'Hib':0,'Influenza':0,'MMR':0,
+    'Meningococcal':0,'Pneumococcal':0,'Rotavirus':0};
     Child.find({}, (err, ward) => {
         if (err) {
             console.log(err);
@@ -42,9 +43,6 @@ router.get("/patients_count_wrt_disease", (req, res) => {
                 ward.forEach((child)=>{
                     var vaccinations = child.vaccinations;
                     vaccinations.forEach((data)=>{
-                        if(!map[data.disease]){
-                            map[data.disease]=0;
-                        }
                         map[data.disease]++;
                     })
                 });
@@ -57,6 +55,7 @@ router.get("/patients_count_wrt_disease", (req, res) => {
 
 
 router.get("/children/pincode", (req, res) => {
+    console.log("Here!!!!");
     var map = {};
     Child.find({}, (err, ward) => {
         if (err) {

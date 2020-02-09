@@ -165,17 +165,17 @@ for (var key in gdata) {
               datasets:[{
                 label:'Count of Children',
                 data:[
-                  "<%=gdata.polio%>",
-                  "<%=gdata.Jaundice%>",
-                  "<%=gdata.hepatitis%>",
-                  "<%=gdata.Rickets%>",
-                  "<%=gdata.Chloera%>",
-                  "<%=gdata.dengue%>",
-                  "<%=gdata.Rickets%>",
-                  "<%=gdata.Chloera%>",
-                  "<%=gdata.dengue%>",
-                  "<%=gdata.Rickets%>",
-                  "<%=gdata.Chloera%>",
+                  "<%=gdata.Polio%>",
+                  "<%=gdata.HepatitisA%>",
+                  "<%=gdata.HepatitisB%>",
+                  "<%=gdata.ChickenPox%>",
+                  "<%=gdata.DTaP%>",
+                  "<%=gdata.Hib%>",
+                  "<%=gdata.Influenza%>",
+                  "<%=gdata.MMR%>",
+                  "<%=gdata.Meningococcal%>",
+                  "<%=gdata.Pneumococcal%>",
+                  "<%=gdata.Rotavirus%>",
                 ],
                 //backgroundColor:'green',
                 backgroundColor:[
@@ -237,16 +237,22 @@ for (var key in gdata) {
           let massPopChart2 = new Chart(myChart2, {
             type:'polarArea', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
             data:{
-              labels:['Polio', 'Jaundice', 'Hepatitis', 'Rickets', 'Cholera','Dengue'],
+              labels:['Polio', 'HepatitisA', 'HepatitisB', 'ChickenPox', 'DTaP','Hib','Influenza','MMR',
+              'Meningococcal','Pneumococcal','Rotavirus'],
               datasets:[{
                 label:'Count of Children',
                 data:[
-                  "<%=gdata.polio%>",
-                  "<%=gdata.Jaundice%>",
-                  "<%=gdata.hepatitis%>",
-                  "<%=gdata.Rickets%>",
-                  "<%=gdata.Chloera%>",
-                  "<%=gdata.dengue%>"
+                  "<%=gdata.Polio%>",
+                  "<%=gdata.HepatitisA%>",
+                  "<%=gdata.HepatitisB%>",
+                  "<%=gdata.ChickenPox%>",
+                  "<%=gdata.DTaP%>",
+                  "<%=gdata.Hib%>",
+                  "<%=gdata.Influenza%>",
+                  "<%=gdata.MMR%>",
+                  "<%=gdata.Meningococcal%>",
+                  "<%=gdata.Pneumococcal%>",
+                  "<%=gdata.Rotavirus%>",
                 ],
                 //backgroundColor:'green',
                 backgroundColor:[
@@ -333,7 +339,13 @@ for (var key in gdata) {
                  </div>
              </div>
          </div>
-
+         <script>
+           $(document).ready(function(){
+             $('.navbar-toggler').click(function(){
+               $('.navbar-collapse').toggleClass('collapse');
+             })
+           })
+         </script>
          <!-- <script src ="../../public/javascripts/graph.js"type ="text/javascript"></script> -->
           </body>
           </html>
