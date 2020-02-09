@@ -20,6 +20,7 @@ var messageRoute = require('./routes/message');
 var statisticsRoute = require('./routes/stats');
 var searchRoute = require('./routes/search_client');
 var complainRoute = require('./routes/complain');
+var findRoute = require('./routes/find');
 var caseRegisterRoute = require('./routes/case_register');
 var QRCode = require('qrcode'); // for qrcode
 var pdf = require('html-pdf');
@@ -69,6 +70,7 @@ app.use('/Message', messageRoute);
 app.use('/Statistics', statisticsRoute);
 app.use('/Search', searchRoute);
 app.use('/Complain', complainRoute);
+app.use('/Find',findRoute);
 app.use('/Case', caseRegisterRoute);
 
 app.get('/Contacts', (req, res) => {
@@ -89,7 +91,7 @@ app.get("/qrread", (req, res) => {
     res.render("qrcode");
 });
 
-app.get("/", function (req, res) {
+app.get("/",function (req, res) {
     var male_parents = [];
     var female_parents = [];
     var male_childs = [];
@@ -179,7 +181,7 @@ app.get("/", function (req, res) {
         });
         console.log(dt);
         console.log(labls);
-        res.render("index.ejs", { Data: count_JSON, labls: labls, dt: dt, gdata: map });
+        res.render("index.ejs", { Data: count_JSON, labls: labls, dt: dt, gdata: map ,display :false});
     }, 500)
 })
 
