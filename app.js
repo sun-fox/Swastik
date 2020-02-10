@@ -44,15 +44,15 @@ const goodBoyUrl = 'https://lh3.googleusercontent.com/proxy/7q7Wx47mCOpMZC0_1j2R
 // }).catch((e) => {
 //     console.log('Database connectivity error ', e)
 // });
-// mongoose.connect("mongodb://localhost/swastik");
-const options = {
-    keepAlive: 1,
-    useUnifiedTopology: true,
-    useNewUrlParser: true
-};
-var dev_db_url = 'mongodb+srv://ankit:passraj@aimusic-es8pe.mongodb.net/swastik?retryWrites=true&w=majority';
-var mongoDB = process.env.MONGODB_URI || dev_db_url;
-mongoose.connect(mongoDB, options).then(() => console.log('DB connected')).catch((err) => console.log(err));
+mongoose.connect("mongodb://localhost/swastik");
+// const options = {
+//     keepAlive: 1,
+//     useUnifiedTopology: true,
+//     useNewUrlParser: true
+// };
+// var dev_db_url = 'mongodb+srv://ankit:passraj@aimusic-es8pe.mongodb.net/swastik?retryWrites=true&w=majority';
+// var mongoDB = process.env.MONGODB_URI || dev_db_url;
+// mongoose.connect(mongoDB, options).then(() => console.log('DB connected')).catch((err) => console.log(err));
 
 app.use(require("express-session")({
     secret: "secret!",
@@ -68,24 +68,24 @@ passport.deserializeUser(User.deserializeUser());
 app.set("view engine", "ejs"); ///set template engine to ejs
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(function(req, res, next) {
+// app.use(function(req, res, next) {
 
-    // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', * );
+//     // Website you wish to allow to connect
+//     res.setHeader('Access-Control-Allow-Origin', * );
 
-    // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+//     // Request methods you wish to allow
+//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
 
-    // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+//     // Request headers you wish to allow
+//     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
 
-    // Set to true if you need the website to include cookies in the requests sent
-    // to the API (e.g. in case you use sessions)
-    res.setHeader('Access-Control-Allow-Credentials', true);
+//     // Set to true if you need the website to include cookies in the requests sent
+//     // to the API (e.g. in case you use sessions)
+//     res.setHeader('Access-Control-Allow-Credentials', true);
 
-    // Pass to next layer of middleware
-    next();
-});
+//     // Pass to next layer of middleware
+//     next();
+// });
 //it will have two routes 1. search 2. result
 app.use("/public", express.static(__dirname + '/public'));
 app.use('/Register', registerRoute);
