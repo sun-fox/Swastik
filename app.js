@@ -26,24 +26,7 @@ var QRCode = require('qrcode'); // for qrcode
 var pdf = require('html-pdf');
 var requestify = require('requestify');
 
-app.use(function(req, res, next) {
 
-    // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', * );
-
-    // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-    // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
-    // Set to true if you need the website to include cookies in the requests sent
-    // to the API (e.g. in case you use sessions)
-    res.setHeader('Access-Control-Allow-Credentials', true);
-
-    // Pass to next layer of middleware
-    next();
-});
 /* including my twilio acc  */
 const { MessagingResponse } = require('twilio').twiml;
 const accountSid = 'AC49280ab194cc76ba75d4783d5f68a391';
@@ -85,7 +68,24 @@ passport.deserializeUser(User.deserializeUser());
 app.set("view engine", "ejs"); ///set template engine to ejs
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(function(req, res, next) {
 
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', * );
+
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    res.setHeader('Access-Control-Allow-Credentials', true);
+
+    // Pass to next layer of middleware
+    next();
+});
 //it will have two routes 1. search 2. result
 app.use("/public", express.static(__dirname + '/public'));
 app.use('/Register', registerRoute);
