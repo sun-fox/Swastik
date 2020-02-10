@@ -28,8 +28,8 @@ var requestify = require('requestify');
 
 /* including my twilio acc  */
 const { MessagingResponse } = require('twilio').twiml;
-const accountSid = 'AC63dcb9c07e6cd8596c032a8ff5e59b1f';
-const authToken = '8006f3f18dda3891ff9e6c10f899f393';
+const accountSid = 'AC49280ab194cc76ba75d4783d5f68a391';
+const authToken = 'e1b3f04e85ef2fab83a317d21212227d';
 const client = require('twilio')(accountSid, authToken);
 const goodBoyUrl = 'https://lh3.googleusercontent.com/proxy/7q7Wx47mCOpMZC0_1j2RQNnNq7HEgCk5sjzIsyMw_meUpr2Xbyoy8BuyI1JFuAUU3gTrmyM2py04BPttN979w-c775WUwtyFwh6JQqHNG6GC0ZYNkiiBLKpPsB9xikmAm_1CWBDpBXwamn_Y-z_1BWmWXPWWBmqAZnJ6FbhuIPsCNAKO';
 
@@ -43,6 +43,15 @@ mongoose.connect(process.env.LOCALDB, {
 }).catch((e) => {
     console.log('Database connectivity error ', e)
 });
+// mongoose.connect("mongodb://localhost/swastik");
+const options = {
+    keepAlive: 1,
+    useUnifiedTopology: true,
+    useNewUrlParser: true
+};
+// var dev_db_url = 'mongodb+srv://ankit:passraj@aimusic-es8pe.mongodb.net/swastik?retryWrites=true&w=majority';
+// var mongoDB = process.env.MONGODB_URI || dev_db_url;
+// mongoose.connect(mongoDB, options).then(() => console.log('DB connected')).catch((err) => console.log(err));
 
 app.use(require("express-session")({
     secret: "secret!",
@@ -55,7 +64,7 @@ passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.set("view engine", "ejs");   ///set template engine to ejs
+app.set("view engine", "ejs"); ///set template engine to ejs
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -70,7 +79,7 @@ app.use('/Message', messageRoute);
 app.use('/Statistics', statisticsRoute);
 app.use('/Search', searchRoute);
 app.use('/Complain', complainRoute);
-app.use('/Find',findRoute);
+app.use('/Find', findRoute);
 app.use('/Case', caseRegisterRoute);
 
 app.get('/Contacts', (req, res) => {
@@ -91,7 +100,7 @@ app.get("/qrread", (req, res) => {
     res.render("qrcode");
 });
 
-app.get("/",function (req, res) {
+app.get("/", function(req, res) {
     var male_parents = [];
     var female_parents = [];
     var male_childs = [];
@@ -99,14 +108,12 @@ app.get("/",function (req, res) {
     Parent.find({}, (err, parent) => {
         if (err) {
             console.log("error");
-        }
-        else {
+        } else {
             setTimeout(() => {
                 parent.forEach((parent) => {
                     if (parent.gender == 'M') {
                         male_parents.push(parent);
-                    }
-                    else if (parent.gender == 'F') {
+                    } else if (parent.gender == 'F') {
                         female_parents.push(parent);
                     }
                 })
@@ -116,14 +123,12 @@ app.get("/",function (req, res) {
     Child.find({}, (err, child) => {
         if (err) {
             console.log("error");
-        }
-        else {
+        } else {
             setTimeout(() => {
                 child.forEach((child) => {
                     if (child.gender == 'M') {
                         male_childs.push(child);
-                    }
-                    else if (child.gender == 'F') {
+                    } else if (child.gender == 'F') {
                         female_childs.push(child);
                     }
                 })
@@ -136,8 +141,7 @@ app.get("/",function (req, res) {
     Child.find({}, (err, ward) => {
         if (err) {
             console.log(err);
-        }
-        else {
+        } else {
             setTimeout(() => {
                 ward.forEach((child) => {
                     var vaccinations = child.vaccinations;
@@ -163,12 +167,12 @@ app.get("/",function (req, res) {
     //count of children on the basis of vaccines(copied from stats.js) ends
     setTimeout(() => {
         var count_JSON = {
-            'Male Parents Count': male_parents.length,
-            'Female Parents Count': female_parents.length,
-            'Male Children Count': male_childs.length,
-            'Female Children Count': female_childs.length,
-        }
-        // res.send(count_JSON);
+                'Male Parents Count': male_parents.length,
+                'Female Parents Count': female_parents.length,
+                'Male Children Count': male_childs.length,
+                'Female Children Count': female_childs.length,
+            }
+            // res.send(count_JSON);
         var labls = [];
         var dat = [];
         for (let [key, value] of Object.entries(map)) {
@@ -181,7 +185,11 @@ app.get("/",function (req, res) {
         });
         console.log(dt);
         console.log(labls);
-        res.render("index.ejs", { Data: count_JSON, labls: labls, dt: dt, gdata: map ,display :false});
+        Object.keys(count_JSON).forEach(function(k) {
+            console.log(k + "    " + count_JSON[k]);
+        });
+        console.log(count_JSON + "Printing for count json");
+        res.render("index.ejs", { Data: count_JSON, labls: labls, dt: dt, gdata: map, display: false });
     }, 500)
 })
 
@@ -203,6 +211,8 @@ app.post('/whatsapp', (req, res) => {
         body: message,
         mediaUrl: linkimg
     }).then(message => {
+
+        console.log("message sent");
         console.log(message.sid);
     }).catch(err => console.log(err));
 
@@ -213,35 +223,126 @@ app.post('/whatsapp', (req, res) => {
 
 
 // this part is for whatsapp messages recieving ... 
-app.post('/recieve', async (req, res) => {
+app.post('/recieve', async(req, res) => {
     const { body } = req;
-    let message;
+    var message;
+    
+    res.set('Content-Type', 'text/xml');
+    console.log(body);
+   
+    // console.log(replytohelp);
     if (body.NumMedia > 0) {
         message = new MessagingResponse().message("this is invalid message ");
         message.media(goodBoyUrl);
     } else {
-        let replymsg = "";
+        var replymsg = "";
         if ((body.Body).toString() == ("hello") || (body.Body).toString() == "Hello" || (body.Body).toString() == "hi" || (body.Body).toString() == "Hi" || (body.Body).toString() == "COMPLAIN" || (body.Body).toString() == "complain")
             replymsg = "Hello Welcome to Swastik Helpline ... SEND US YOUR QUERY IN GIVEN CODE  to register Complain append 'COMPLAIN' in front of your message.'";
-        else if ((body.Body).toString().substring(0, 8) === ("COMPLAIN")) {
-            replymsg = "Your Complain has been registered, You'll be contacted Sooon!"
+        else if ((body.Body).toString()== ("HELP")) {
+                  
+            var replyto="";   
+            var replyno = (body.From).toString();
+            var replynumber = replyno.split("+91");
+            Parent.find({phoneno:replynumber},(err,data)=>{
+                if(err)
+                console.log(err);
+                else{
+                    var addressReply=(data[0].address);
+                   // console.log(addressReply);
+                    var addressString = addressReply[0];
+                    var replytohelp = "";
+                   replytohelp+=(addressString.line1).toString()+" ";
+                   replytohelp+=addressString.line2.toString()+" ";
+                   replytohelp+=addressString.town_village.toString()+" ";
+                   replytohelp+=addressString.province.toString()+" ";
+                   replytohelp+=addressString.state.toString()+" ";
+                   replyto = replytohelp+"  https://www.google.com/maps/place/"+(addressString.town_village.toString());
+                   console.log("replyto"+replyto);
+                   //console.log(replytohelp);
+          
+                 }
+         
+             });//function end of parent
+            setTimeout(() => {
+                    
+            console.log(replyto);
+            // console.log("thiis is  maAL:"+replyto);
+
+
+            replymsg =replyto;
+                
+            }, 1000);// set timeout end
+       
         }
         else
             replymsg = "this is invalid message for queries check here : https://www.hackerearth.com/@hyper_bit ";
-
-        message = new MessagingResponse().message(replymsg);
+        
+            setTimeout(() => {
+                message = new MessagingResponse().message(replymsg.toString());
+            }, 1200);
+        
     }
-
-    res.set('Content-Type', 'text/xml');
-    res.send(message.toString()).status(200);
+    setTimeout(() => {
+        
+    res.send(message.toString());
+    }, 1300);
 });
 
+
+
 // sending message to array
+app.get('/message/calluser',(req,res)=>{
+      
+    
+const accountSi = 'AC63dcb9c07e6cd8596c032a8ff5e59b1f';
+const authToke = '8006f3f18dda3891ff9e6c10f899f393';
+const client = require('twilio')(accountSi, authToke);
+
+client.calls.create({
+   url:'http://demo.twilio.com/docs/voice.xml',
+   to : '+918957790795',
+   from :'+1 218 297 0768' 
+},(err,call)=>{
+    if(err)
+    console.log(err);
+    else
+    console.log(call.sid);
+});
+
+res.redirect('/admin');
+
+});
 
 app.get('/start', (req, res) => {
     res.render('login');
 
 });
+
+app.post('/message/whatstoall',(req,res)=>{
+    //whatsappnos > contactnos
+    var phonenoss = [];
+    var pincode = req.body.pincode;
+    console.log(pincode);
+    Parent.find({"address.pincode":pincode},{"phoneno":1,"_id":0},(err,data)=>{
+        if(err){
+            console.log(err);
+        }
+        else{
+             var datta = data[0];
+             data.forEach(function(a){
+                 phonenoss.push(a.phoneno);
+                 console.log(a.phoneno);
+             })
+
+    }
+        
+    });
+    setTimeout(() => {
+        res.render('whatsappnos',{contactnos:phonenoss});
+    }, 1000); 
+     
+});
+
 
 const noss = {
     1: 123456,
@@ -265,7 +366,7 @@ app.get('/casereg', (req, res) => {
 });
 
 
-app.get("/logout", function (req, res) {
+app.get("/logout", function(req, res) {
     req.logout();
     res.redirect("/");
 });
@@ -285,7 +386,7 @@ app.get("/logout", function (req, res) {
 
 
 
- 
-app.listen(process.env.PORT || 3000, function () {
+
+app.listen(process.env.PORT || 3000, function() {
     console.log("started!!!");
 });
