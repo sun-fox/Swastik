@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Epidemics in future</title>
+</head>
+<style>
+    tr,td,th{
+        border:1px solid #000;
+        padding:10px;
+    }
+    th{
+        text-align:center;
+        color:#fff;
+        background-color: rgb(70, 71, 73);
+    }
+</style>
+<body>
+    <div class ="container-fluid">
+        <div class ="row">
+            <div class ="col-md-1 col-xs-12"></div>
+            <div class ="col-md-10 col-xs-12">
+                <table style ="width:100%;padding:50px;border:1px solid #000">
+                    <tr>
+                        <th>Pincode</th>
+                        <th>Disease</th>
+                        <th>Month</th>
+                        <th>Year</th>
+                    </tr>
+                    {% for item in data %}
+                    <tr>
+                        <td>{{item.pincode}}</td>
+                        <td>{{item.disease}}</td>
+                        <td>{{item.month}}</td>
+                        <td>{{item.year}}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class ="container">
+        <div class="row">
+            <div class ="col-12">
+                <img src ="../image.png" class ="img-responsive">
+            </div>
+        </div>
+    </div>
+
+    <!-- <ul>
+        {% for item in data %}
+            <li>{{item.pincode}}</li>
+            <li>{{item.disease}}</li>
+            <li>{{item.month}}</li>
+            <li>{{item.year}}</li>
+        {% endfor %}
+        </ul> -->
+</body>
+</html>

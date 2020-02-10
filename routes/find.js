@@ -37,77 +37,78 @@ var router = express.Router(),
 
         setTimeout(()=>{
             result = findParent(res,findItem);
-        },150); 
-         setTimeout(()=>{
-            checkResult(res,result,findItem);
-         },200); 
-
-         setTimeout(()=>{
-            result = findDisease(res,findItem);;
-        },250); 
+        },200); 
          setTimeout(()=>{
             checkResult(res,result,findItem);
          },300); 
 
          setTimeout(()=>{
-            result = findPhone(res,findItem);
-        },350); 
+            result = findDisease(res,findItem);;
+        },400); 
          setTimeout(()=>{
             checkResult(res,result,findItem);
-         },400);
+         },500); 
 
          setTimeout(()=>{
             result = findEmail(res,findItem);
-        },450); 
-         setTimeout(()=>{
-            checkResult(res,result,findItem);
-         },500);
-
-         setTimeout(()=>{
-            result = findAadhar(res,findItem);
-        },550); 
-         setTimeout(()=>{
-            checkResult(res,result,findItem);
-         },600);
-
-         setTimeout(()=>{
-            result = findState(res,findItem);
-        },650); 
+        },600); 
          setTimeout(()=>{
             checkResult(res,result,findItem);
          },700);
 
          setTimeout(()=>{
-                result = findPincode(res,findItem);
-        },750); 
-         setTimeout(()=>{
-            checkResult(res,result,findItem);
-         },800);
-
-         setTimeout(()=>{
-            result = findProvince(res,findItem);
-        },850); 
+            result = findAadhar(res,findItem);
+        },800); 
          setTimeout(()=>{
             checkResult(res,result,findItem);
          },900);
 
          setTimeout(()=>{
-            result = findCity(res,findItem);
-        },950); 
-         setTimeout(()=>{
-            checkResult(res,result,findItem);
-         },1000);
-
-         setTimeout(()=>{
-            result = findDob(res,findItem);
-        },1050); 
+            result = findState(res,findItem);
+        },1000); 
          setTimeout(()=>{
             checkResult(res,result,findItem);
          },1100);
 
          setTimeout(()=>{
+                result = findPincode(res,findItem);
+        },1200); 
+         setTimeout(()=>{
+            checkResult(res,result,findItem);
+         },1300);
+
+         setTimeout(()=>{
+            result = findProvince(res,findItem);
+        },1400); 
+         setTimeout(()=>{
+            checkResult(res,result,findItem);
+         },1500);
+
+         setTimeout(()=>{
+            result = findCity(res,findItem);
+        },1600); 
+         setTimeout(()=>{
+            checkResult(res,result,findItem);
+         },1700);
+
+         setTimeout(()=>{
+            result = findDob(res,findItem);
+        },1800); 
+        setTimeout(()=>{
+            checkResult(res,result,findItem);
+         },1900);
+
+        setTimeout(()=>{
+            result = findPhone(res,findItem);
+        },2000); 
+        
+         setTimeout(()=>{
+            checkResult(res,result,findItem);
+         },2100);
+
+         setTimeout(()=>{
             res.render('findResult',{ child :null,parent : null ,status : "Search Results Related to '"+findItem+"' did'nt matched."});
-        },1150);
+        },2500);
         
         /*  findPhone(res,findItem);
          findParent(res,findItem);
