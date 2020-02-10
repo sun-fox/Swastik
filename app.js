@@ -225,56 +225,124 @@ app.post('/whatsapp', (req, res) => {
 // this part is for whatsapp messages recieving ... 
 app.post('/recieve', async(req, res) => {
     const { body } = req;
-    let message;
-
-    var replytohelp = "";
+    var message;
+    
+    res.set('Content-Type', 'text/xml');
     console.log(body);
-    let replyno = (body.From).toString();
-    let replynumber = replyno.split("+91");
-    Parent.find({ phoneno: replynumber }, (err, data) => {
-        if (err)
-            console.log(err);
-        else {
-            let addressReply = (data[0].address);
-            console.log(addressReply);
-            let addressString = addressReply[0];
-            replytohelp += (addressString.line1).toString() + " ";
-            replytohelp += addressString.line2.toString() + " ";
-            replytohelp += addressString.town_village.toString() + " ";
-            replytohelp += addressString.province.toString() + " ";
-            replytohelp += addressString.state.toString() + " ";
-
-            console.log(replytohelp);
-        }
-
-    });
-    console.log(replytohelp);
+   
+    // console.log(replytohelp);
     if (body.NumMedia > 0) {
         message = new MessagingResponse().message("this is invalid message ");
         message.media(goodBoyUrl);
     } else {
-        let replymsg = "";
+        var replymsg = "";
         if ((body.Body).toString() == ("hello") || (body.Body).toString() == "Hello" || (body.Body).toString() == "hi" || (body.Body).toString() == "Hi" || (body.Body).toString() == "COMPLAIN" || (body.Body).toString() == "complain")
             replymsg = "Hello Welcome to Swastik Helpline ... SEND US YOUR QUERY IN GIVEN CODE  to register Complain append 'COMPLAIN' in front of your message.'";
-        else if ((body.Body).toString() == ("HELP")) {
-            replymsg = replytohelp;
-            console.log(replymsg);
-        } else
+        else if ((body.Body).toString()== ("HELP")) {
+                  
+            var replyto="";   
+            var replyno = (body.From).toString();
+            var replynumber = replyno.split("+91");
+            Parent.find({phoneno:replynumber},(err,data)=>{
+                if(err)
+                console.log(err);
+                else{
+                    var addressReply=(data[0].address);
+                   // console.log(addressReply);
+                    var addressString = addressReply[0];
+                    var replytohelp = "";
+                   replytohelp+=(addressString.line1).toString()+" ";
+                   replytohelp+=addressString.line2.toString()+" ";
+                   replytohelp+=addressString.town_village.toString()+" ";
+                   replytohelp+=addressString.province.toString()+" ";
+                   replytohelp+=addressString.state.toString()+" ";
+                   replyto = replytohelp+"  https://www.google.com/maps/place/"+(addressString.town_village.toString());
+                   console.log("replyto"+replyto);
+                   //console.log(replytohelp);
+          
+                 }
+         
+             });//function end of parent
+            setTimeout(() => {
+                    
+            console.log(replyto);
+            // console.log("thiis is  maAL:"+replyto);
+
+
+            replymsg =replyto;
+                
+            }, 1000);// set timeout end
+       
+        }
+        else
             replymsg = "this is invalid message for queries check here : https://www.hackerearth.com/@hyper_bit ";
-
-        message = new MessagingResponse().message(replymsg.toString());
+        
+            setTimeout(() => {
+                message = new MessagingResponse().message(replymsg.toString());
+            }, 1200);
+        
     }
-
-    res.set('Content-Type', 'text/xml');
-    res.send(message.toString()).status(200);
+    setTimeout(() => {
+        
+    res.send(message.toString());
+    }, 1300);
 });
 
+
+
 // sending message to array
+app.get('/message/calluser',(req,res)=>{
+      
+    
+const accountSi = 'AC63dcb9c07e6cd8596c032a8ff5e59b1f';
+const authToke = '8006f3f18dda3891ff9e6c10f899f393';
+const client = require('twilio')(accountSi, authToke);
+
+client.calls.create({
+   url:'http://demo.twilio.com/docs/voice.xml',
+   to : '+918957790795',
+   from :'+1 218 297 0768' 
+},(err,call)=>{
+    if(err)
+    console.log(err);
+    else
+    console.log(call.sid);
+});
+
+res.redirect('/admin');
+
+});
 
 app.get('/start', (req, res) => {
     res.render('login');
 
 });
+
+app.post('/message/whatstoall',(req,res)=>{
+    //whatsappnos > contactnos
+    var phonenoss = [];
+    var pincode = req.body.pincode;
+    console.log(pincode);
+    Parent.find({"address.pincode":pincode},{"phoneno":1,"_id":0},(err,data)=>{
+        if(err){
+            console.log(err);
+        }
+        else{
+             var datta = data[0];
+             data.forEach(function(a){
+                 phonenoss.push(a.phoneno);
+                 console.log(a.phoneno);
+             })
+
+    }
+        
+    });
+    setTimeout(() => {
+        res.render('whatsappnos',{contactnos:phonenoss});
+    }, 1000); 
+     
+});
+
 
 const noss = {
     1: 123456,
