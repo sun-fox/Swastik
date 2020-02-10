@@ -13,11 +13,11 @@
     }
 </style>
 
-<!-- <script>
-    var x = 'swtk<%= //formData.aadharno%>';
+<script>
+    var x = 'swtk<%= formData.aadharno%>';
     console.log(x);
     document.getElementById("test").innerHTML = x;
-</script> -->
+</script>
 
 <!------ Include the above in your HEAD tag ---------->
 
@@ -48,8 +48,11 @@
         </div>
         <div class="row">
             <div class="col-md-4">
-                <div class="profile-img" style="margin-top:50%;width:110%;height:35%;">
-                    <img src="<%= qr %>" alt=""/>
+                <!-- <div class="profile-img" style="margin-top:50%;width:110%;height:35%;">
+                    <img src="<%= //qr %>" alt=""/>
+                </div> -->
+                <div>
+                    <p id="test" class="ss"></p>
                 </div>
             </div>
             <div class="col-md-8">

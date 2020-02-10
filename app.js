@@ -34,24 +34,24 @@ const client = require('twilio')(accountSid, authToken);
 const goodBoyUrl = 'https://lh3.googleusercontent.com/proxy/7q7Wx47mCOpMZC0_1j2RQNnNq7HEgCk5sjzIsyMw_meUpr2Xbyoy8BuyI1JFuAUU3gTrmyM2py04BPttN979w-c775WUwtyFwh6JQqHNG6GC0ZYNkiiBLKpPsB9xikmAm_1CWBDpBXwamn_Y-z_1BWmWXPWWBmqAZnJ6FbhuIPsCNAKO';
 
 
-// mongoose.connect(process.env.LOCALDB, {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-//     dbName: 'swastik'
-// }).then(() => {
-//     console.log("db connected!!");
-// }).catch((e) => {
-//     console.log('Database connectivity error ', e)
-// });
+mongoose.connect(process.env.LOCALDB, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    dbName: 'swastik'
+}).then(() => {
+    console.log("db connected!!");
+}).catch((e) => {
+    console.log('Database connectivity error ', e)
+});
 // mongoose.connect("mongodb://localhost/swastik");
 const options = {
     keepAlive: 1,
     useUnifiedTopology: true,
     useNewUrlParser: true
 };
-var dev_db_url = 'mongodb+srv://ankit:passraj@aimusic-es8pe.mongodb.net/swastik?retryWrites=true&w=majority';
-var mongoDB = process.env.MONGODB_URI || dev_db_url;
-mongoose.connect(mongoDB, options).then(() => console.log('DB connected')).catch((err) => console.log(err));
+// var dev_db_url = 'mongodb+srv://ankit:passraj@aimusic-es8pe.mongodb.net/swastik?retryWrites=true&w=majority';
+// var mongoDB = process.env.MONGODB_URI || dev_db_url;
+// mongoose.connect(mongoDB, options).then(() => console.log('DB connected')).catch((err) => console.log(err));
 
 app.use(require("express-session")({
     secret: "secret!",
