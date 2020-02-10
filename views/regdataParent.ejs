@@ -1,7 +1,9 @@
-<% var formData,image,gender,qr,css1,css2; %>
+<% var formData,image,gender,qr,css1,css2,barcode; %>
 <script src="/public/javascripts/jquery.js"></script>
 <link rel="stylesheet" href="/public/stylesheets/bootstrap.min.css">
 <script src="/public/javascripts/bootstrap.min.js"></script>
+<script src="/public/javascripts/JsBarcode.all.min.js"></script>
+
 <link rel="stylesheet" href="/public/stylesheets/regSuccess.css">
 <%= css1 %>
 <%= css2 %>
@@ -12,22 +14,29 @@
         font-size: 48px;
     }
 </style>
+ <script>
+    console.log("aa gaya");
+    var x = 'swtk<%= formData.aadharno%>';
+   // document.getElementById("barcode").innerHTML = x;
+</script>
 
-<script>
+<!-- <script>
     var x = 'swtk<%= formData.aadharno%>';
     console.log(x);
     document.getElementById("test").innerHTML = x;
-</script>
+</script> -->
+
+
 
 <!------ Include the above in your HEAD tag ---------->
-
+<form action="/Register/downloadPdf" method="post">
 <div class="container emp-profile">
     <form method="post">
         <div class="row">
             <div class="col-md-4">
                 <div class="profile-img" style="width:110%;height:180%;">
                     <img src="/public/uploads/<%- image %>">
-
+                    <input style="display: none;" name="image" value="/public/uploads/<%- image %>">
                 </div>
             </div>
             <div class="col-md-6">
@@ -48,11 +57,8 @@
         </div>
         <div class="row">
             <div class="col-md-4">
-                <!-- <div class="profile-img" style="margin-top:50%;width:110%;height:35%;">
-                    <img src="<%= //qr %>" alt=""/>
-                </div> -->
-                <div>
-                    <p id="test" class="ss"></p>
+                <div class="profile-img" style="margin-top:50%;width:110%;height:35%;">
+                    <img id="barcode" src="<%= barcode %>">
                 </div>
             </div>
             <div class="col-md-8">
@@ -63,7 +69,8 @@
                                         <label>Name</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <p><%- formData.name %></p>
+                                        <!-- <p name="name"><%- formData.name %></p> -->
+                                        <input style="border:none;color:blue;font-weight:800;" name="name" value='<%- formData.name %>'>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -71,7 +78,8 @@
                                         <label>Email</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <p><%- formData.email %></p>
+                                        <!-- <p><%- formData.email %></p> -->
+                                        <input style="border:none;color:blue;font-weight:800;" name="email" value='<%- formData.email %>'>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -82,7 +90,8 @@
                                         <% if( formData.gender == 1 ) { gender = "Male";} %>
                                         <%  if( formData.gender == 2 ) { gender = "Female";} %>
                                         <%  if( formData.gender == 3 ) { gender = "Other";} %>
-                                        <p><%- gender %></p>
+                                       <!--  <p><%- gender %></p> -->
+                                       <input style="border:none;color:blue;font-weight:800;" name="gender" value='<%- gender %>'>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -90,7 +99,8 @@
                                         <label>Phone No.</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <p><%- formData.phoneno %></p>
+                                        <!-- <p><%- formData.phoneno %></p> -->
+                                        <input style="border:none;color:blue;font-weight:800;" name="phoneno" value='<%- formData.phoneno %>'>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -98,7 +108,8 @@
                                         <label>Spouse</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <p><%- formData.spouse %></p>
+                                        <!-- <p><%- formData.spouse %></p> -->
+                                        <input style="border:none;color:blue;font-weight:800;" name="spouse" value='<%- formData.spouse %>'>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -106,7 +117,8 @@
                                         <label>Children</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <p><%- formData.children[0] %></p>
+                                        <!-- <p><%- formData.children[0] %></p> -->
+                                        <input style="border:none;color:blue;font-weight:800;" name="child" value='<%- formData.children[0] %>'>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -114,7 +126,8 @@
                                         <label>Aadhar No</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <p><%- formData.aadharno %></p>
+                                       <!--  <p><%- formData.aadharno %></p> -->
+                                       <input style="border:none;color:blue;font-weight:800;" name="aadharno" value='<%- formData.aadharno %>'>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -127,7 +140,8 @@
                                         <label>Line 1</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <p><%- formData.address[0].line1 %></p>
+                                       <!--  <p><%- formData.address[0].line1 %></p> -->
+                                       <input style="border:none;color:blue;font-weight:800;" name="line1" value='<%- formData.address[0].line1 %>'>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -135,7 +149,8 @@
                                         <label>Line 2</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <p><%- formData.address[0].line2%></p>
+                                       <!--  <p><%- formData.address[0].line2%></p> -->
+                                       <input style="border:none;color:blue;font-weight:800;" name="line2" value='<%- formData.address[0].line2 %>'>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -143,7 +158,8 @@
                                         <label>City </label>
                                     </div>
                                     <div class="col-md-6">
-                                        <p><%- formData.address[0].town_village %></p>
+                                        <!-- <p><%- formData.address[0].town_village %></p> -->
+                                        <input style="border:none;color:blue;font-weight:800;" name="city" value='<%- formData.address[0].town_village %>'>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -151,7 +167,8 @@
                                         <label>Province</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <p><%- formData.address[0].province  %></p>
+                                       <!--  <p><%- formData.address[0].province  %></p> -->
+                                       <input style="border:none;color:blue;font-weight:800;" name="province" value='<%- formData.address[0].province %>'>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -159,7 +176,8 @@
                                         <label>Pincode</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <p><%- formData.address[0].pincode %></p>
+                                        <!-- <p><%- formData.address[0].pincode %></p> -->
+                                        <input style="border:none;color:blue;font-weight:800;" name="pincode" value='<%- formData.address[0].pincode %>'>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -167,10 +185,12 @@
                                         <label>State</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <p><%- formData.address[0].state %></p>
+                                       <!--  <p><%- formData.address[0].state %></p> -->
+                                       <input style="border:none;color:blue;font-weight:800;" name="state" value='<%- formData.address[0].state %>'>
                                     </div>
                                 </div>
                                 <br>
+                                
                                <!--  <div class="row">
                                     <div class="col-md-6">
                                        
@@ -179,7 +199,8 @@
                                        <a href="/regSuccess"><button type="button" class="btn btn-primary">Download</button></a> 
                                     </div>
                                 </div> -->
-                                <hr>
-                                
+                                <hr>      
+                                <button type="submit" class="btn btn-primary" >Download PDF</button>
                     </div>
-                    
+                </form>
+                   
