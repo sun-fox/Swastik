@@ -145,7 +145,7 @@ var router = express.Router(),
                 res.render('findResult',{ child :null,parent : null ,status : "Search Results Related to '"+findItem+"' did'nt matched."});
                 }
      }//renderResult
-     https://swasthik.herokuapp.com/
+    
     
     function findChild(res,findItem)
     {
@@ -456,9 +456,11 @@ var router = express.Router(),
 
 
     function toTitleCase(str) {
+        if(str){
         return str.replace(/\w\S*/g, function(txt){
             return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
         });
+    }
     }
 
 
