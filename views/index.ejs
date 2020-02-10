@@ -1,4 +1,4 @@
-<% var gdata,sent,status,ward,display; %>
+<% var gdata,sent; %>
 <% 
 var labeldata = [],labelvalue = [],i=0;
 for (var key in gdata) {
@@ -32,7 +32,6 @@ for (var key in gdata) {
     <title>Swastik</title>
 </head>
 <body>
-  
     <div class ="container-fluid top-strip">
         <div class ="row text-center">
             <div class ="col-md-4 col-xs-12"><img src ="../../public/images/logo.png" class ="img-responsive"><h5 id ="slogan">A Step Closer To Healthy India</h5></div>
@@ -67,37 +66,13 @@ for (var key in gdata) {
                 <a class="nav-link" href="/admin">Admin Portal</a>
               </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0" action="/Find/people" method="post">
-              <input class="form-control mr-sm-2" type="search" placeholder="Search" name="anyname" aria-label="Search">
-              <!-- data details hidden -->
-             <!--  <div style="display: none;" ><h4 name="data1"><%=Data["Female Children Count"]+Data["Male Children Count"]+Data["Female Parents Count"]+Data["Male Parents Count"]%></h4></div>
-              <div style="display: none;" ><h4 name="data2"><%=Data["Female Children Count"]%></h4></div>
-              <div style="display: none;" ><h4 name="data3"><%=Data["Male Children Count"]%></h4></div>
-              <div style="display: none;" ><h4 name="data4"><%=Data["Female Parents Count"]%></h4></div>
-              <div style="display: none;" ><h4 name="data5"><%=Data["Male Parents Count"]%></h4></div> -->
-               <!-- data details hidden -->
+            <form class="form-inline my-2 my-lg-0" action="" method="GET">
+              <input class="form-control mr-sm-2" type="search" placeholder="Search" name ="pincode"aria-label="Search">
               <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
           </div>
         </nav>
-        <!--  search results -->
-       <!--  <% if(display){ %>
-        <div class="container-fluid" style="margin:1%;width: 100%;height:200px;background-color:lightblue;overflow-x: hidden; 
-        overflow-x: auto; 
-        text-align:justify;">
-              <% if(status){ %>
-          <h2 ><%= status %></h2>
-              <% } %>
-             <div>
-                 <b>
-               <% if(ward){ %>
-              <h2><%= ward[0].name %></h2>
-              <% } %>
-                </b>
-            </div> 
-          </div>
-          <% } %> -->
-        <!--  search results -->
+
 
           <div class="container-fluid" style ="padding:0;">
             <div class="carousel">
@@ -258,7 +233,7 @@ for (var key in gdata) {
           
           // Global Options
           Chart.defaults.global.defaultFontFamily = 'Lato';
-          Chart.defaults.global.defaultFontSize = 14;
+          Chart.defaults.global.defaultFontSize = 18;
           Chart.defaults.global.defaultFontColor = '#777';
       
           let massPopChart2 = new Chart(myChart2, {
@@ -325,15 +300,15 @@ for (var key in gdata) {
           });
           
         </script>
-<!-- <hr><hr>
-        <div class ="container">
+<hr><hr>
+        <!-- <div class ="container">
 
           <div class ="row">
             <div class= "col-6">
               <div id="map"></div> 
             </div>
             <div class= "col-6">
-               
+              <div id="map"></div> 
             </div>
           </div>
 
