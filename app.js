@@ -26,6 +26,7 @@ var QRCode = require('qrcode'); // for qrcode
 var pdf = require('html-pdf');
 var requestify = require('requestify');
 
+
 /* including my twilio acc  */
 const { MessagingResponse } = require('twilio').twiml;
 const accountSid = 'AC49280ab194cc76ba75d4783d5f68a391';
@@ -34,21 +35,21 @@ const client = require('twilio')(accountSid, authToken);
 const goodBoyUrl = 'https://lh3.googleusercontent.com/proxy/7q7Wx47mCOpMZC0_1j2RQNnNq7HEgCk5sjzIsyMw_meUpr2Xbyoy8BuyI1JFuAUU3gTrmyM2py04BPttN979w-c775WUwtyFwh6JQqHNG6GC0ZYNkiiBLKpPsB9xikmAm_1CWBDpBXwamn_Y-z_1BWmWXPWWBmqAZnJ6FbhuIPsCNAKO';
 
 
-mongoose.connect(process.env.LOCALDB, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    dbName: 'swastik'
-}).then(() => {
-    console.log("db connected!!");
-}).catch((e) => {
-    console.log('Database connectivity error ', e)
-});
-// mongoose.connect("mongodb://localhost/swastik");
-const options = {
-    keepAlive: 1,
-    useUnifiedTopology: true,
-    useNewUrlParser: true
-};
+// mongoose.connect(process.env.LOCALDB, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//     dbName: 'swastik'
+// }).then(() => {
+//     console.log("db connected!!");
+// }).catch((e) => {
+//     console.log('Database connectivity error ', e)
+// });
+mongoose.connect("mongodb://localhost/swastik");
+// const options = {
+//     keepAlive: 1,
+//     useUnifiedTopology: true,
+//     useNewUrlParser: true
+// };
 // var dev_db_url = 'mongodb+srv://ankit:passraj@aimusic-es8pe.mongodb.net/swastik?retryWrites=true&w=majority';
 // var mongoDB = process.env.MONGODB_URI || dev_db_url;
 // mongoose.connect(mongoDB, options).then(() => console.log('DB connected')).catch((err) => console.log(err));
@@ -67,7 +68,24 @@ passport.deserializeUser(User.deserializeUser());
 app.set("view engine", "ejs"); ///set template engine to ejs
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(function(req, res, next) {
 
+//     // Website you wish to allow to connect
+//     res.setHeader('Access-Control-Allow-Origin', * );
+
+//     // Request methods you wish to allow
+//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+//     // Request headers you wish to allow
+//     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+//     // Set to true if you need the website to include cookies in the requests sent
+//     // to the API (e.g. in case you use sessions)
+//     res.setHeader('Access-Control-Allow-Credentials', true);
+
+//     // Pass to next layer of middleware
+//     next();
+// });
 //it will have two routes 1. search 2. result
 app.use("/public", express.static(__dirname + '/public'));
 app.use('/Register', registerRoute);
@@ -226,10 +244,10 @@ app.post('/whatsapp', (req, res) => {
 app.post('/recieve', async(req, res) => {
     const { body } = req;
     var message;
-    
+
     res.set('Content-Type', 'text/xml');
     console.log(body);
-   
+
     // console.log(replytohelp);
     if (body.NumMedia > 0) {
         message = new MessagingResponse().message("this is invalid message ");
@@ -238,78 +256,77 @@ app.post('/recieve', async(req, res) => {
         var replymsg = "";
         if ((body.Body).toString() == ("hello") || (body.Body).toString() == "Hello" || (body.Body).toString() == "hi" || (body.Body).toString() == "Hi" || (body.Body).toString() == "COMPLAIN" || (body.Body).toString() == "complain")
             replymsg = "Hello Welcome to Swastik Helpline ... SEND US YOUR QUERY IN GIVEN CODE  to register Complain append 'COMPLAIN' in front of your message.'";
-        else if ((body.Body).toString()== ("HELP")) {
-                  
-            var replyto="";   
+        else if ((body.Body).toString() == ("HELP")) {
+
+            var replyto = "";
             var replyno = (body.From).toString();
             var replynumber = replyno.split("+91");
-            Parent.find({phoneno:replynumber},(err,data)=>{
-                if(err)
-                console.log(err);
-                else{
-                    var addressReply=(data[0].address);
-                   // console.log(addressReply);
+            Parent.find({ phoneno: replynumber }, (err, data) => {
+                if (err)
+                    console.log(err);
+                else {
+                    var addressReply = (data[0].address);
+                    // console.log(addressReply);
                     var addressString = addressReply[0];
                     var replytohelp = "";
-                   replytohelp+=(addressString.line1).toString()+" ";
-                   replytohelp+=addressString.line2.toString()+" ";
-                   replytohelp+=addressString.town_village.toString()+" ";
-                   replytohelp+=addressString.province.toString()+" ";
-                   replytohelp+=addressString.state.toString()+" ";
-                   replyto = replytohelp+"  https://www.google.com/maps/place/"+(addressString.town_village.toString());
-                   console.log("replyto"+replyto);
-                   //console.log(replytohelp);
-          
-                 }
-         
-             });//function end of parent
+                    replytohelp += (addressString.line1).toString() + " ";
+                    replytohelp += addressString.line2.toString() + " ";
+                    replytohelp += addressString.town_village.toString() + " ";
+                    replytohelp += addressString.province.toString() + " ";
+                    replytohelp += addressString.state.toString() + " ";
+                    replyto = replytohelp + "  https://www.google.com/maps/place/" + (addressString.town_village.toString());
+                    console.log("replyto" + replyto);
+                    //console.log(replytohelp);
+
+                }
+
+            }); //function end of parent
             setTimeout(() => {
-                    
-            console.log(replyto);
-            // console.log("thiis is  maAL:"+replyto);
+
+                console.log(replyto);
+                // console.log("thiis is  maAL:"+replyto);
 
 
-            replymsg =replyto;
-                
-            }, 1000);// set timeout end
-       
-        }
-        else
+                replymsg = replyto;
+
+            }, 1000); // set timeout end
+
+        } else
             replymsg = "this is invalid message for queries check here : https://www.hackerearth.com/@hyper_bit ";
-        
-            setTimeout(() => {
-                message = new MessagingResponse().message(replymsg.toString());
-            }, 1200);
-        
+
+        setTimeout(() => {
+            message = new MessagingResponse().message(replymsg.toString());
+        }, 1200);
+
     }
     setTimeout(() => {
-        
-    res.send(message.toString());
+
+        res.send(message.toString());
     }, 1300);
 });
 
 
 
 // sending message to array
-app.get('/message/calluser',(req,res)=>{
-      
-    
-const accountSi = 'AC63dcb9c07e6cd8596c032a8ff5e59b1f';
-const authToke = '8006f3f18dda3891ff9e6c10f899f393';
-const client = require('twilio')(accountSi, authToke);
+app.get('/message/calluser', (req, res) => {
 
-client.calls.create({
-   url:'http://demo.twilio.com/docs/voice.xml',
-   to : '+918957790795',
-   from :'+1 218 297 0768' 
-},(err,call)=>{
-    if(err)
-    console.log(err);
-    else
-    console.log(call.sid);
-});
 
-res.redirect('/admin');
+    const accountSi = 'AC63dcb9c07e6cd8596c032a8ff5e59b1f';
+    const authToke = '8006f3f18dda3891ff9e6c10f899f393';
+    const client = require('twilio')(accountSi, authToke);
+
+    client.calls.create({
+        url: 'http://demo.twilio.com/docs/voice.xml',
+        to: '+918957790795',
+        from: '+1 218 297 0768'
+    }, (err, call) => {
+        if (err)
+            console.log(err);
+        else
+            console.log(call.sid);
+    });
+
+    res.redirect('/admin');
 
 });
 
@@ -318,29 +335,28 @@ app.get('/start', (req, res) => {
 
 });
 
-app.post('/message/whatstoall',(req,res)=>{
+app.post('/message/whatstoall', (req, res) => {
     //whatsappnos > contactnos
     var phonenoss = [];
     var pincode = req.body.pincode;
     console.log(pincode);
-    Parent.find({"address.pincode":pincode},{"phoneno":1,"_id":0},(err,data)=>{
-        if(err){
+    Parent.find({ "address.pincode": pincode }, { "phoneno": 1, "_id": 0 }, (err, data) => {
+        if (err) {
             console.log(err);
-        }
-        else{
-             var datta = data[0];
-             data.forEach(function(a){
-                 phonenoss.push(a.phoneno);
-                 console.log(a.phoneno);
-             })
+        } else {
+            var datta = data[0];
+            data.forEach(function(a) {
+                phonenoss.push(a.phoneno);
+                console.log(a.phoneno);
+            })
 
-    }
-        
+        }
+
     });
     setTimeout(() => {
-        res.render('whatsappnos',{contactnos:phonenoss});
-    }, 1000); 
-     
+        res.render('whatsappnos', { contactnos: phonenoss });
+    }, 1000);
+
 });
 
 
