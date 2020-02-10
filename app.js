@@ -310,6 +310,32 @@ app.get('/start', (req, res) => {
 
 });
 
+app.post('/message/whatstoall',(req,res)=>{
+    //whatsappnos > contactnos
+    var phonenoss = [];
+    var pincode = req.body.pincode;
+    console.log(pincode);
+    Parent.find({"address.pincode":pincode},{"phoneno":1,"_id":0},(err,data)=>{
+        if(err){
+            console.log(err);
+        }
+        else{
+             var datta = data[0];
+             data.forEach(function(a){
+                 phonenoss.push(a.phoneno);
+                 console.log(a.phoneno);
+             })
+
+    }
+        
+    });
+    setTimeout(() => {
+        res.render('whatsappnos',{contactnos:phonenoss});
+    }, 1000); 
+     
+});
+
+
 const noss = {
     1: 123456,
     2: 987654,
