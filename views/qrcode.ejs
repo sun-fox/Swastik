@@ -8,6 +8,7 @@
     <script src="/public/javascripts/jquery.js"></script>
     <link rel="stylesheet" href="/public/stylesheets/bootstrap.min.css">
     <script src="/public/javascripts/bootstrap.min.js"></script>
+    <script src="/public/javascripts/ejs.js"></script>
     <style>
         body{
             background-color: lightyellow;
@@ -170,33 +171,37 @@
                 var obj = { 'aadharno': result.codeResult.code };
                 if (result.codeResult.code.substring(0, 4) === 'swtk' && result.codeResult.code.length == 16) {
                     console.log("Entered" + result.codeResult.code);
-
-                    $.ajax({
-                        url: 'http://localhost:3000/Client/Parent/qrlogin',
-                        data: obj,
-                        type: 'POST',
-                        success: function (data, textStatus) {
-                                html = new EJS({url: '../../../Client/parent.ejs'}).render(data);
-
-                            // if (data.redirect) {
-                            //     html = new EJS({url: '../../../Client/parent.ejs'}).render(data);
-                            //     // document.getElementById('list-wrapper').innerHTML = html;
-                            //     // console.log("Chala gaya");
-                            //     // $('#adhar').val(result.codeResult.code);
-                            //     // $("#form").submit();
-                            // } else {
-                            //     console.log("NHI gaya");
-                            //     $('#adhar').val(result.codeResult.code);
-                            //     $("#form").submit();
-                            //     // $.post('http://localhost:3000/Client/Parent',data,(data,status){
-                            //     //     alert("Data: " + data + "\nStatus: " + status);
-                            //     // });
-                            // }
-                        },
-                        error: function (xhr, status, error) {
-                            console.log('Error: ' + error.message);
-                        },
+                    // window.location.href = "/Client/parent/qrlogin";
+                    $.post("/Client/Parent/qrlogin",obj,(data)=>{
+                        console.log("ttyytyt",data);
+                        window.document.write(data);
                     });
+
+                    // $.ajax({
+                    //     url: 'http://localhost:3000/Client/Parent/qrlogin',
+                    //     data: obj,
+                    //     type: 'POST',
+                    //     success: function (data, textStatus) {
+                    //         html = new EJS({url: '../../../Client/parent.ejs'}).render(data);
+                    //         // if (data.redirect) {
+                    //         //     html = new EJS({url: '../../../Client/parent.ejs'}).render(data);
+                    //         //     // document.getElementById('list-wrapper').innerHTML = html;
+                    //         //     // console.log("Chala gaya");
+                    //         //     // $('#adhar').val(result.codeResult.code);
+                    //         //     // $("#form").submit();
+                    //         // } else {
+                    //         //     console.log("NHI gaya");
+                    //         //     $('#adhar').val(result.codeResult.code);
+                    //         //     $("#form").submit();
+                    //         //     // $.post('http://localhost:3000/Client/Parent',data,(data,status){
+                    //         //     //     alert("Data: " + data + "\nStatus: " + status);
+                    //         //     // });
+                    //         // }
+                    //     },
+                    //     error: function (xhr, status, error) {
+                    //         console.log('Error: ' + error.message);
+                    //     },
+                    // });
                 }
             });
         }

@@ -55,7 +55,7 @@ router.post("/parent/qrlogin", (req, res) => {
             if (parent != null) {
                 console.log("Crash Point!!");
                 console.log("Returned Json" + parent)
-                res.render("parent.ejs", { Parent: parent });
+                res.render("parent", { Parent: parent });
             }
         }
     })

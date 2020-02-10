@@ -1,496 +1,389 @@
-<% var gdata,sent; %>
-    <% 
-var labeldata = [],labelvalue = [],i=0;
-for (var key in gdata) {
-          if (gdata.hasOwnProperty(key)) {
-            var val = gdata[key];
-            labeldata[i] = key;
-            labelvalue[i] = val;
-            i++;
-          }
-        }
-      //  console.log(labeldata);
-       // console.log(labelvalue);
-%>
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" type="image/icon" href="../../public/images/logo.png" />
+    <link rel="stylesheet" href="../../public/stylesheets/custom.css">
+    <link rel="stylesheet" href="../../public/stylesheets/carousel.css">
+    <link rel="stylesheet" href="../../public/stylesheets/bootstrap.min.css">
+    <!-- <script src="../../public/javascripts/bootstrap.min.js" type="text/javascript"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script> -->
+    <script src="../../public/javascripts/jquery.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
 
-        <!DOCTYPE html>
-        <html lang="en">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Swastik|Child</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="" />
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+</head>
 
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <meta http-equiv="X-UA-Compatible" content="ie=edge">
-            <link rel="shortcut icon" type="image/icon" href="../../public/images/logo.png" />
-            <link rel="stylesheet" href="../../public/stylesheets/custom.css">
-            <link rel="stylesheet" href="../../public/stylesheets/carousel.css">
-            <link rel="stylesheet" href="../../public/stylesheets/bootstrap.min.css">
-            <!-- <script src="../../public/javascripts/bootstrap.min.js" type="text/javascript"></script> -->
-            <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script> -->
-            <script src="../../public/javascripts/jquery.js" type="text/javascript"></script>
-
-            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-            <title>Swastik|Child</title>
-            <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="" />
-            <!-- Make sure you put this AFTER Leaflet's CSS -->
-
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
-            <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
-        </head>
-        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-        <!-- <script type="text/javascript">
-    chartIt();
-    async function chartIt() {
-        var chartData = await getData();
-
-        google.charts.load("current", {
-            packages: ["corechart"]
-        });
-        google.charts.setOnLoadCallback(drawChart);
-        console.log(chartData);
-        var dat = [
-            ["Disease", "Count"]
-        ];;
-        chartData.forEach(element => {
-            dat.push(element);
-        });
-
-        function drawChart() {
-            var data = google.visualization.arrayToDataTable(dat);
-
-            var options = {
-                title: 'Diseses',
-                pieHole: 0.4,
-            };
-
-            var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
-            chart.draw(data, options);
-        }
-    }
-    async function getData() {
-        const response = await fetch('http:/localhost:3000/statistics/patients_count_wrt_disease');
-        console.log(response);
-        const data = await response.json();
-        const parsedData = Object.entries(data);
-        console.log(parsedData);
-        return parsedData;
-    }
-</script> -->
-
-        <!-- <script type="text/javascript">
-    chartIt();
-    async function chartIt() {
-        var chartData = await getData();
-        google.charts.load('current', {
-            'packages': ['bar']
-        });
-        google.charts.setOnLoadCallback(drawChart);
-
-        function drawChart() {
-            var dat = [
-                ['Pincode', 'Children Affected']
-            ];;
-            chartData.forEach(element => {
-                dat.push(element);
-            });
-            var data = google.visualization.arrayToDataTable(dat);
-
-            var options = {
-                chart: {
-                    title: 'Children Affected',
-                    subtitle: 'In an area',
-                }
-            };
-
-            var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
-
-            chart.draw(data, google.charts.Bar.convertOptions(options));
-        }
-    }
-    async function getData() {
-        const response = await fetch('http:/localhost:3000/statistics/children/pincode');
-        console.log(response);
-        const data = await response.json();
-        const parsedData = Object.entries(data);
-        console.log(parsedData);
-        return parsedData;
-    }
-</script> -->
-
-        <body>
-            <div class="container-fluid top-strip">
-                <div class="row text-center">
-                    <div class="col-md-4 col-xs-12"><img src="../../public/images/logo.png" class="img-responsive">
-                        <h5 id="slogan">A Step Closer To Healthy India</h5>
-                    </div>
-                    <div class="col-md-4 col-xs-12"><img src="../../public/images/satyamev.svg" class="img-responsive">
-                        <h5 id="header-title">Ministry of Women and Child Development Government of India
-                        </h5>
-                    </div>
-                    <div class="col-md-4 col-xs-12"><img src="../../public/images/Towards a new dawn_Logo.png" class="img-responsive"></div>
-                </div>
+<body>
+    <div class="container-fluid top-strip">
+        <div class="row text-center">
+            <div class="col-md-4 col-xs-12"><img src="../../public/images/logo.png" class="img-responsive">
+                <h5 id="slogan">A Step Closer To Healthy India</h5>
             </div>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="/">Swastik</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <div class="col-md-4 col-xs-12"><img src="../../public/images/satyamev.svg" class="img-responsive">
+                <h5 id="header-title">Ministry of Women and Child Development Government of India
+                </h5>
+            </div>
+            <div class="col-md-4 col-xs-12"><img src="../../public/images/Towards a new dawn_Logo.png" class="img-responsive"></div>
+        </div>
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">Swastik</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/dashboard">Dashboard</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/gallery">Gallery</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="public\vaccine.pdf">List of Vaccines</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/admin">Admin Portal</a>
-                        </li>
-                    </ul>
-                    <form class="form-inline my-2 my-lg-0" action="" method="GET">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" name="pincode" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    </form>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/dashboard">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/gallery">Gallery</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="public\vaccine.pdf">List of Vaccines</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin">Admin Portal</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0" action="" method="GET">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" name="pincode" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+
+
+    <div class="container-fluid" style="padding:0;">
+        <div class="carousel">
+            <input type="radio" id="carousel-1" name="carousel[]" checked>
+            <input type="radio" id="carousel-2" name="carousel[]">
+            <input type="radio" id="carousel-3" name="carousel[]">
+            <input type="radio" id="carousel-4" name="carousel[]">
+            <input type="radio" id="carousel-5" name="carousel[]">
+            <ul class="carousel__items">
+                <li class="carousel__item"><img src="public\images\Banner1.jpg" alt=""></li>
+                <li class="carousel__item"><img src="public\images\Banner2.jpg" alt=""></li>
+                <li class="carousel__item"><img src="public\images\Banner3.jpg" alt=""></li>
+                <li class="carousel__item"><img src="public\images\Banner4.jpg" alt=""></li>
+
+            </ul>
+            <div class="carousel__prev">
+                <label for="carousel-1"></label>
+                <label for="carousel-2"></label>
+                <label for="carousel-3"></label>
+                <label for="carousel-4"></label>
+                <!-- <label for="carousel-5"></label> -->
+            </div>
+            <div class="carousel__next">
+                <label for="carousel-1"></label>
+                <label for="carousel-2"></label>
+                <label for="carousel-3"></label>
+                <label for="carousel-4"></label>
+                <!-- <label for="carousel-5"></label> -->
+            </div>
+            <div class="carousel__nav">
+                <label for="carousel-1"></label>
+                <label for="carousel-2"></label>
+                <label for="carousel-3"></label>
+                <label for="carousel-4"></label>
+                <!-- <label for="carousel-5"></label> -->
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row text-center" style="background-color:rgb(243, 172, 114);padding:10px;border-top:2px solid brown">
+            <div class="col text-center">
+                <div class="thumbnail"><img src="public\images\download.png" height="80"></div>
+                <div class="caption">
+                    <h4>
+                        <%=Data["Female Children Count"]+Data["Male Children Count"]+Data["Female Parents Count"]+Data["Male Parents Count"]%>
+                    </h4>
                 </div>
-            </nav>
-
-
-            <div class="container-fluid" style="padding:0;">
-                <div class="carousel">
-                    <input type="radio" id="carousel-1" name="carousel[]" checked>
-                    <input type="radio" id="carousel-2" name="carousel[]">
-                    <input type="radio" id="carousel-3" name="carousel[]">
-                    <input type="radio" id="carousel-4" name="carousel[]">
-                    <input type="radio" id="carousel-5" name="carousel[]">
-                    <ul class="carousel__items">
-                        <li class="carousel__item"><img src="public\images\Banner1.jpg" alt=""></li>
-                        <li class="carousel__item"><img src="public\images\Banner2.jpg" alt=""></li>
-                        <li class="carousel__item"><img src="public\images\Banner3.jpg" alt=""></li>
-                        <li class="carousel__item"><img src="public\images\Banner4.jpg" alt=""></li>
-
-                    </ul>
-                    <div class="carousel__prev">
-                        <label for="carousel-1"></label>
-                        <label for="carousel-2"></label>
-                        <label for="carousel-3"></label>
-                        <label for="carousel-4"></label>
-                        <!-- <label for="carousel-5"></label> -->
-                    </div>
-                    <div class="carousel__next">
-                        <label for="carousel-1"></label>
-                        <label for="carousel-2"></label>
-                        <label for="carousel-3"></label>
-                        <label for="carousel-4"></label>
-                        <!-- <label for="carousel-5"></label> -->
-                    </div>
-                    <div class="carousel__nav">
-                        <label for="carousel-1"></label>
-                        <label for="carousel-2"></label>
-                        <label for="carousel-3"></label>
-                        <label for="carousel-4"></label>
-                        <!-- <label for="carousel-5"></label> -->
-                    </div>
+                <div class="caption">
+                    <h5><u>Total Participation</u></h5>
                 </div>
             </div>
-            <div class="container-fluid">
-                <div class="row text-center" style="background-color:rgb(243, 172, 114);padding:10px;border-top:2px solid brown">
-                    <div class="col text-center">
-                        <div class="thumbnail"><img src="public\images\download.png" height="80"></div>
-                        <div class="caption">
-                            <h4>
-                                <%=Data["Female Children Count"]+Data["Male Children Count"]+Data["Female Parents Count"]+Data["Male Parents Count"]%>
-                            </h4>
-                        </div>
-                        <div class="caption">
-                            <h5><u>Total Participation</u></h5>
-                        </div>
-                    </div>
-                    <div class="col text-center">
-                        <div class="thumbnail"><img src="public\images\girl.png" height="80"></div>
-                        <div class="caption">
-                            <h4>
-                                <%=Data["Female Children Count"]%>
-                            </h4>
-                        </div>
-                        <div class="caption">
-                            <h5><u>Girls</u></h5>
-                        </div>
-                    </div>
-                    <div class="col text-center">
-                        <div class="thumbnail"><img src="public\images\boy.png" height="80"></div>
-                        <div class="caption">
-                            <h4>
-                                <%=Data["Male Children Count"]%>
-                            </h4>
-                        </div>
-                        <div class="caption">
-                            <h5><u>Boys</u></h5>
-                        </div>
-                    </div>
-                    <div class="col text-center">
-                        <div class="thumbnail"><img src="public\images\female.png" height="80"></div>
-                        <div class="caption">
-                            <h4>
-                                <%=Data["Female Parents Count"]%>
-                            </h4>
-                        </div>
-                        <div class="caption">
-                            <h5><u>Women</u></h5>
-                        </div>
-                    </div>
-                    <div class="col text-center">
-                        <div class="thumbnail"><img src="public\images\Male.png" height="80"></div>
-                        <div class="caption">
-                            <h4>
-                                <%=Data["Male Parents Count"]%>
-                            </h4>
-                        </div>
-                        <div class="caption">
-                            <h5><u>Men</u></h5>
-                        </div>
-                    </div>
+            <div class="col text-center">
+                <div class="thumbnail"><img src="public\images\girl.png" height="80"></div>
+                <div class="caption">
+                    <h4>
+                        <%=Data["Female Children Count"]%>
+                    </h4>
+                </div>
+                <div class="caption">
+                    <h5><u>Girls</u></h5>
                 </div>
             </div>
-            <br>
-            <!-- <div class="container-fluid">
+            <div class="col text-center">
+                <div class="thumbnail"><img src="public\images\boy.png" height="80"></div>
+                <div class="caption">
+                    <h4>
+                        <%=Data["Male Children Count"]%>
+                    </h4>
+                </div>
+                <div class="caption">
+                    <h5><u>Boys</u></h5>
+                </div>
+            </div>
+            <div class="col text-center">
+                <div class="thumbnail"><img src="public\images\female.png" height="80"></div>
+                <div class="caption">
+                    <h4>
+                        <%=Data["Female Parents Count"]%>
+                    </h4>
+                </div>
+                <div class="caption">
+                    <h5><u>Women</u></h5>
+                </div>
+            </div>
+            <div class="col text-center">
+                <div class="thumbnail"><img src="public\images\Male.png" height="80"></div>
+                <div class="caption">
+                    <h4>
+                        <%=Data["Male Parents Count"]%>
+                    </h4>
+                </div>
+                <div class="caption">
+                    <h5><u>Men</u></h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <br>
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-6 col-xs-12">
-                <div id="donutchart" style=" height: 500px;"></div>
+                <canvas id="myChart"></canvas>
             </div>
             <div class="col-md-6 col-xs-12">
-                <div id="columnchart_material" style=" height: 500px;"></div>
+                <canvas id="myChart2"></canvas>
             </div>
-
         </div>
-    </div> -->
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-6 col-xs-12">
-                        <canvas id="myChart"></canvas>
-                    </div>
-                    <div class="col-md-6 col-xs-12">
-                        <canvas id="myChart2"></canvas>
-                    </div>
-                </div>
-            </div>
+    </div>
+    <script>
+        let myChart = document.getElementById('myChart').getContext('2d');
 
-            <script>
-                let myChart = document.getElementById('myChart').getContext('2d');
-
-                // Global Options
-                Chart.defaults.global.defaultFontFamily = 'Lato';
-                Chart.defaults.global.defaultFontSize = 18;
-                Chart.defaults.global.defaultFontColor = '#777';
-                let massPopChart = new Chart(myChart, {
-                    type: 'doughnut', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
-                    data: {
-                        labels: ['Polio', 'HepatitisA', 'HepatitisB', 'ChickenPox', 'DTaP', 'Hib', 'Influenza', 'MMR',
-                            'Meningococcal', 'Pneumococcal', 'Rotavirus'
-                        ],
-                        datasets: [{
-                            label: 'Count of Children',
-                            data: [
-                                "<%=gdata.Polio%>",
-                                "<%=gdata.HepatitisA%>",
-                                "<%=gdata.HepatitisB%>",
-                                "<%=gdata.ChickenPox%>",
-                                "<%=gdata.DTaP%>",
-                                "<%=gdata.Hib%>",
-                                "<%=gdata.Influenza%>",
-                                "<%=gdata.MMR%>",
-                                "<%=gdata.Meningococcal%>",
-                                "<%=gdata.Pneumococcal%>",
-                                "<%=gdata.Rotavirus%>",
-                            ],
-                            //backgroundColor:'green',
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.6)',
-                                'rgba(54, 162, 235, 0.6)',
-                                'rgba(255, 206, 86, 0.6)',
-                                'rgba(75, 192, 192, 0.6)',
-                                'rgba(153, 102, 255, 0.6)',
-                                'rgba(255, 159, 64, 0.6)',
-                                'rgba(255, 99, 132, 0.6)',
-                                'rgba(153, 102, 255, 0.6)',
-                                'rgba(255, 159, 64, 0.6)',
-                                'rgba(255, 99, 132, 0.6)',
-                                'rgba(153, 102, 255, 0.6)'
-                            ],
-                            borderWidth: 1,
-                            borderColor: '#777',
-                            hoverBorderWidth: 3,
-                            hoverBorderColor: '#000'
-                        }]
-                    },
-                    options: {
-                        title: {
-                            display: true,
-                            text: 'Count Of Children With corresponding  Vaccines ',
-                            fontSize: 25
-                        },
-                        legend: {
-                            display: true,
-                            position: 'right',
-                            labels: {
-                                fontColor: '#000'
-                            }
-                        },
-                        layout: {
-                            padding: {
-                                left: 50,
-                                right: 0,
-                                bottom: 0,
-                                top: 0
-                            }
-                        },
-                        tooltips: {
-                            enabled: true
-                        }
+        // Global Options
+        Chart.defaults.global.defaultFontFamily = 'Lato';
+        Chart.defaults.global.defaultFontSize = 18;
+        Chart.defaults.global.defaultFontColor = '#777';
+        let massPopChart = new Chart(myChart, {
+            type: 'doughnut', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+            data: {
+                labels: ['Polio', 'HepatitisA', 'HepatitisB', 'ChickenPox', 'DTaP', 'Hib', 'Influenza', 'MMR',
+                    'Meningococcal', 'Pneumococcal', 'Rotavirus'
+                ],
+                datasets: [{
+                    label: 'Count of Children',
+                    data: [
+                        "<%=gdata.Polio%>",
+                        "<%=gdata.HepatitisA%>",
+                        "<%=gdata.HepatitisB%>",
+                        "<%=gdata.ChickenPox%>",
+                        "<%=gdata.DTaP%>",
+                        "<%=gdata.Hib%>",
+                        "<%=gdata.Influenza%>",
+                        "<%=gdata.MMR%>",
+                        "<%=gdata.Meningococcal%>",
+                        "<%=gdata.Pneumococcal%>",
+                        "<%=gdata.Rotavirus%>",
+                    ],
+                    //backgroundColor:'green',
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.6)',
+                        'rgba(54, 162, 235, 0.6)',
+                        'rgba(255, 206, 86, 0.6)',
+                        'rgba(75, 192, 192, 0.6)',
+                        'rgba(153, 102, 255, 0.6)',
+                        'rgba(255, 159, 64, 0.6)',
+                        'rgba(255, 99, 132, 0.6)',
+                        'rgba(153, 102, 255, 0.6)',
+                        'rgba(255, 159, 64, 0.6)',
+                        'rgba(255, 99, 132, 0.6)',
+                        'rgba(153, 102, 255, 0.6)'
+                    ],
+                    borderWidth: 1,
+                    borderColor: '#777',
+                    hoverBorderWidth: 3,
+                    hoverBorderColor: '#000'
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'Count Of Children With corresponding  Vaccines ',
+                    fontSize: 25
+                },
+                legend: {
+                    display: true,
+                    position: 'right',
+                    labels: {
+                        fontColor: '#000'
                     }
-                });
-
-
-
-
-                let myChart2 = document.getElementById('myChart2').getContext('2d');
-
-                // Global Options
-                Chart.defaults.global.defaultFontFamily = 'Lato';
-                Chart.defaults.global.defaultFontSize = 18;
-                Chart.defaults.global.defaultFontColor = '#777';
-
-                let massPopChart2 = new Chart(myChart2, {
-                    type: 'polarArea', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
-                    data: {
-                        labels: ['Polio', 'HepatitisA', 'HepatitisB', 'ChickenPox', 'DTaP', 'Hib', 'Influenza', 'MMR',
-                            'Meningococcal', 'Pneumococcal', 'Rotavirus'
-                        ],
-                        datasets: [{
-                            label: 'Count of Children',
-                            data: [
-                                "<%=gdata.Polio%>",
-                                "<%=gdata.HepatitisA%>",
-                                "<%=gdata.HepatitisB%>",
-                                "<%=gdata.ChickenPox%>",
-                                "<%=gdata.DTaP%>",
-                                "<%=gdata.Hib%>",
-                                "<%=gdata.Influenza%>",
-                                "<%=gdata.MMR%>",
-                                "<%=gdata.Meningococcal%>",
-                                "<%=gdata.Pneumococcal%>",
-                                "<%=gdata.Rotavirus%>",
-                            ],
-                            //backgroundColor:'green',
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.6)',
-                                'rgba(54, 162, 235, 0.6)',
-                                'rgba(255, 206, 86, 0.6)',
-                                'rgba(75, 192, 192, 0.6)',
-                                'rgba(153, 102, 255, 0.6)',
-                                'rgba(255, 159, 64, 0.6)',
-                                'rgba(255, 99, 132, 0.6)'
-                            ],
-                            borderWidth: 1,
-                            borderColor: '#777',
-                            hoverBorderWidth: 3,
-                            hoverBorderColor: '#000'
-                        }]
-                    },
-                    options: {
-                        title: {
-                            display: true,
-                            text: 'Count Of Children With corresponding  Vaccines ',
-                            fontSize: 25
-                        },
-                        legend: {
-                            display: true,
-                            position: 'right',
-                            labels: {
-                                fontColor: '#000'
-                            }
-                        },
-                        layout: {
-                            padding: {
-                                left: 50,
-                                right: 0,
-                                bottom: 0,
-                                top: 0
-                            }
-                        },
-                        tooltips: {
-                            enabled: true
-                        }
+                },
+                layout: {
+                    padding: {
+                        left: 50,
+                        right: 0,
+                        bottom: 0,
+                        top: 0
                     }
-                });
-            </script>
+                },
+                tooltips: {
+                    enabled: true
+                }
+            }
+        });
 
-            <div class="row">
 
-                <div class="col-md-6" style="background-color:rgba(0,0,0,0.8)">
-                    <p>
-                        <h1 style="margin:40px;text-align:center;color: beige; font-size:80px ;font-weight: 700;;">HEALTHCARE SERVICE CENTRE</h1>
-                    </p>
-                    <br>
-                    <hr style="width: 90%; color:white; border: 2px solid gray;">
-                    <br>
-                    <p style="margin:40px ;text-justify:centre;color: rgba(255,255,255,0.8); font-family: script; font-size: 40px;">
-                        In India, public hospitals (called Government Hospitals) provide health care free at the point of use for any Indian citizen. These are usually individual state funded. However, hospitals funded by the central (federal) government also exist.
-                    </p>
-                </div>
-                <div class="col-md-6">
-                    <div id="mapid" style="margin:0;padding:0;display:flex;justify-content: center;width: 98%; height: 750px;"></div>
-                </div>
+
+
+        let myChart2 = document.getElementById('myChart2').getContext('2d');
+
+        // Global Options
+        Chart.defaults.global.defaultFontFamily = 'Lato';
+        Chart.defaults.global.defaultFontSize = 18;
+        Chart.defaults.global.defaultFontColor = '#777';
+
+        let massPopChart2 = new Chart(myChart2, {
+            type: 'polarArea', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+            data: {
+                labels: ['Polio', 'HepatitisA', 'HepatitisB', 'ChickenPox', 'DTaP', 'Hib', 'Influenza', 'MMR',
+                    'Meningococcal', 'Pneumococcal', 'Rotavirus'
+                ],
+                datasets: [{
+                    label: 'Count of Children',
+                    data: [
+                        "<%=gdata.Polio%>",
+                        "<%=gdata.HepatitisA%>",
+                        "<%=gdata.HepatitisB%>",
+                        "<%=gdata.ChickenPox%>",
+                        "<%=gdata.DTaP%>",
+                        "<%=gdata.Hib%>",
+                        "<%=gdata.Influenza%>",
+                        "<%=gdata.MMR%>",
+                        "<%=gdata.Meningococcal%>",
+                        "<%=gdata.Pneumococcal%>",
+                        "<%=gdata.Rotavirus%>",
+                    ],
+                    //backgroundColor:'green',
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.6)',
+                        'rgba(54, 162, 235, 0.6)',
+                        'rgba(255, 206, 86, 0.6)',
+                        'rgba(75, 192, 192, 0.6)',
+                        'rgba(153, 102, 255, 0.6)',
+                        'rgba(255, 159, 64, 0.6)',
+                        'rgba(255, 99, 132, 0.6)'
+                    ],
+                    borderWidth: 1,
+                    borderColor: '#777',
+                    hoverBorderWidth: 3,
+                    hoverBorderColor: '#000'
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'Count Of Children With corresponding  Vaccines ',
+                    fontSize: 25
+                },
+                legend: {
+                    display: true,
+                    position: 'right',
+                    labels: {
+                        fontColor: '#000'
+                    }
+                },
+                layout: {
+                    padding: {
+                        left: 50,
+                        right: 0,
+                        bottom: 0,
+                        top: 0
+                    }
+                },
+                tooltips: {
+                    enabled: true
+                }
+            }
+        });
+    </script>
+    <div class="row">
+
+        <div class="col-md-6" style="background-color:rgba(0,0,0,0.8)">
+            <p>
+                <h1 style="margin:40px;text-align:center;color: beige; font-size:80px ;font-weight: 700;;">HEALTHCARE SERVICE CENTRE</h1>
+            </p>
+            <br>
+            <hr style="width: 90%; color:white; border: 2px solid gray;">
+            <br>
+            <p style="margin:40px ;text-justify:centre;color: rgba(255,255,255,0.8); font-family: script; font-size: 40px;">
+                In India, public hospitals (called Government Hospitals) provide health care free at the point of use for any Indian citizen. These are usually individual state funded. However, hospitals funded by the central (federal) government also exist.
+            </p>
+        </div>
+        <div class="col-md-6">
+            <div id="mapid" style="margin:0;padding:0;display:flex;justify-content: center;width: 98%; height: 750px;"></div>
+        </div>
+    </div>
+
+    <script src="../../public/javascripts/mapData.js" type="text/javascript"></script>
+
+    <!--Footer-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <marquee><img src="public\images\End_frame.png"></marquee>
             </div>
-
-            <script src="../../public/javascripts/mapData.js" type="text/javascript"></script>
-
-            <!--Footer-->
-            <div class="container-fluid">
+            <div class="col-12">
                 <div class="row">
-                    <div class="col-12">
-                        <marquee><img src="public\images\End_frame.png"></marquee>
-                    </div>
-                    <div class="col-12">
-                        <div class="row">
-                            <div class="col-md-6 col-xs-12 text-center">
-                                <img src="public\images\logo.png"><br>
-                                <h5>Swastik | A Step Towards Healthier India</h5>
-                                <i class="fa fa-facebook" style="font-size:30px;color:brown"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <i class="fa fa-twitter" style="font-size:30px;color:brown"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <i class="fa fa-instagram" style="font-size:30px;color:brown"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br><br>
-                                <div class="">
-                                    <h3>Contact Us</h3>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-xs-12">
-                                <form method="POST" action="/complain/log_complaint" class="">
-                                    <div class="form-group"><input class="form-control" type="text" name="title" placeholder="Title" required></div>
-                                    <div class="form-group"><input class="form-control" type="text" name="complainer" placeholder="Email" required></div>
-                                    <div class="form-group"><input class="form-control" type="text" name="subject" placeholder="Subject" required></div>
-                                    <div class="form-group"><textarea class="form-control" type="text" name="complaint" placeholder="Message" style="min-height:200px;" required></textarea></div>
-                                    <div class="form-group text-center" id="sbtn"><button class="btn btn-lg btn-primary btn-block" style="width:30%;">Submit</button>
-                                    </div>
-                                </form>
-                            </div>
+                    <div class="col-md-6 col-xs-12 text-center">
+                        <img src="public\images\logo.png"><br>
+                        <h5>Swastik | A Step Towards Healthier India</h5>
+                        <i class="fa fa-facebook" style="font-size:30px;color:brown"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <i class="fa fa-twitter" style="font-size:30px;color:brown"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <i class="fa fa-instagram" style="font-size:30px;color:brown"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br><br>
+                        <div class="">
+                            <h3>Contact Us</h3>
                         </div>
                     </div>
+                    <div class="col-md-6 col-xs-12">
+                        <form method="POST" action="/complain/log_complaint" class="">
+                            <div class="form-group"><input class="form-control" type="text" name="title" placeholder="Title" required></div>
+                            <div class="form-group"><input class="form-control" type="text" name="complainer" placeholder="Email" required></div>
+                            <div class="form-group"><input class="form-control" type="text" name="subject" placeholder="Subject" required></div>
+                            <div class="form-group"><textarea class="form-control" type="text" name="complaint" placeholder="Message" style="min-height:200px;" required></textarea></div>
+                            <div class="form-group text-center" id="sbtn"><button class="btn btn-lg btn-primary btn-block" style="width:30%;">Submit</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-            <script>
-                $(document).ready(function() {
-                    $('.navbar-toggler').click(function() {
-                        $('.navbar-collapse').toggleClass('collapse');
-                    })
-                })
-            </script>
-            <!-- <script src ="../../public/javascripts/graph.js"type ="text/javascript"></script> -->
-        </body>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            $('.navbar-toggler').click(function() {
+                $('.navbar-collapse').toggleClass('collapse');
+            })
+        })
+    </script>
+    <!-- <script src ="../../public/javascripts/graph.js"type ="text/javascript"></script> -->
+</body>
 
-        </html>
+</html>

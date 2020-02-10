@@ -37,77 +37,78 @@ router.post("/people", (req, res) => {
 
     setTimeout(() => {
         result = findParent(res, findItem);
-    }, 150);
-    setTimeout(() => {
-        checkResult(res, result, findItem);
     }, 200);
-
-    setTimeout(() => {
-        result = findDisease(res, findItem);;
-    }, 250);
     setTimeout(() => {
         checkResult(res, result, findItem);
     }, 300);
 
     setTimeout(() => {
-        result = findPhone(res, findItem);
-    }, 350);
-    setTimeout(() => {
-        checkResult(res, result, findItem);
+        result = findDisease(res, findItem);;
     }, 400);
-
-    setTimeout(() => {
-        result = findEmail(res, findItem);
-    }, 450);
     setTimeout(() => {
         checkResult(res, result, findItem);
     }, 500);
 
     setTimeout(() => {
-        result = findAadhar(res, findItem);
-    }, 550);
-    setTimeout(() => {
-        checkResult(res, result, findItem);
+        result = findEmail(res, findItem);
     }, 600);
-
-    setTimeout(() => {
-        result = findState(res, findItem);
-    }, 650);
     setTimeout(() => {
         checkResult(res, result, findItem);
     }, 700);
 
     setTimeout(() => {
-        result = findPincode(res, findItem);
-    }, 750);
-    setTimeout(() => {
-        checkResult(res, result, findItem);
+        result = findAadhar(res, findItem);
     }, 800);
-
-    setTimeout(() => {
-        result = findProvince(res, findItem);
-    }, 850);
     setTimeout(() => {
         checkResult(res, result, findItem);
     }, 900);
 
     setTimeout(() => {
-        result = findCity(res, findItem);
-    }, 950);
-    setTimeout(() => {
-        checkResult(res, result, findItem);
+        result = findState(res, findItem);
     }, 1000);
-
-    setTimeout(() => {
-        result = findDob(res, findItem);
-    }, 1050);
     setTimeout(() => {
         checkResult(res, result, findItem);
     }, 1100);
 
     setTimeout(() => {
+        result = findPincode(res, findItem);
+    }, 1200);
+    setTimeout(() => {
+        checkResult(res, result, findItem);
+    }, 1300);
+
+    setTimeout(() => {
+        result = findProvince(res, findItem);
+    }, 1400);
+    setTimeout(() => {
+        checkResult(res, result, findItem);
+    }, 1500);
+
+    setTimeout(() => {
+        result = findCity(res, findItem);
+    }, 1600);
+    setTimeout(() => {
+        checkResult(res, result, findItem);
+    }, 1700);
+
+    setTimeout(() => {
+        result = findDob(res, findItem);
+    }, 1800);
+    setTimeout(() => {
+        checkResult(res, result, findItem);
+    }, 1900);
+
+    setTimeout(() => {
+        result = findPhone(res, findItem);
+    }, 2000);
+
+    setTimeout(() => {
+        checkResult(res, result, findItem);
+    }, 2100);
+
+    setTimeout(() => {
         res.render('findResult', { child: null, parent: null, status: "Search Results Related to '" + findItem + "' did'nt matched." });
-    }, 1150);
+    }, 2500);
 
     /*  findPhone(res,findItem);
      findParent(res,findItem);
@@ -137,11 +138,8 @@ function renderResult(res, result, findItem) {
     console.log("i am inside renderResult");
     if (result[0].length > 0 || result[1].length > 0) {
         res.render('findResult', { child: result[0], parent: result[1], status: "Search Results Related to ' " + findItem + " '" });
-    } else {
-        res.render('findResult', { child: null, parent: null, status: "Search Results Related to '" + findItem + "' did'nt matched." });
     }
-} //renderResult
-
+}; //phone findone
 
 function findChild(res, findItem) {
     console.log("I am inside findChild");
@@ -424,9 +422,11 @@ function findDob(res, findItem) {
 
 
 function toTitleCase(str) {
-    return str.replace(/\w\S*/g, function(txt) {
-        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-    });
+    if (str) {
+        return str.replace(/\w\S*/g, function(txt) {
+            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+        });
+    }
 }
 
 

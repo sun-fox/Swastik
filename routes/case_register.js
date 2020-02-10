@@ -66,7 +66,7 @@ router.post("/register", (req, res) => {
     });
 });
 
-router.post("/predict", (req, res) => {
+router.get("/predict", (req, res) => {
     var rep = req.body;
     // report = new Case(rep);
     console.log(rep);
@@ -78,7 +78,7 @@ router.post("/predict", (req, res) => {
     //         res.send(report);
     //     }
     // });
-    res.send("ml5js connection left.");
+    res.render("predict");
 });
 
 function isLoggedIn(req, res, next) {
