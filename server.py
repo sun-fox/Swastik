@@ -82,17 +82,54 @@ def index():
 
     # pickle.dump('model.pkl', model)
     model =pickle.load(open('model.pkl','rb'))
-    test = pandas.read_csv("X_test.csv")
-    test["disease"]=le.fit_transform(test["disease"])
-    Y_prediction = model.predict(test)
+    dfx = pandas.read_csv("X_test.csv")
+    # test["disease"]=le.fit_transform(test["disease"])
+    # Y_prediction = model.predict(test)
+    # arr=[]
+    # j=0
+    # for i in Y_prediction:
+    #     j+=1
+    #     if i > 0.1:
+    #         arr.append(test.iloc[j])
+    # print(arr)
+    # print(arr[0].pincode)
+    # le=LabelEncoder()
+    dfx["disease"]=le.fit_transform(dfx["disease"])
+    dfx["month"]=le.fit_transform(dfx["month"])
+    dict_d={
+        0:"Cholera",
+        1:"Malaria",
+        2:"Leptospirosis",
+        3:"Diarrhoea",
+        4:"Diphtheria",
+        5:"Dengu"
+    }
+    dict_m={
+        0:"January",
+        1:"February",
+        2:"March",
+        3:"April",
+        4:"May",
+        5:"June",
+        6:"July",
+        7:"August",
+        8:"September",
+        9:"October",
+        10:"November",
+        11:"December"
+    }
+    Y_prediction = model.predict(dfx)
+    dfx['disease']=dfx['disease'].replace(dict_d)
+    dfx['month']=dfx['month'].replace(dict_m)
+
+    
     arr=[]
     j=0
     for i in Y_prediction:
         j+=1
         if i > 0.1:
-            arr.append(test.iloc[j])
+            arr.append(dfx.iloc[j])
     print(arr)
-    print(arr[0].pincode)
     # print(type(arr))
     return render_template('epidemic.html', data=arr)
     # return render_template("views/epidemic.html")

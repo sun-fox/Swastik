@@ -298,8 +298,9 @@ router.post('/downloadPdf', (req, res) => {
     const filename = 'my_pdf.pdf';
     var name = req.body;
     var allData = "Registraton Details " ,image="";
-    image = "/home/adarsh/Swastik";
-    name.image = image+name.image;
+    image = "C:\Users\1999s\OneDrive\Desktop\Swastik";
+    console.log("image name is : "+name.image);
+    name.image = image + name.image;
     Object.keys(name).forEach(function(k){ 
         if(k != "image"){
         allData = allData+"\n"+k+"      "+name[k];
@@ -312,7 +313,7 @@ router.post('/downloadPdf', (req, res) => {
     res.setHeader('Content-type', 'application/pdf');
   
     const content = allData;
-    barcode = "/home/adarsh/Swastik/public/images/barcode.jpg";
+    barcode = "C:\Users\1999s\OneDrive\Desktop\Swastik\public\images\barcode.jpg";
     doc.y = 300;
     //doc.image(name.image,50,50);
     doc.image(name.image, {

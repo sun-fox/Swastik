@@ -44,7 +44,9 @@ const goodBoyUrl = 'https://lh3.googleusercontent.com/proxy/7q7Wx47mCOpMZC0_1j2R
 // }).catch((e) => {
 //     console.log('Database connectivity error ', e)
 // });
-mongoose.connect("mongodb://localhost/swastik");
+mongoose.connect("mongodb://localhost/swastik",{ useNewUrlParser: true, useUnifiedTopology: true },()=>{
+    console.log("db connected")
+});
 // const options = {
 //     keepAlive: 1,
 //     useUnifiedTopology: true,
