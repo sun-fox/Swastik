@@ -19,7 +19,7 @@
         "express-session": "^1.17.0",
         "express-validator": "^5.3.0",
         "fs": "0.0.1-security",
-        "html-pdf": "^2.2.0",
+        "html-pdf": "^3.0.1",
         "http-errors": "~1.6.3",
         "method-override": "^3.0.0",
         "mongo": "^0.1.0",
